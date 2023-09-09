@@ -8,6 +8,10 @@
     HandlePowerKey=ignore
   '';
 
+  systemd.sleep.extraConfig = ''
+    HibernateDelaySec=1800
+  '';
+
   environment.systemPackages = with pkgs; [
     pciutils
     usbutils

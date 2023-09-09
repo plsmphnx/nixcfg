@@ -11,11 +11,11 @@
     wrapperFeatures.gtk = true;
     extraPackages = with pkgs; [
       blueberry
-      eww-wayland
       foot
       i3status-rust
       iwgtk
       imv
+      lite-xl
       luakit
       mpv
       pavucontrol
@@ -23,14 +23,18 @@
       swayest-workstyle
       swayidle
       swaylock
+      swaynotificationcenter
       wofi
-      wlogout
 
       (graphite-gtk-theme.override {
         sizeVariants = [ "compact" ];
         tweaks = [ "rimless" ];
       })
+      tela-icon-theme
     ];
+    extraSessionCommands = ''
+      export SDL_VIDEODRIVER=wayland
+    '';
   };
 
   services.greetd = {
@@ -43,6 +47,7 @@
   };
 
   fonts.packages = with pkgs; [
+    corefonts
     google-fonts
     (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
   ];
@@ -54,8 +59,4 @@
   };
 
   services.gvfs.enable = true;
-
-  environment.etc = {
-    "dconf/profile/user".text = "service-db:keyfile/user\n";
-  };
 }

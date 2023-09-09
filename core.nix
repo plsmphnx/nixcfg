@@ -6,15 +6,18 @@
   time.timeZone = "America/Los_Angeles";
 
   # Packages
+  environment.binsh = "${pkgs.dash}/bin/dash";
   environment.systemPackages = with pkgs; [
     grc
     highlight
+    jq
+    pass
     wget
   ];
   programs.git.enable = true;
+  programs.gnupg.agent.enable = true;
   programs.tmux.enable = true;
   programs.zsh.enable = true;
-  services.envfs.enable = true;
 
   # User
   users.users.clecompt = {
