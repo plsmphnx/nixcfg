@@ -1,8 +1,20 @@
-{ config, pkgs, ... }:{
+{ config, pkgs, ... }:
+
+let
+  grcfix =  pkgs.runCommandLocal "grc.conf" {
+    "in" = "${pkgs.grc}/etc/grc.conf";
+  } ''
+    substitute $in $out \
+      --replace '^([/\w\.]+\/)?' '^([/\w\.-]+\/)?'
+  '';
+in {
   # System
   system.stateVersion = "unstable";
   nixpkgs.config.allowUnfree = true;
-  nix.settings.experimental-features = [ "flakes" "nix-command" ];
+  nix.settings.experimental-features = [
+    "flakes"
+    "nix-command"
+  ];
   time.timeZone = "America/Los_Angeles";
 
   # Packages
@@ -18,6 +30,12 @@
   programs.gnupg.agent.enable = true;
   programs.tmux.enable = true;
   programs.zsh.enable = true;
+
+  # Environment
+  environment.etc = {
+    "grc.zsh".source = "${pkgs.grc}/etc/grc.zsh";
+    "grc.conf".source = "${grcfix}";
+  };
 
   # User
   users.users.clecompt = {
