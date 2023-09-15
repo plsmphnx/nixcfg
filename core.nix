@@ -11,10 +11,16 @@ in {
   # System
   system.stateVersion = "unstable";
   nixpkgs.config.allowUnfree = true;
-  nix.settings.experimental-features = [
-    "flakes"
-    "nix-command"
-  ];
+  nix.settings = {
+    auto-optimise-store = true;
+    experimental-features = [
+      "ca-derivations"
+      "cgroups"
+      "flakes"
+      "nix-command"
+    ];
+    use-xdg-base-directories = true;
+  };
   time.timeZone = "America/Los_Angeles";
 
   # Packages
