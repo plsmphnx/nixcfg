@@ -38,9 +38,17 @@ in {
   };
 
   # User
-  users.users.clecompt = {
-    isNormalUser = true;
-    extraGroups = [ "audio" "video" "wheel" ];
-    shell = pkgs.zsh;
+  users = {
+    users.clecompt = {
+      isNormalUser = true;
+      uid = 1000;
+      group = "clecompt";
+      extraGroups = [ "audio" "video" "wheel" ];
+      homeMode = "750";
+      shell = pkgs.zsh;
+    };
+    groups.clecompt = {
+      gid = 1000;
+    };
   };
 }
