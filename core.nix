@@ -19,7 +19,6 @@ in {
       "flakes"
       "nix-command"
     ];
-    use-xdg-base-directories = true;
   };
   time.timeZone = "America/Los_Angeles";
 
