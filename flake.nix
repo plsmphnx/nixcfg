@@ -1,7 +1,7 @@
 {
   outputs = _: {
     nixosModules = {
-      core = import ./core;
+      core = import ./core.nix;
     };
   };
 }
