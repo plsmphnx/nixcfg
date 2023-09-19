@@ -11,14 +11,54 @@ in {
   # System
   system.stateVersion = "unstable";
   nixpkgs.config.allowUnfree = true;
-  nix.settings = {
-    auto-optimise-store = true;
-    experimental-features = [
-      "ca-derivations"
-      "cgroups"
-      "flakes"
-      "nix-command"
-    ];
+  nix = {
+    settings = {
+      auto-optimise-store = true;
+      experimental-features = [
+        "ca-derivations"
+        "cgroups"
+        "flakes"
+        "nix-command"
+      ];
+      flake-registry = "";
+      use-cgroups = true;
+    };
+    registry = {
+      nixpkgs = {
+        from = {
+          type = "indirect";
+          id = "nixpkgs";
+        };
+        to = {
+          type = "github";
+          owner = "NixOS";
+          repo = "nixpkgs";
+          ref = "nixos-unstable";
+        };
+      };
+      nixos-hardware = {
+        from = {
+          type = "indirect";
+          id = "nixos-hardware";
+        };
+        to = {
+          type = "github";
+          owner = "NixOS";
+          repo = "nixos-hardware";
+        };
+      };
+      clecompt = {
+        from = {
+          type = "indirect";
+          id = "clecompt";
+        };
+        to = {
+          type = "github";
+          owner = "plsmphnx";
+          repo = "nixcfg";
+        };
+      };
+    };
   };
   time.timeZone = "America/Los_Angeles";
 
