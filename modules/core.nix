@@ -21,10 +21,8 @@ in {
       flake-registry = "";
       use-cgroups = true;
     };
-    registry = {
-      nixpkgs.flake = inputs.nixpkgs;
-      clecompt.flake = inputs.clecompt;
-    };
+    registry = builtins.mapAttrs
+      (input: _: { flake = inputs."${input}"; }) inputs;
   };
   time.timeZone = "America/Los_Angeles";
 
