@@ -5,6 +5,35 @@
     substitute $in $out \
       --replace '^([/\w\.]+\/)?' '^([/\w\.-]+\/)?'
   '';
+
+  osutil = pkgs.writeScriptBin "os" ''
+    #!/bin/sh
+    case $1 in
+      upgrade)
+        nix flake update /etc/nixos
+        nixos-rebuild switch
+        ;;
+      clean)
+        if [ $2 = full ]; then
+          nix profile wipe-history --profile /nix/var/nix/profiles/system
+        fi
+        nix store gc
+        ;;
+      user)
+        case $2 in
+          upgrade)
+            nix profile upgrade '.*' --no-write-lock-file
+            ;;
+          clean)
+            if [ $3 = full ]; then
+              nix profile wipe-history
+            fi
+            nix store gc
+            ;;
+        esac
+        ;;
+    esac
+  '';
 in {
   # System
   system.stateVersion = "unstable";
@@ -33,12 +62,13 @@ in {
       "grc.zsh".source = "${pkgs.grc}/etc/grc.zsh";
       "grc.conf".source = "${grcfix}";
     };
-    systemPackages = with pkgs; [
-      grc
-      highlight
-      jq
-      pass
-      wget
+    systemPackages = [
+      pkgs.grc
+      pkgs.highlight
+      pkgs.jq
+      pkgs.pass
+      pkgs.wget
+      osutil
     ];
   };
   programs = {
