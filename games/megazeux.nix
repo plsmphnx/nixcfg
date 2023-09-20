@@ -10,10 +10,10 @@ stdenv.mkDerivation rec {
   };
   buildInputs = [ libpng libogg libvorbis SDL2 ];
   preBuild = ''
-    ./config.sh --platform unix \
-      --prefix $out/usr \
+    ./config.sh \
+      --platform unix \
+      --prefix $out \
       --sysconfdir $out/etc \
-      --gamesdir $out/bin \
-      --bindir $out/bin
+      --gamesdir $out/bin
   '';
 }

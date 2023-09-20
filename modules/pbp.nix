@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:{
+{ config, pkgs, ... }: {
   networking.hostName = "clecompt-pine";
   boot.loader.grub = {
     enable = true;

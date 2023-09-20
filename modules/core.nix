@@ -1,7 +1,5 @@
-{ config, pkgs, ... }:
-
-let
-  grcfix =  pkgs.runCommandLocal "grc.conf" {
+{ config, pkgs, ... }: let
+  grcfix = pkgs.runCommandLocal "grc.conf" {
     "in" = "${pkgs.grc}/etc/grc.conf";
   } ''
     substitute $in $out \
@@ -63,23 +61,25 @@ in {
   time.timeZone = "America/Los_Angeles";
 
   # Packages
-  environment.binsh = "${pkgs.dash}/bin/dash";
-  environment.systemPackages = with pkgs; [
-    grc
-    highlight
-    jq
-    pass
-    wget
-  ];
-  programs.git.enable = true;
-  programs.gnupg.agent.enable = true;
-  programs.tmux.enable = true;
-  programs.zsh.enable = true;
-
-  # Environment
-  environment.etc = {
-    "grc.zsh".source = "${pkgs.grc}/etc/grc.zsh";
-    "grc.conf".source = "${grcfix}";
+  environment = {
+    binsh = "${pkgs.dash}/bin/dash";
+    etc = {
+      "grc.zsh".source = "${pkgs.grc}/etc/grc.zsh";
+      "grc.conf".source = "${grcfix}";
+    };
+    systemPackages = with pkgs; [
+      grc
+      highlight
+      jq
+      pass
+      wget
+    ];
+  };
+  programs = {
+    git.enable = true;
+    gnupg.agent.enable = true;
+    tmux.enable = true;
+    zsh.enable = true;
   };
 
   # User
