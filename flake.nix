@@ -7,7 +7,9 @@
       ux = import ./modules/ux.nix;
     };
     packages = {
-      aarch64-linux = with import nixpkgs { system = "aarch64-linux"; }; {
+      aarch64-linux = let
+        pkgs = import nixpkgs { system = "aarch64-linux"; };
+      in {
         megazeux = import ./games/megazeux.nix pkgs;
       };
     };
