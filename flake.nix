@@ -14,6 +14,7 @@
         pkgs = import nixpkgs { inherit system; };
       in {
         megazeux = import ./games/megazeux.nix pkgs;
+        redact-pdf = import ./tools/redact-pdf.nix pkgs;
       });
   };
 }
