@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: let
+{ config, pkgs, inputs, ... }: let
   grcfix = pkgs.runCommandLocal "grc.conf" {
     "in" = "${pkgs.grc}/etc/grc.conf";
   } ''
@@ -22,40 +22,8 @@ in {
       use-cgroups = true;
     };
     registry = {
-      nixpkgs = {
-        from = {
-          type = "indirect";
-          id = "nixpkgs";
-        };
-        to = {
-          type = "github";
-          owner = "NixOS";
-          repo = "nixpkgs";
-          ref = "nixos-unstable";
-        };
-      };
-      nixos-hardware = {
-        from = {
-          type = "indirect";
-          id = "nixos-hardware";
-        };
-        to = {
-          type = "github";
-          owner = "NixOS";
-          repo = "nixos-hardware";
-        };
-      };
-      clecompt = {
-        from = {
-          type = "indirect";
-          id = "clecompt";
-        };
-        to = {
-          type = "github";
-          owner = "plsmphnx";
-          repo = "nixcfg";
-        };
-      };
+      nixpkgs.flake = inputs.nixpkgs;
+      clecompt.flake = inputs.clecompt;
     };
   };
   time.timeZone = "America/Los_Angeles";
