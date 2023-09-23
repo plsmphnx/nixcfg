@@ -63,6 +63,9 @@ in {
       "grc.zsh".source = "${pkgs.grc}/etc/grc.zsh";
       "grc.conf".source = "${grcfix}";
     };
+    extraInit = ''
+      umask 027
+    '';
     systemPackages = [
       pkgs.grc
       pkgs.highlight
