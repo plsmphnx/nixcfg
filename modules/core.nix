@@ -1,4 +1,4 @@
-{ config, inputs, lib, pkgs, ... }: let
+{ config, pkgs, inputs, ... }: let
   grcfix = pkgs.runCommandLocal "grc.conf" {
     "in" = "${pkgs.grc}/etc/grc.conf";
   } ''
@@ -54,7 +54,6 @@ in {
       (input: _: { flake = inputs."${input}"; }) inputs;
   };
   time.timeZone = "America/Los_Angeles";
-  boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
 
   # Packages
   environment = {

@@ -1,15 +1,18 @@
 { config, pkgs, ... }: {
   networking.hostName = "clecompt-pine";
-  boot.loader.grub = {
-    enable = true;
-    device = "nodev";
-    efiSupport = true;
-    efiInstallAsRemovable = true;
-    configurationLimit = 4;
-  };
-  boot.consoleLogLevel = 2;
+  boot = {
+    loader.grub = {
+      enable = true;
+      device = "nodev";
+      efiSupport = true;
+      efiInstallAsRemovable = true;
+      configurationLimit = 4;
+    };
 
-  boot.kernelModules = [ "rkvdec" ];
+    consoleLogLevel = 2;
+
+    kernelModules = [ "rkvdec" ];
+  };
 
   nixpkgs.overlays = [(self: super: {
     lite-xl = super.lite-xl.overrideAttrs (prev: {
