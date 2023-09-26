@@ -65,12 +65,13 @@ in {
     extraInit = ''
       umask 027
     '';
-    systemPackages = [
-      pkgs.grc
-      pkgs.highlight
-      pkgs.jq
-      pkgs.pass
-      pkgs.wget
+    systemPackages = with pkgs; [
+      grc
+      highlight
+      jq
+      pass
+      wget
+
       osutil
     ];
   };
