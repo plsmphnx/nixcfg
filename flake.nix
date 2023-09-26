@@ -15,6 +15,11 @@
       in {
         megazeux = import ./games/megazeux.nix pkgs;
         redact-pdf = import ./tools/redact-pdf.nix pkgs;
+        retro = with pkgs; pkgs.retroarch.override {
+          cores = with libretro; [
+            tic80
+          ];
+        };
       });
   };
 }
