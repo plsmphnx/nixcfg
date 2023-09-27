@@ -1,5 +1,6 @@
 { config, pkgs, ... }: {
   networking.hostName = "clecompt-pine";
+
   boot = {
     loader.grub = {
       enable = true;
@@ -13,6 +14,8 @@
 
     kernelModules = [ "rkvdec" ];
   };
+
+  sound.enable = true;
 
   nixpkgs.overlays = [(self: super: {
     lite-xl = super.lite-xl.overrideAttrs (prev: {
