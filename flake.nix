@@ -4,6 +4,7 @@
       (map (n: { name = n; value = f n; }) k);
   in {
     nixosModules = {
+      blade = import ./modules/blade.nix;
       core = import ./modules/core.nix;
       laptop = import ./modules/laptop.nix;
       pbp = import ./modules/pbp.nix;
