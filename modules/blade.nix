@@ -21,12 +21,16 @@
     };
     nvidia = {
       modesetting.enable = true;
-      nvidiaSettings = true;
+      powerManagement.enable = true;
       prime = {
         sync.enable = true;
         nvidiaBusId = "PCI:1:0:0";
         intelBusId = "PCI:0:2:0";
       };
+    };
+    openrazer = {
+      enable = true;
+      users = [ "clecompt" ];
     };
   };
   services.xserver.videoDrivers = [ "nvidia" ];
@@ -39,6 +43,12 @@
       export WLR_NO_HARDWARE_CURSORS=1
     '';
   };
+
+  environment.systemPackages = with pkgs; [
+    libsForQt5.qt5.qtwayland
+    openrazer-daemon
+    polychromatic
+  ];
 
   nix.settings = {
     trusted-public-keys = [
