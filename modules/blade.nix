@@ -1,4 +1,6 @@
 { config, inputs, pkgs, ... }: {
+  networking.hostName = "clecompt-prime";
+
   boot = {
     loader = {
       systemd-boot = {
@@ -8,10 +10,7 @@
       efi.canTouchEfiVariables = true;
     };
     kernelPackages = pkgs.linuxPackages_latest;
-    initrd.kernelModules = [ "nvidia" ];
   };
-
-  networking.hostName = "clecompt-prime";
 
   hardware = {
     opengl = {
@@ -21,6 +20,7 @@
     };
     nvidia = {
       modesetting.enable = true;
+      package = config.boot.kernelPackages.nvidiaPackages.latest;
       powerManagement.enable = true;
       prime = {
         sync.enable = true;
