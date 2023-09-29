@@ -9,7 +9,7 @@
   osutil = pkgs.writeScriptBin "os" ''
     #!/bin/sh
     case $1 in
-      upgrade)
+      up*)
         nix flake update /etc/nixos
         nixos-rebuild switch
         ;;
@@ -21,7 +21,7 @@
         ;;
       user)
         case $2 in
-          upgrade)
+          up*)
             nix profile upgrade '.*' --no-write-lock-file
             ;;
           clean)
