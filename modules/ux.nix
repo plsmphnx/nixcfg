@@ -26,6 +26,7 @@
       swaynotificationcenter
       wofi
 
+      graphite-cursors
       (graphite-gtk-theme.override {
         sizeVariants = [ "compact" ];
         tweaks = [ "rimless" ];
