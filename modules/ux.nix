@@ -25,6 +25,7 @@
       swaylock
       swaynotificationcenter
       wofi
+      zathura
 
       graphite-cursors
       (graphite-gtk-theme.override {
