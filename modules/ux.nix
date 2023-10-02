@@ -36,8 +36,16 @@
     ];
     extraSessionCommands = ''
       export SDL_VIDEODRIVER=wayland
+      export GDK_BACKEND=wayland
+      export QT_QPA_PLATFORM=wayland
     '';
   };
+
+  programs.hyprland.enable = true;
+  environment.systemPackages = with pkgs; [
+    hyprland-autoname-workspaces
+    waybar
+  ];
 
   services.greetd = {
     enable = true;

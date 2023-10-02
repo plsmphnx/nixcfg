@@ -36,7 +36,7 @@
   services.xserver.videoDrivers = [ "nvidia" ];
 
   programs.sway = {
-    extraOptions = [ "--unsupported-gpu" ];
+    extraOptions = [ "--unsupported-gpu" "-Dnoscanout" ];
     extraSessionCommands = ''
       export WLR_RENDERER=vulkan
       export WLR_DRM_DEVICES=/dev/dri/card0:/dev/dri/card1
