@@ -44,6 +44,7 @@
   programs.hyprland.enable = true;
   environment.systemPackages = with pkgs; [
     hyprland-autoname-workspaces
+    swaybg
     waybar
   ];
 
