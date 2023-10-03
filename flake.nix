@@ -1,5 +1,10 @@
 {
-  outputs = { self, nixpkgs }: let
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
+    hyprland.url = "github:hyprwm/Hyprland";
+  };
+  outputs = { self, nixpkgs, ... } @ inputs: let
     attrs = k: f: builtins.listToAttrs
       (map (n: { name = n; value = f n; }) k);
   in {
@@ -8,7 +13,7 @@
       core = import ./modules/core.nix;
       laptop = import ./modules/laptop.nix;
       pbp = import ./modules/pbp.nix;
-      ux = import ./modules/ux.nix;
+      ux = import ./modules/ux.nix inputs;
     };
     packages = attrs [ "x86_64-linux" "aarch64-linux" ]
       (system: let

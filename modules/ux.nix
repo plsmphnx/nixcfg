@@ -1,4 +1,18 @@
-{ config, pkgs, ... }: {
+{ hyprland, nixpkgs-wayland, ... }: { config, pkgs, ... }: {
+  nix.settings = {
+    substituters = [
+      "https://cache.nixos.org"
+      "https://nixpkgs-wayland.cachix.org"
+      "https://hyprland.cachix.org"
+    ];
+    trusted-public-keys = [
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
+      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+    ];
+  };
+  nixpkgs.overlays = [ nixpkgs-wayland.overlay ];
+
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -6,45 +20,49 @@
     pulse.enable = true;
   };
 
-  programs.sway = {
-    enable = true;
-    wrapperFeatures.gtk = true;
-    extraPackages = with pkgs; [
-      blueberry
-      foot
-      i3status-rust
-      iwgtk
-      imv
-      lite-xl
-      luakit
-      mpv
-      pavucontrol
-      pcmanfm
-      swayest-workstyle
-      swayidle
-      swaylock
-      swaynotificationcenter
-      wofi
-      zathura
+  # programs.sway = {
+  #   enable = true;
+  #   wrapperFeatures.gtk = true;
+  #   extraPackages = with pkgs; [
+  #     i3status-rust
+  #     swayest-workstyle
+  #   ];
+  #   extraSessionCommands = ''
+  #     export SDL_VIDEODRIVER=wayland
+  #     export GDK_BACKEND=wayland
+  #     export QT_QPA_PLATFORM=wayland
+  #   '';
+  # };
 
-      graphite-cursors
-      (graphite-gtk-theme.override {
-        sizeVariants = [ "compact" ];
-        tweaks = [ "rimless" ];
-      })
-      tela-icon-theme
-    ];
-    extraSessionCommands = ''
-      export SDL_VIDEODRIVER=wayland
-      export GDK_BACKEND=wayland
-      export QT_QPA_PLATFORM=wayland
-    '';
+  programs.hyprland = {
+    enable = true;
+    package = hyprland.packages.${pkgs.system}.hyprland;
   };
 
-  programs.hyprland.enable = true;
   environment.systemPackages = with pkgs; [
+    blueberry
+    foot
+    iwgtk
+    imv
+    lite-xl
+    luakit
+    mpv
+    pavucontrol
+    pcmanfm
+    swayidle
+    swaylock
+    swaynotificationcenter
+    wofi
+    zathura
+
+    graphite-cursors
+    (graphite-gtk-theme.override {
+      sizeVariants = [ "compact" ];
+      tweaks = [ "rimless" ];
+    })
+    tela-icon-theme
+      
     hyprland-autoname-workspaces
-    swaybg
     waybar
   ];
 
@@ -52,7 +70,7 @@
     enable = true;
     settings = {
       default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet -rtc sway";
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet -rtc Hyprland";
       };
     };
   };

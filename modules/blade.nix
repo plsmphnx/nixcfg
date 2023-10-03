@@ -1,4 +1,4 @@
-{ config, inputs, pkgs, ... }: {
+{ config, pkgs, ... }: {
   networking.hostName = "clecompt-prime";
 
   boot = {
@@ -35,30 +35,18 @@
   };
   services.xserver.videoDrivers = [ "nvidia" ];
 
-  programs.sway = {
-    extraOptions = [ "--unsupported-gpu" "-Dnoscanout" ];
-    extraSessionCommands = ''
-      export WLR_RENDERER=vulkan
-      export WLR_DRM_DEVICES=/dev/dri/card0:/dev/dri/card1
-      export WLR_NO_HARDWARE_CURSORS=1
-    '';
-  };
+  # programs.sway = {
+  #   extraOptions = [ "--unsupported-gpu" "-Dnoscanout" ];
+  #   extraSessionCommands = ''
+  #     export WLR_RENDERER=vulkan
+  #     export WLR_DRM_DEVICES=/dev/dri/card0:/dev/dri/card1
+  #     export WLR_NO_HARDWARE_CURSORS=1
+  #   '';
+  # };
 
   environment.systemPackages = with pkgs; [
     libsForQt5.qt5.qtwayland
     openrazer-daemon
     polychromatic
   ];
-
-  nix.settings = {
-    trusted-public-keys = [
-      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-      "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
-    ];
-    substituters = [
-      "https://cache.nixos.org"
-      "https://nixpkgs-wayland.cachix.org"
-    ];
-  };
-  nixpkgs.overlays = [ inputs.nixpkgs-wayland.overlay ];
 }
