@@ -13,13 +13,6 @@
   };
   nixpkgs.overlays = [ nixpkgs-wayland.overlay ];
 
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    pulse.enable = true;
-  };
-
   # programs.sway = {
   #   enable = true;
   #   wrapperFeatures.gtk = true;
@@ -66,26 +59,42 @@
     waybar
   ];
 
-  services.greetd = {
-    enable = true;
-    settings = {
-      default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet -rtc Hyprland";
-      };
-    };
-  };
-
   fonts.packages = with pkgs; [
     corefonts
     google-fonts
-    (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
+    (nerdfonts.override {
+      fonts = [ "NerdFontsSymbolsOnly" ];
+    })
   ];
 
-  services.flatpak.enable = true;
+  services = {
+    pipewire = {
+      enable = true;
+      alsa.enable = true;
+      pulse.enable = true;
+    };
+
+    greetd = {
+      enable = true;
+      settings = {
+        default_session = {
+          command = "${pkgs.greetd.tuigreet}/bin/tuigreet -rtc Hyprland";
+        };
+      };
+    };
+
+    flatpak.enable = true;
+
+    gvfs.enable = true;
+  };
+
   xdg.portal = {
     enable = true;
     wlr.enable = true;
   };
 
-  services.gvfs.enable = true;
+  security = {
+    rtkit.enable = true;
+    pam.services.swaylock = {};
+  };
 }
