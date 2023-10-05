@@ -11,25 +11,24 @@
       "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
     ];
   };
-  nixpkgs.overlays = [ nixpkgs-wayland.overlay ];
 
-  # programs.sway = {
-  #   enable = true;
-  #   wrapperFeatures.gtk = true;
-  #   extraPackages = with pkgs; [
-  #     i3status-rust
-  #     swayest-workstyle
-  #   ];
-  #   extraSessionCommands = ''
-  #     export SDL_VIDEODRIVER=wayland
-  #     export GDK_BACKEND=wayland
-  #     export QT_QPA_PLATFORM=wayland
-  #   '';
-  # };
-
-  programs.hyprland = {
-    enable = true;
-    package = hyprland.packages.${pkgs.system}.hyprland;
+  programs. = {
+    hyprland = {
+      enable = true;
+      package = hyprland.packages.${pkgs.system}.hyprland;
+    };
+    regreet = {
+      enable = true;
+      settings = {
+        GTK = {
+          application_prefer_dark_theme = true;
+          cursor_theme_name = "graphite-dark";
+          font_name = "Noto Sans Mono 14";
+          icon_theme_name = "Tela-grey-dark";
+          theme_name = "Graphite-Dark-compact";
+        };
+      };
+    };
   };
 
   environment.systemPackages = with pkgs; [
@@ -56,7 +55,7 @@
     tela-icon-theme
       
     hyprland-autoname-workspaces
-    waybar
+    nixpkgs-wayland.packages.${system}.waybar
   ];
 
   fonts.packages = with pkgs; [
@@ -73,18 +72,7 @@
       alsa.enable = true;
       pulse.enable = true;
     };
-
-    greetd = {
-      enable = true;
-      settings = {
-        default_session = {
-          command = "${pkgs.greetd.tuigreet}/bin/tuigreet -rtc Hyprland";
-        };
-      };
-    };
-
     flatpak.enable = true;
-
     gvfs.enable = true;
   };
 
