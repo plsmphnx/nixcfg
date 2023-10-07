@@ -2,7 +2,7 @@
   dbus-run-session = "${pkgs.dbus}/bin/dbus-run-session";
   cage = lib.getExe pkgs.cage;
   gtkgreet = lib.getExe pkgs.greetd.gtkgreet;
-  graphite-theme = (graphite-gtk-theme.override {
+  graphite-theme = (pkgs.graphite-gtk-theme.override {
     sizeVariants = [ "compact" ];
     tweaks = [ "rimless" ];
   });
