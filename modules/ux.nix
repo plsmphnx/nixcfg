@@ -1,11 +1,15 @@
 { hyprland, nixpkgs-wayland, ... }: { config, lib, pkgs, ... }: let
   dbus-run-session = "${pkgs.dbus}/bin/dbus-run-session";
+
   cage = lib.getExe pkgs.cage;
+
   gtkgreet = lib.getExe pkgs.greetd.gtkgreet;
+
   graphite-theme = (pkgs.graphite-gtk-theme.override {
     sizeVariants = [ "compact" ];
     tweaks = [ "rimless" ];
   });
+
   graphite-css = "${graphite-theme}/share/themes/Graphite-Dark-compact/gtk-3.0/gtk.css";
 in {
   nix.settings = {
@@ -70,7 +74,7 @@ in {
     greetd = {
       enable = true;
       settings.default_session.command =
-        "${dbus-run-session} ${cage} -s -- ${gtkgreet} -ls ${graphite-css}";
+        "${dbus-run-session} ${cage} -s -- ${gtkgreet} -l -s ${graphite-css} -c Hyprland";
     };
   };
 
