@@ -1,34 +1,22 @@
-{ hyprland, nixpkgs-wayland, ... }: { config, pkgs, ... }: {
+{ hyprland, nixpkgs-wayland, ... }: { config, lib, pkgs, ... }: let
+  dbus-run-session = "${pkgs.dbus}/bin/dbus-run-session";
+  cage = lib.getExe pkgs.cage;
+  gtkgreet = lib.getExe pkgs.greetd.gtkgreet;
+in {
   nix.settings = {
     substituters = [
-      "https://cache.nixos.org"
       "https://nixpkgs-wayland.cachix.org"
       "https://hyprland.cachix.org"
     ];
     trusted-public-keys = [
-      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
       "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
     ];
   };
 
-  programs = {
-    hyprland = {
-      enable = true;
-      package = hyprland.packages.${pkgs.system}.hyprland;
-    };
-    regreet = {
-      enable = true;
-      settings = {
-        GTK = {
-          application_prefer_dark_theme = true;
-          cursor_theme_name = "graphite-dark";
-          font_name = "Noto Sans Mono 14";
-          icon_theme_name = "Tela-grey-dark";
-          theme_name = "Graphite-Dark-compact";
-        };
-      };
-    };
+  programs.hyprland = {
+    enable = true;
+    package = hyprland.packages.${pkgs.system}.hyprland;
   };
 
   environment.systemPackages = with pkgs; [
@@ -72,13 +60,23 @@
       alsa.enable = true;
       pulse.enable = true;
     };
+
     flatpak.enable = true;
+
     gvfs.enable = true;
+
+    greetd = {
+      enable = true;
+      settings.default_session.command =
+        "${dbus-run-session} ${cage} -s -- ${gtkgreet} -l";
+    };
   };
 
   xdg.portal = {
     enable = true;
-    wlr.enable = true;
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-gtk
+    ];
   };
 
   security = {
