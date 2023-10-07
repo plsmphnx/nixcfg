@@ -2,6 +2,11 @@
   dbus-run-session = "${pkgs.dbus}/bin/dbus-run-session";
   cage = lib.getExe pkgs.cage;
   gtkgreet = lib.getExe pkgs.greetd.gtkgreet;
+  graphite-theme = (graphite-gtk-theme.override {
+    sizeVariants = [ "compact" ];
+    tweaks = [ "rimless" ];
+  });
+  graphite-css = "${graphite-theme}/share/themes/Graphite-Dark-compact/gtk-3.0/gtk.css";
 in {
   nix.settings = {
     substituters = [
@@ -36,10 +41,7 @@ in {
     zathura
 
     graphite-cursors
-    (graphite-gtk-theme.override {
-      sizeVariants = [ "compact" ];
-      tweaks = [ "rimless" ];
-    })
+    graphite-theme
     tela-icon-theme
       
     hyprland-autoname-workspaces
@@ -68,7 +70,7 @@ in {
     greetd = {
       enable = true;
       settings.default_session.command =
-        "${dbus-run-session} ${cage} -s -- ${gtkgreet} -l";
+        "${dbus-run-session} ${cage} -s -- ${gtkgreet} -ls ${graphite-css}";
     };
   };
 
