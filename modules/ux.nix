@@ -58,13 +58,16 @@
     nixpkgs-wayland.packages.${system}.waybar
   ];
 
-  fonts.packages = with pkgs; [
-    corefonts
-    google-fonts
-    (nerdfonts.override {
-      fonts = [ "NerdFontsSymbolsOnly" ];
-    })
-  ];
+  fonts = {
+    fontconfig.subpixel.rgba = "rgb";
+    packages = with pkgs; [
+      corefonts
+      google-fonts
+      (nerdfonts.override {
+        fonts = [ "NerdFontsSymbolsOnly" ];
+      })
+    ];
+  };
 
   services = {
     pipewire = {
