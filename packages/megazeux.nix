@@ -1,4 +1,4 @@
-{ fetchFromGitHub, libpng, libogg, libvorbis, SDL2, stdenv, ... }:
+{ fetchFromGitHub, libpng, libogg, libvorbis, SDL2, stdenv }:
 stdenv.mkDerivation rec {
   pname = "megazeux";
   version = "2.92f";
