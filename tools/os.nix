@@ -31,4 +31,4 @@ pkgs: pkgs.writeScriptBin "os" ''
       esac
       ;;
   esac
-'';
+''
