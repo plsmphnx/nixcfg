@@ -14,7 +14,7 @@ pkgs: pkgs.writeScriptBin "os" ''
     user)
       case $2 in
         up*)
-          nix profile upgrade '.*' --no-write-lock-file
+          NIXPKGS_ALLOW_UNFREE=1 nix profile upgrade '.*' --no-write-lock-file --impure
           if which flatpak > /dev/null; then
             flatpak update -uy
           fi
@@ -27,6 +27,9 @@ pkgs: pkgs.writeScriptBin "os" ''
           if which flatpak > /dev/null; then
             flatpak uninstall --unused -uy
           fi
+          ;;
+        i*)
+          NIXPKGS_ALLOW_UNFREE=1 nix profile install "$@" --impure
           ;;
       esac
       ;;
