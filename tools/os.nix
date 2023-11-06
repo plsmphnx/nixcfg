@@ -29,6 +29,7 @@ pkgs: pkgs.writeScriptBin "os" ''
           fi
           ;;
         i*)
+          shift 2
           NIXPKGS_ALLOW_UNFREE=1 nix profile install "$@" --impure
           ;;
       esac
