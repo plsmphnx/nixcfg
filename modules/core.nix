@@ -19,12 +19,14 @@ in {
         "nix-command"
       ];
       flake-registry = "";
+      trusted-users = [ "@wheel" ];
       use-cgroups = true;
     };
     registry = builtins.mapAttrs
       (input: _: { flake = inputs."${input}"; }) inputs;
   };
   time.timeZone = "America/Los_Angeles";
+  systemd.coredump.enable = false;
 
   # Packages
   environment = {
@@ -49,6 +51,7 @@ in {
   programs = {
     git.enable = true;
     gnupg.agent.enable = true;
+    nix-ld.enable = true;
     tmux.enable = true;
     zsh.enable = true;
   };

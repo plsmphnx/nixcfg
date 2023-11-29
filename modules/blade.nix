@@ -10,6 +10,7 @@
       efi.canTouchEfiVariables = true;
     };
     kernelPackages = pkgs.linuxPackages_latest;
+    kernelParams = [ "nvidia-drm.fbdev=1" ];
   };
 
   hardware = {
