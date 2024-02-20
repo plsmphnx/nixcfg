@@ -34,7 +34,10 @@
       users = [ "clecompt" ];
     };
   };
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services = {
+    xserver.videoDrivers = [ "nvidia" ];
+    thermald.enable = true;
+  };
 
   environment.systemPackages = with pkgs; [
     libsForQt5.qt5.qtwayland

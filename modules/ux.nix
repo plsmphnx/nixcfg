@@ -26,31 +26,35 @@ in {
   programs.hyprland = {
     enable = true;
     package = hyprland.packages.${pkgs.system}.hyprland;
+    portalPackage = hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
   };
 
-  environment.systemPackages = with pkgs; [
-    blueberry
-    foot
-    iwgtk
-    imv
-    lite-xl
-    luakit
-    mpv
-    pavucontrol
-    pcmanfm
-    swayidle
-    swaylock
-    swaynotificationcenter
-    wofi
-    zathura
+  environment = {
+    sessionVariables.NIXOS_OZONE_WL = "1";
+    systemPackages = with pkgs; [
+      blueberry
+      foot
+      iwgtk
+      imv
+      lite-xl
+      luakit
+      mpv
+      pavucontrol
+      pcmanfm
+      swaylock
+      swaynotificationcenter
+      wofi
+      zathura
 
-    graphite-cursors
-    graphite-theme
-    tela-icon-theme
+      graphite-cursors
+      graphite-theme
+      tela-icon-theme
       
-    hyprland-autoname-workspaces
-    nixpkgs-wayland.packages.${system}.waybar
-  ];
+      hyprland-autoname-workspaces
+      hypridle.packages.${system}.hypridle
+      nixpkgs-wayland.packages.${system}.waybar
+    ];
+  };
 
   fonts = {
     fontconfig.subpixel.rgba = "rgb";
@@ -79,6 +83,8 @@ in {
       settings.default_session.command =
         "${dbus-run-session} ${cage} -s -- ${gtkgreet} -l -s ${graphite-css} -c Hyprland";
     };
+
+    gnome.gnome-keyring.enable = true;
   };
 
   xdg.portal = {
