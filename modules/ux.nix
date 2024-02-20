@@ -1,4 +1,4 @@
-{ hyprland, nixpkgs-wayland, ... }: { config, lib, pkgs, ... }: let
+{ hyprland, hypridle, nixpkgs-wayland, ... }: { config, lib, pkgs, ... }: let
   dbus-run-session = "${pkgs.dbus}/bin/dbus-run-session";
 
   cage = lib.getExe pkgs.cage;
