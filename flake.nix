@@ -13,6 +13,7 @@
       core = import ./modules/core.nix;
       laptop = import ./modules/laptop.nix;
       pbp = import ./modules/pbp.nix;
+      policy = import ./modules/policy.nix;
       ux = import ./modules/ux.nix inputs;
     };
     packages = systems (pkgs: {
