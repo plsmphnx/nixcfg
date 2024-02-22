@@ -5,12 +5,20 @@
 
   gtkgreet = lib.getExe pkgs.greetd.gtkgreet;
 
-  graphite-theme = (pkgs.graphite-gtk-theme.override {
+  graphite-theme = pkgs.graphite-gtk-theme.override {
     sizeVariants = [ "compact" ];
     tweaks = [ "rimless" ];
-  });
+  };
 
   graphite-css = "${graphite-theme}/share/themes/Graphite-Dark-compact/gtk-3.0/gtk.css";
+
+  imv-safe = pkgs.imv.override {
+    withBackends = [ "libtiff" "libjpeg" "libpng" "librsvg" "libheif" ];
+  };
+
+  nerdfonts-symbols = pkgs.nerdfonts.override {
+    fonts = [ "NerdFontsSymbolsOnly" ];
+  };
 in {
   nix.settings = {
     substituters = [
@@ -35,7 +43,7 @@ in {
       blueberry
       foot
       iwgtk
-      imv
+      imv-safe
       lite-xl
       luakit
       mpv
@@ -61,9 +69,7 @@ in {
     packages = with pkgs; [
       corefonts
       google-fonts
-      (nerdfonts.override {
-        fonts = [ "NerdFontsSymbolsOnly" ];
-      })
+      nerdfonts-symbols
     ];
   };
 
