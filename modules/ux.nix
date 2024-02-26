@@ -1,4 +1,4 @@
-{ hyprland, hypridle, nixpkgs-wayland, ... }: { config, lib, pkgs, ... }: let
+{ hyprland, hypridle, hyprlock, nixpkgs-wayland, ... }: { config, lib, pkgs, ... }: let
   dbus-run-session = "${pkgs.dbus}/bin/dbus-run-session";
 
   cage = lib.getExe pkgs.cage;
@@ -60,6 +60,7 @@ in {
       
       hyprland-autoname-workspaces
       hypridle.packages.${system}.hypridle
+      hyprlock.packages.${system}.hyprlock
       nixpkgs-wayland.packages.${system}.waybar
     ];
   };
@@ -103,5 +104,6 @@ in {
   security = {
     rtkit.enable = true;
     pam.services.swaylock = {};
+    pam.services.hyprlock = {};
   };
 }
