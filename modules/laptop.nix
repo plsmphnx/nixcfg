@@ -1,5 +1,8 @@
 { config, pkgs, ... }: {
-  networking.wireless.iwd.enable = true;
+  networking.networkmanager = {
+    enable = true;
+    wifi.backend = "iwd";
+  };
   hardware.bluetooth.enable = true;
   powerManagement.enable = true;
 
@@ -20,4 +23,6 @@
     pciutils
     usbutils
   ];
+
+  users.users.clecompt.extraGroups = [ "networkmanager" ];
 }

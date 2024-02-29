@@ -49,8 +49,6 @@ in {
       mpv
       pavucontrol
       pcmanfm
-      swaylock
-      swaynotificationcenter
       wofi
       zathura
 
@@ -58,10 +56,9 @@ in {
       graphite-theme
       tela-icon-theme
       
-      hyprland-autoname-workspaces
+      ags.packages.${system}.agsWithTypes
       hypridle.packages.${system}.hypridle
       hyprlock.packages.${system}.hyprlock
-      nixpkgs-wayland.packages.${system}.waybar
     ];
   };
 
@@ -96,14 +93,11 @@ in {
 
   xdg.portal = {
     enable = true;
-    extraPortals = with pkgs; [
-      xdg-desktop-portal-gtk
-    ];
+    extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
   };
 
   security = {
     rtkit.enable = true;
-    pam.services.swaylock = {};
     pam.services.hyprlock = {};
   };
 }
