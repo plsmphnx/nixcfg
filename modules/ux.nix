@@ -7,7 +7,7 @@
 
   graphite-theme = pkgs.graphite-gtk-theme.override {
     sizeVariants = [ "compact" ];
-    tweaks = [ "rimless" ];
+    tweaks = [ "black" "normal" "rimless" ];
   };
 
   graphite-css = "${graphite-theme}/share/themes/Graphite-Dark-compact/gtk-3.0/gtk.css";
@@ -48,12 +48,11 @@ in {
       mpv
       pavucontrol
       pcmanfm
-      wofi
       zathura
 
-      graphite-cursors
       graphite-theme
       tela-icon-theme
+      vimix-cursors
       
       ags.packages.${system}.agsWithTypes
       hypridle.packages.${system}.hypridle
