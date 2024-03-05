@@ -5,12 +5,19 @@
 
   gtkgreet = lib.getExe pkgs.greetd.gtkgreet;
 
-  graphite-theme = pkgs.graphite-gtk-theme.override {
-    sizeVariants = [ "compact" ];
-    tweaks = [ "black" "normal" "rimless" ];
+  fluent-icons = pkgs.fluent-icon-theme.override {
+    colorVariants = [ "grey" ];
+    roundedIcons = true;
   };
 
-  graphite-css = "${graphite-theme}/share/themes/Graphite-Dark-compact/gtk-3.0/gtk.css";
+  fluent-theme = pkgs.fluent-gtk-theme.override {
+    colorVariants = [ "dark" ];
+    sizeVariants = [ "compact" ];
+    themeVariants = [ "grey" ];
+    tweaks = [ "blur" "noborder" ];
+  };
+
+  fluent-css = "${fluent-theme}/share/themes/Fluent-grey-Dark-compact/gtk-3.0/gtk.css";
 
   imv-safe = pkgs.imv.override {
     withBackends = [ "libtiff" "libjpeg" "libpng" "librsvg" "libheif" ];
@@ -50,8 +57,8 @@ in {
       pcmanfm
       zathura
 
-      graphite-theme
-      tela-icon-theme
+      fluent-icons
+      fluent-theme
       vimix-cursors
       
       ags.packages.${system}.agsWithTypes
@@ -83,7 +90,7 @@ in {
     greetd = {
       enable = true;
       settings.default_session.command =
-        "${dbus-run-session} ${cage} -s -- ${gtkgreet} -l -s ${graphite-css} -c Hyprland";
+        "${dbus-run-session} ${cage} -s -- ${gtkgreet} -l -s ${fluent-css} -c Hyprland";
     };
 
     gnome.gnome-keyring.enable = true;
