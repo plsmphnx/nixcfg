@@ -31,7 +31,7 @@
     tweaks = [ "blur" "noborder" "round" ];
   };
 
-  fluent-css = "${fluent-theme}/share/themes/Fluent-grey-Dark-compact/gtk-3.0/gtk.css";
+  fluent-css = "${fluent-theme}/share/themes/Fluent-round-grey-Dark-compact/gtk-3.0/gtk.css";
 
   imv-safe = pkgs.imv.override {
     withBackends = [ "libtiff" "libjpeg" "libpng" "librsvg" "libheif" ];
