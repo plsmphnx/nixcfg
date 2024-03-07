@@ -11,7 +11,7 @@
   };
 
   fluent-theme = (pkgs.fluent-gtk-theme.overrideAttrs (_: {
-    src = fetchFromGitHub {
+    src = pkgs.fetchFromGitHub {
       owner = "vinceliuice";
       repo = "fluent-gtk-theme";
       rev = "e01ae5d9ebc96b9dd235d34aebd78a68e09f8f51";
