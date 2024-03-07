@@ -1,6 +1,4 @@
 { ags, hyprland, hypridle, hyprlock, ... }: { config, lib, pkgs, ... }: let
-  dbus-run-session = "${pkgs.dbus}/bin/dbus-run-session";
-
   cage = lib.getExe pkgs.cage;
 
   gtkgreet = lib.getExe pkgs.greetd.gtkgreet;
@@ -110,7 +108,7 @@ in {
     greetd = {
       enable = true;
       settings.default_session.command =
-        "${dbus-run-session} ${cage} -s -- ${gtkgreet} -l -s ${fluent-css} -c Hyprland";
+        "${cage} -s -- ${gtkgreet} -l -s ${fluent-css} -c Hyprland";
     };
 
     gnome.gnome-keyring.enable = true;
