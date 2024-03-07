@@ -10,11 +10,27 @@
     roundedIcons = true;
   };
 
-  fluent-theme = pkgs.fluent-gtk-theme.override {
+  fluent-theme = (pkgs.fluent-gtk-theme.overrideAttrs (_: {
+    src = fetchFromGitHub {
+      owner = "vinceliuice";
+      repo = "fluent-gtk-theme";
+      rev = "e01ae5d9ebc96b9dd235d34aebd78a68e09f8f51";
+      hash = "sha256-GFw1aMpDppkgoY4OQ84NgPCk0yF5aInsaysEHaItgVA=";
+    };
+
+    preInstall = ''
+      substituteInPlace ./src/_sass/_colors.scss \
+        --replace-fail "@return white;" "@return rgba(white, 0.9);" \
+        --replace-fail "#333333" "#000000" \
+        --replace-fail "0.85, 0.5" "0.85, 0.4"
+      substituteInPlace ./src/_sass/_variables.scss \
+        --replace-fail "8px, 3px" "0px, 0px"
+    '';
+  })).override {
     colorVariants = [ "dark" ];
     sizeVariants = [ "compact" ];
     themeVariants = [ "grey" ];
-    tweaks = [ "blur" "noborder" ];
+    tweaks = [ "blur" "noborder" "round" ];
   };
 
   fluent-css = "${fluent-theme}/share/themes/Fluent-grey-Dark-compact/gtk-3.0/gtk.css";
@@ -49,10 +65,12 @@ in {
       foot
       iwgtk
       imv-safe
+      kanshi
       l3afpad
       lite-xl
       luakit
       mpv
+      networkmanagerapplet
       pavucontrol
       pcmanfm
       zathura
@@ -77,6 +95,8 @@ in {
   };
 
   services = {
+    dbus.implementation = "broker";
+
     pipewire = {
       enable = true;
       alsa.enable = true;
