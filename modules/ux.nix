@@ -17,12 +17,11 @@
     };
 
     preInstall = ''
-      substituteInPlace ./src/_sass/_colors.scss \
-        --replace-fail "@return white;" "@return rgba(white, 0.9);" \
-        --replace-fail "#333333" "#000000" \
-        --replace-fail "0.85, 0.5" "0.85, 0.4"
-      substituteInPlace ./src/_sass/_variables.scss \
-        --replace-fail "8px, 3px" "0px, 0px"
+      sed -i "/primary/s/white/rgba(white, 0.9)/g" ./src/_sass/_colors.scss
+      sed -i "/\$background:/s/#333333/#000000/gi" ./src/_sass/_colors.scss
+      sed -i "/\$surface:/s/#3C3C3C/#000000/gi" ./src/_sass/_colors.scss
+      sed -i "/\$blur_opacity:/s/0\.5/0.4/g" ./src/_sass/_colors.scss
+      sed -i "/\$window-radius:/s/.px/0px/g" ./src/_sass/_variables.scss    
     '';
   })).override {
     colorVariants = [ "dark" ];
