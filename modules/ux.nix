@@ -1,8 +1,4 @@
 { ags, hyprland, hypridle, hyprlock, ... }: { config, lib, pkgs, ... }: let
-  cage = lib.getExe pkgs.cage;
-
-  gtkgreet = lib.getExe pkgs.greetd.gtkgreet;
-
   fluent-icons = pkgs.fluent-icon-theme.override {
     colorVariants = [ "grey" ];
     roundedIcons = true;
@@ -29,8 +25,6 @@
     themeVariants = [ "grey" ];
     tweaks = [ "blur" "noborder" "round" ];
   };
-
-  fluent-css = "${fluent-theme}/share/themes/Fluent-round-grey-Dark-compact/gtk-3.0/gtk.css";
 
   imv-safe = pkgs.imv.override {
     withBackends = [ "libtiff" "libjpeg" "libpng" "librsvg" "libheif" ];
@@ -106,9 +100,14 @@ in {
 
     greetd = {
       enable = true;
-      settings.default_session.command =
-        "${cage} -s -- ${gtkgreet} -l -s ${fluent-css} -c Hyprland";
-    };
+      settings = rec {
+        initial_session = {
+          command = "Hyprland";
+          user = "clecompt";
+        };
+        default_session = initial_session;
+      };
+   };
 
     gnome.gnome-keyring.enable = true;
   };
