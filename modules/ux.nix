@@ -119,6 +119,6 @@ in {
 
   security = {
     rtkit.enable = true;
-    pam.services.hyprlock = {};
+    pam.services.hyprlock.enableGnomeKeyring = true;
   };
 }
