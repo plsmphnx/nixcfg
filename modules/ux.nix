@@ -53,16 +53,21 @@ in {
     sessionVariables.NIXOS_OZONE_WL = "1";
     systemPackages = with pkgs; [
       blueberry
-      foot
       iwgtk
+      networkmanagerapplet
+      pavucontrol
+
+      brightnessctl
+      grimblast
+      pamixer
+      playerctl
+
+      foot
       imv-safe
-      kanshi
       l3afpad
       lite-xl
       luakit
       mpv
-      networkmanagerapplet
-      pavucontrol
       pcmanfm
       zathura
 
@@ -73,6 +78,7 @@ in {
       ags.packages.${system}.agsWithTypes
       hypridle.packages.${system}.hypridle
       hyprlock.packages.${system}.hyprlock
+      kanshi
     ];
   };
 
