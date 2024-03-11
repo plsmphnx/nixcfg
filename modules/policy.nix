@@ -33,10 +33,10 @@
     sockets.intune-daemon.wantedBy = [ "sockets.target" ];
   };
 
-  security.pam.services.passwd.rules.password.pwquality = {
+  security.pam.services.common-password.rules.password.pwquality = {
     control = "required"; 
     modulePath = "${pkgs.libpwquality.lib}/lib/security/pam_pwquality.so"; 
-    order = config.security.pam.services.passwd.rules.password.unix.order - 10;
+    order = config.security.pam.services.common-password.rules.password.unix.order - 10;
     settings = {
       minlen = 12;
       dcredit = -1;
