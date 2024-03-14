@@ -26,6 +26,19 @@
     tweaks = [ "blur" "noborder" "round" ];
   };
 
+  hyprnome-empty = pkgs.hyprnome.overrideAttrs (drv: rec {
+    src = pkgs.fetchFromGitHub {
+      owner = "plsmphnx";
+      repo = "hyprnome";
+      rev = "empty";
+      hash = "sha256-VzmCDMZ3i35x6xs5uXBoZ5Cx0roIhVfIsBQMT94TyZM=";
+    };
+    cargoDeps = drv.cargoDeps.overrideAttrs (lib.const {
+      inherit src;
+      outputHash = "sha256-KoPK9CZtfQis8cltNbe40EJJzd8ieRSr4QsA+xFozx8=";
+    });
+  });
+
   imv-safe = pkgs.imv.override {
     withBackends = [ "libtiff" "libjpeg" "libpng" "librsvg" "libheif" ];
   };
@@ -78,6 +91,7 @@ in {
       ags.packages.${system}.agsWithTypes
       hypridle.packages.${system}.hypridle
       hyprlock.packages.${system}.hyprlock
+      hyprnome-empty
       kanshi
     ];
   };
