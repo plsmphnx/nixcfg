@@ -42,6 +42,7 @@ in {
       grc
       highlight
       jq
+      numbat
       pass
       wget
 
