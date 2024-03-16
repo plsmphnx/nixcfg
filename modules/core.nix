@@ -42,7 +42,7 @@ in {
       grc
       highlight
       jq
-      numbat
+      libqalculate
       pass
       wget
 

@@ -82,6 +82,7 @@ in {
       luakit
       mpv
       pcmanfm
+      qalculate-gtk
       zathura
 
       fluent-icons
