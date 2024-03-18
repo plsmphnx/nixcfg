@@ -94,6 +94,8 @@ in {
       hyprlock.packages.${system}.hyprlock
       hyprnome-empty
       kanshi
+
+      kdePackages.qtwayland
     ];
   };
 
@@ -141,5 +143,10 @@ in {
   security = {
     rtkit.enable = true;
     pam.services.hyprlock.enableGnomeKeyring = true;
+  };
+
+  qt = {
+    enable = true;
+    style = "kvantum";
   };
 }
