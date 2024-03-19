@@ -12,7 +12,6 @@
       powerKey = "ignore";
       lidSwitch = "suspend-then-hibernate";
     };
-    thermald.enable = true;
   };
 
   systemd.sleep.extraConfig = ''

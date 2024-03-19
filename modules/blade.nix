@@ -34,10 +34,12 @@
       users = [ "clecompt" ];
     };
   };
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services = {
+    thermald.enable = true;
+    xserver.videoDrivers = [ "nvidia" ];
+  };
 
   environment.systemPackages = with pkgs; [
-    libsForQt5.qt5.qtwayland
     openrazer-daemon
     polychromatic
   ];
