@@ -96,6 +96,7 @@ in {
       kanshi
 
       kdePackages.qtwayland
+      libsForQt5.qt5.qtwayland
     ];
   };
 
