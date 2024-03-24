@@ -39,10 +39,6 @@
     });
   });
 
-  imv-safe = pkgs.imv.override {
-    withBackends = [ "libtiff" "libjpeg" "libpng" "librsvg" "libheif" ];
-  };
-
   nerdfonts-symbols = pkgs.nerdfonts.override {
     fonts = [ "NerdFontsSymbolsOnly" ];
   };
@@ -76,7 +72,7 @@ in {
       playerctl
 
       foot
-      imv-safe
+      imv
       l3afpad
       lite-xl
       luakit
