@@ -1,11 +1,4 @@
-{ config, pkgs, inputs, ... }: let
-  grcfix = pkgs.runCommandLocal "grc.conf" {
-    "in" = "${pkgs.grc}/etc/grc.conf";
-  } ''
-    substitute $in $out \
-      --replace '^([/\w\.]+\/)?' '^([/\w\.-]+\/)?'
-  '';
-in {
+{ config, pkgs, inputs, ... }: {
   # System
   system.stateVersion = "unstable";
   nixpkgs.config.allowUnfree = true;
@@ -33,7 +26,7 @@ in {
     binsh = "${pkgs.dash}/bin/dash";
     etc = {
       "grc.zsh".source = "${pkgs.grc}/etc/grc.zsh";
-      "grc.conf".source = "${grcfix}";
+      "grc.conf".source = "${pkgs.grc}/etc/grc.conf";
     };
     extraInit = ''
       umask 027

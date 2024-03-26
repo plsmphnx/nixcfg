@@ -70,6 +70,7 @@ in {
       grimblast
       pamixer
       playerctl
+      xdg-utils
 
       foot
       imv
