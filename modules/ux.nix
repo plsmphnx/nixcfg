@@ -149,7 +149,7 @@ in {
     pam.services.hyprlock.enableGnomeKeyring = true;
   };
 
-  systemd.user.extraConfig ''
+  systemd.user.extraConfig = ''
     DefaultEnvironment="PATH=${systemd-path}"
   '';
 
