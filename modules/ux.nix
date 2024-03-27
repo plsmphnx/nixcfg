@@ -42,6 +42,11 @@
   nerdfonts-symbols = pkgs.nerdfonts.override {
     fonts = [ "NerdFontsSymbolsOnly" ];
   };
+
+  systemd-path = builtins.concatStringsSep ":" (map
+    (p: (builtins.replaceStrings [ "$HOME" "$USER" ] [ "%h" "%u" ] p) + "/bin")
+    config.environment.profiles
+  );
 in {
   nix.settings = {
     substituters = [
@@ -92,6 +97,7 @@ in {
       hyprnome-empty
       kanshi
 
+      ffmpegthumbnailer
       kdePackages.qtwayland
       libsForQt5.qt5.qtwayland
     ];
@@ -142,6 +148,10 @@ in {
     rtkit.enable = true;
     pam.services.hyprlock.enableGnomeKeyring = true;
   };
+
+  systemd.user.extraConfig ''
+    DefaultEnvironment="PATH=${systemd-path}"
+  '';
 
   qt = {
     enable = true;

@@ -36,6 +36,7 @@
       highlight
       jq
       libqalculate
+      ouch
       pass
       wget
 
