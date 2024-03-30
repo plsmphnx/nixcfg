@@ -30,7 +30,7 @@ pkgs: pkgs.writeScriptBin "os" ''
           ;;
         i*)
           shift 2
-          NIXPKGS_ALLOW_UNFREE=1 nix profile install "$@" --impure
+          NIXPKGS_ALLOW_UNFREE=1 nix profile install "$@" --no-write-lock-file --impure
           ;;
       esac
       ;;
