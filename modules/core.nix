@@ -20,6 +20,7 @@
   };
   time.timeZone = "America/Los_Angeles";
   systemd.coredump.enable = false;
+  networking.nftables.enable = true;
 
   # Packages
   environment = {
