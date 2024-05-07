@@ -113,8 +113,6 @@ in {
   };
 
   services = {
-    dbus.implementation = "broker";
-
     pipewire = {
       enable = true;
       alsa.enable = true;
@@ -134,7 +132,7 @@ in {
         };
         default_session = initial_session;
       };
-   };
+    };
 
     gnome.gnome-keyring.enable = true;
   };
