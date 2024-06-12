@@ -1,17 +1,10 @@
-{ ags, hyprland, hypridle, hyprlock, ... }: { config, lib, pkgs, ... }: let
+{ hyprland, hypridle, hyprlock, xdph, ... }: { config, lib, pkgs, ... }: let
   fluent-icons = pkgs.fluent-icon-theme.override {
     colorVariants = [ "grey" ];
     roundedIcons = true;
   };
 
   fluent-theme = (pkgs.fluent-gtk-theme.overrideAttrs (_: {
-    src = pkgs.fetchFromGitHub {
-      owner = "vinceliuice";
-      repo = "fluent-gtk-theme";
-      rev = "e01ae5d9ebc96b9dd235d34aebd78a68e09f8f51";
-      hash = "sha256-GFw1aMpDppkgoY4OQ84NgPCk0yF5aInsaysEHaItgVA=";
-    };
-
     preInstall = ''
       sed -i "/primary/s/white/rgba(white, 0.9)/g" ./src/_sass/_colors.scss
       sed -i "/\$background:/s/#333333/#000000/gi" ./src/_sass/_colors.scss
@@ -57,10 +50,20 @@ in {
     ];
   };
 
-  programs.hyprland = {
-    enable = true;
-    package = hyprland.packages.${pkgs.system}.hyprland;
-    portalPackage = hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
+  programs = {
+    hyprland = {
+      enable = true;
+      package = hyprland.packages.${pkgs.system}.default;
+      portalPackage = xdph.packages.${pkgs.system}.default;
+    };
+    hypridle = {
+      enable = true;
+      package = hypridle.packages.${pkgs.system}.default;
+    };
+    hyprlock = {
+      enable = true;
+      package = hypridle.packages.${pkgs.system}.default;
+    };
   };
 
   environment = {
@@ -91,9 +94,7 @@ in {
       fluent-theme
       vimix-cursors
       
-      ags.packages.${system}.agsWithTypes
-      hypridle.packages.${system}.hypridle
-      hyprlock.packages.${system}.hyprlock
+      ags
       hyprnome-empty
       kanshi
 

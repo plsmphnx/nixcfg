@@ -1,14 +1,12 @@
 {
   inputs = {
     nixpkgs.url  = "github:nixos/nixpkgs/nixos-unstable";
-    ags.url      = "github:aylur/ags";
     hyprland.url = "git+https://github.com/hyprwm/hyprland?submodules=1";
     hypridle.url = "git+https://github.com/hyprwm/hypridle?submodules=1";
     hyprlock.url = "git+https://github.com/hyprwm/hyprlock?submodules=1";
+    xdph.url = "git+https://github.com/hyprwm/xdg-desktop-portal-hyprland?submodules=1";
   };
-  outputs = { self, nixpkgs, ... } @ inputs: let
-    systems = fn: nixpkgs.lib.mapAttrs (_: fn) nixpkgs.legacyPackages;
-  in {
+  outputs = { self, nixpkgs, ... } @ inputs: {
     nixosModules = {
       blade = import ./modules/blade.nix;
       core = import ./modules/core.nix;
@@ -19,11 +17,6 @@
     };
     packages = systems (pkgs: {
       megazeux = pkgs.callPackage ./packages/megazeux.nix {};
-      retro = with pkgs; retroarch.override {
-        cores = with libretro; [
-          tic80
-        ];
-      };
     });
   };
 }
