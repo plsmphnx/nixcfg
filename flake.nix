@@ -6,7 +6,9 @@
     hyprlock.url = "git+https://github.com/hyprwm/hyprlock?submodules=1";
     xdph.url = "git+https://github.com/hyprwm/xdg-desktop-portal-hyprland?submodules=1";
   };
-  outputs = { self, nixpkgs, ... } @ inputs: {
+  outputs = { self, nixpkgs, ... } @ inputs: let
+    systems = fn: nixpkgs.lib.mapAttrs (_: fn) nixpkgs.legacyPackages;
+  in {
     nixosModules = {
       blade = import ./modules/blade.nix;
       core = import ./modules/core.nix;
