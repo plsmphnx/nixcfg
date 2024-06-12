@@ -1,4 +1,4 @@
-{ hyprland, hypridle, hyprlock, xdph, ... }: { config, lib, pkgs, ... }: let
+{ ags, hyprland, hypridle, hyprlock, xdph, ... }: { config, lib, pkgs, ... }: let
   fluent-icons = pkgs.fluent-icon-theme.override {
     colorVariants = [ "grey" ];
     roundedIcons = true;
@@ -78,7 +78,7 @@ in {
       fluent-theme
       vimix-cursors
       
-      ags
+      ags.packages.${system}.default
       hyprnome-empty
       kanshi
 
@@ -105,7 +105,7 @@ in {
     };
     hyprlock = {
       enable = true;
-      package = hypridle.packages.${pkgs.system}.default;
+      package = hyprlock.packages.${pkgs.system}.default;
     };
   };
 
