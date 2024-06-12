@@ -50,22 +50,6 @@ in {
     ];
   };
 
-  programs = {
-    hyprland = {
-      enable = true;
-      package = hyprland.packages.${pkgs.system}.default;
-      portalPackage = xdph.packages.${pkgs.system}.default;
-    };
-    hypridle = {
-      enable = true;
-      package = hypridle.packages.${pkgs.system}.default;
-    };
-    hyprlock = {
-      enable = true;
-      package = hypridle.packages.${pkgs.system}.default;
-    };
-  };
-
   environment = {
     sessionVariables.NIXOS_OZONE_WL = "1";
     systemPackages = with pkgs; [
@@ -113,6 +97,18 @@ in {
     ];
   };
 
+  programs = {
+    hyprland = {
+      enable = true;
+      package = hyprland.packages.${pkgs.system}.default;
+      portalPackage = xdph.packages.${pkgs.system}.default;
+    };
+    hyprlock = {
+      enable = true;
+      package = hypridle.packages.${pkgs.system}.default;
+    };
+  };
+
   services = {
     pipewire = {
       enable = true;
@@ -136,6 +132,11 @@ in {
     };
 
     gnome.gnome-keyring.enable = true;
+
+    hypridle = {
+      enable = true;
+      package = hypridle.packages.${pkgs.system}.default;
+    };
   };
 
   xdg.portal = {
