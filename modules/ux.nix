@@ -154,7 +154,7 @@ in {
         partOf = [ "graphical-session.target" ];
         path = [ "/run/current-system/sw/bin" ];
         serviceConfig = {
-          ExecStart = lib.getExe ags.packages.${pkgs.system}.default;
+          ExecStart = lib.getExe ags.packages.${pkgs.system}.default "ags";
           Restart = "on-failure";
         };
       };
