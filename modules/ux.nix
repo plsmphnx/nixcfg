@@ -147,23 +147,12 @@ in {
       after = [ "graphical-session-pre.target" ];
     };
     services = {
-      ags = {
-        description = "A customizable and extensible shell";
-        documentation = [ "https://github.com/Aylur/ags" ];
-        wantedBy = [ "graphical-session.target" ];
-        partOf = [ "graphical-session.target" ];
-        path = [ "/run/current-system/sw/bin" ];
-        serviceConfig = {
-          ExecStart = lib.getExe' ags.packages.${pkgs.system}.default "ags";
-          Restart = "on-failure";
-        };
-      };
       hypridle = {
         description = "Hyprland's idle daemon";
         documentation = [ "https://github.com/hyprwm/hypridle" ];
         wantedBy = [ "graphical-session.target" ];
         partOf = [ "graphical-session.target" ];
-        path = [ "/run/current-system/sw/bin" ];
+        path = [ hyprland.packages.${pkgs.system}.default ];
         serviceConfig = {
           ExecStart = lib.getExe hypridle.packages.${pkgs.system}.default;
           Restart = "on-failure";
