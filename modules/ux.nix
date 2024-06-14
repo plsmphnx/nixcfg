@@ -184,7 +184,7 @@ in {
         wantedBy = [ "graphical-session.target" ];
         partOf = [ "graphical-session.target" ];
         serviceConfig = {
-          ExecStart = lib.getExe kanshi;
+          ExecStart = lib.getExe pkgs.kanshi;
           Restart = "on-failure";
         };
       };
