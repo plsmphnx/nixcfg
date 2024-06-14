@@ -35,11 +35,6 @@
   nerdfonts-symbols = pkgs.nerdfonts.override {
     fonts = [ "NerdFontsSymbolsOnly" ];
   };
-
-  systemd-path = builtins.concatStringsSep ":" (map
-    (p: (builtins.replaceStrings [ "$HOME" "$USER" ] [ "%h" "%u" ] p) + "/bin")
-    config.environment.profiles
-  );
 in {
   nix.settings = {
     substituters = [
@@ -97,16 +92,10 @@ in {
     ];
   };
 
-  programs = {
-    hyprland = {
-      enable = true;
-      package = hyprland.packages.${pkgs.system}.default;
-      portalPackage = xdph.packages.${pkgs.system}.default;
-    };
-    hyprlock = {
-      enable = true;
-      package = hyprlock.packages.${pkgs.system}.default;
-    };
+  programs.hyprland = {
+    enable = true;
+    package = hyprland.packages.${pkgs.system}.default;
+    portalPackage = xdph.packages.${pkgs.system}.default;
   };
 
   services = {
@@ -132,11 +121,6 @@ in {
     };
 
     gnome.gnome-keyring.enable = true;
-
-    hypridle = {
-      enable = true;
-      package = hypridle.packages.${pkgs.system}.default;
-    };
   };
 
   xdg.portal = {
@@ -149,12 +133,61 @@ in {
     pam.services.hyprlock.enableGnomeKeyring = true;
   };
 
-  systemd.user.extraConfig = ''
-    DefaultEnvironment="PATH=${systemd-path}"
-  '';
-
   qt = {
     enable = true;
     style = "kvantum";
+  };
+
+  systemd.user = {
+    targets.hyprland-session = {
+      description = "Hyprland compositor session";
+      documentation = [ "man:systemd.special(7)" ];
+      bindsTo = [ "graphical-session.target" ];
+      wants = [ "graphical-session-pre.target" ];
+      after = [ "graphical-session-pre.target" ];
+    };
+    services = {
+      ags = {
+        description = "A customizable and extensible shell";
+        documentation = [ "https://github.com/Aylur/ags" ];
+        wantedBy = [ "graphical-session.target" ];
+        partOf = [ "graphical-session.target" ];
+        path = [ "/run/current-system/sw/bin" ];
+        serviceConfig = {
+          ExecStart = lib.getExe ags.packages.${pkgs.system}.default;
+          Restart = "on-failure";
+        };
+      };
+      hypridle = {
+        description = "Hyprland's idle daemon";
+        documentation = [ "https://github.com/hyprwm/hypridle" ];
+        wantedBy = [ "graphical-session.target" ];
+        partOf = [ "graphical-session.target" ];
+        path = [ "/run/current-system/sw/bin" ];
+        serviceConfig = {
+          ExecStart = lib.getExe hypridle.packages.${pkgs.system}.default;
+          Restart = "on-failure";
+        };
+      };
+      hyprlock = {
+        description = "Hyprland's GPU-accelerated screen locking utility";
+        documentation = [ "https://github.com/hyprwm/hyprlock" ];
+        wantedBy = [ "graphical-session.target" ];
+        restartIfChanged = false;
+        serviceConfig = {
+          ExecStart = lib.getExe hyprlock.packages.${pkgs.system}.default;
+        };
+      };
+      kanshi = {
+        description = "Dynamic display configuration";
+        documentation = [ "https://sr.ht/~emersion/kanshi" ];
+        wantedBy = [ "graphical-session.target" ];
+        partOf = [ "graphical-session.target" ];
+        serviceConfig = {
+          ExecStart = lib.getExe kanshi;
+          Restart = "on-failure";
+        };
+      };
+    };
   };
 }
