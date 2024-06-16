@@ -2,7 +2,7 @@ inputs: { config, pkgs, ... }: {
   imports = [
     ./core.nix
     ./laptop.nix
-    (./ux.nix inputs)
+    (import ./ux.nix inputs)
     ./hardware/intel.nix
     ./hardware/nvidia.nix
     ./hardware/razer.nix
