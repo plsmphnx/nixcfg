@@ -1,8 +1,8 @@
-{ config, pkgs, ... }: {
+inputs: { config, pkgs, ... }: {
   imports = [
     ./core.nix
     ./laptop.nix
-    ./ux.nix
+    (./ux.nix inputs)
     ./hardware/intel.nix
     ./hardware/nvidia.nix
     ./hardware/razer.nix
@@ -22,7 +22,6 @@
   };
 
   hardware.nvidia.prime = {
-    sync.enable = true;
     nvidiaBusId = "PCI:1:0:0";
     intelBusId = "PCI:0:2:0";
   };

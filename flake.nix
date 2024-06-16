@@ -11,10 +11,10 @@
     systems = fn: nixpkgs.lib.mapAttrs (_: fn) nixpkgs.legacyPackages;
   in {
     nixosModules = {
-      blade = import ./modules/blade.nix;
+      blade = import ./modules/blade.nix inputs;
       core = import ./modules/core.nix;
       laptop = import ./modules/laptop.nix;
-      pbp = import ./modules/pbp.nix;
+      pbp = import ./modules/pbp.nix inputs;
       policy = import ./modules/policy.nix;
       ux = import ./modules/ux.nix inputs;
     };
