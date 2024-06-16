@@ -1,4 +1,13 @@
 { config, pkgs, ... }: {
+  imports = [
+    ./core.nix
+    ./laptop.nix
+    ./ux.nix
+    ./hardware/intel.nix
+    ./hardware/nvidia.nix
+    ./hardware/razer.nix
+  ];
+
   networking.hostName = "clecompt-prime";
 
   boot = {
@@ -9,38 +18,12 @@
       };
       efi.canTouchEfiVariables = true;
     };
-    kernelPackages = pkgs.linuxPackages_latest;
-    kernelParams = [ "nvidia-drm.fbdev=1" ];
+    kernelPackages = pkgs.linuxPackages_xanmod_latest;
   };
 
-  hardware = {
-    opengl = {
-      enable = true;
-      driSupport = true;
-      driSupport32Bit = true;
-    };
-    nvidia = {
-      modesetting.enable = true;
-      package = config.boot.kernelPackages.nvidiaPackages.latest;
-      powerManagement.enable = true;
-      prime = {
-        sync.enable = true;
-        nvidiaBusId = "PCI:1:0:0";
-        intelBusId = "PCI:0:2:0";
-      };
-    };
-    openrazer = {
-      enable = true;
-      users = [ "clecompt" ];
-    };
+  hardware.nvidia.prime = {
+    sync.enable = true;
+    nvidiaBusId = "PCI:1:0:0";
+    intelBusId = "PCI:0:2:0";
   };
-  services = {
-    thermald.enable = true;
-    xserver.videoDrivers = [ "nvidia" ];
-  };
-
-  environment.systemPackages = with pkgs; [
-    openrazer-daemon
-    polychromatic
-  ];
 }

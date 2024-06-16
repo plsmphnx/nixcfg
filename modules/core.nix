@@ -21,6 +21,7 @@
   time.timeZone = "America/Los_Angeles";
   systemd.coredump.enable = false;
   networking.nftables.enable = true;
+  hardware.enableAllFirmware = true;
 
   # Packages
   environment = {

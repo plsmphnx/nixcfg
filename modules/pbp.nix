@@ -1,4 +1,10 @@
 { config, ... }: {
+  imports = [
+    ./core.nix
+    ./laptop.nix
+    ./ux.nix
+  ]
+
   networking.hostName = "clecompt-pine";
 
   boot = {
