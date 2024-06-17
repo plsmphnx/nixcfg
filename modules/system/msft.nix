@@ -5,7 +5,7 @@ inputs: { config, lib, pkgs, ... }: {
     ../policy.nix
     (import ../ux.nix inputs)
     ../hardware/intel.nix
-  ]
+  ];
 
   networking.hostName = "clecompt-dev";
 
