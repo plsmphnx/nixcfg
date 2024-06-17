@@ -37,4 +37,12 @@
       enforce_for_root = true;
     }; 
   };
+
+  nixpkgs.overlays = [(final: prev: {
+    microsoft-identity-broker = prev.microsoft-identity-broker.override {
+      openjfx17 = final.openjfx15.overrideAttrs {
+        meta = { knownVulnerabilities = []; };
+      };
+    };
+  })];
 }

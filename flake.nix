@@ -11,12 +11,14 @@
     systems = fn: nixpkgs.lib.mapAttrs (_: fn) nixpkgs.legacyPackages;
   in {
     nixosModules = {
-      blade = import ./modules/blade.nix inputs;
       core = import ./modules/core.nix;
       laptop = import ./modules/laptop.nix;
-      pbp = import ./modules/pbp.nix inputs;
       policy = import ./modules/policy.nix;
       ux = import ./modules/ux.nix inputs;
+
+      blade = import ./modules/system/blade.nix inputs;
+      msft = import ./modules/system/msft.nix inputs;
+      pbp = import ./modules/system/pbp.nix inputs;
     };
     packages = systems (pkgs: {
       megazeux = pkgs.callPackage ./packages/megazeux.nix {};

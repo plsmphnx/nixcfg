@@ -1,11 +1,11 @@
 inputs: { config, pkgs, ... }: {
   imports = [
-    ./core.nix
-    ./laptop.nix
-    (import ./ux.nix inputs)
-    ./hardware/intel.nix
-    ./hardware/nvidia.nix
-    ./hardware/razer.nix
+    ../core.nix
+    ../laptop.nix
+    (import ../ux.nix inputs)
+    ../hardware/intel.nix
+    ../hardware/nvidia.nix
+    ../hardware/razer.nix
   ];
 
   networking.hostName = "clecompt-prime";

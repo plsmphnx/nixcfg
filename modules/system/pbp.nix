@@ -1,8 +1,8 @@
 inputs: { config, ... }: {
   imports = [
-    ./core.nix
-    ./laptop.nix
-    (import ./ux.nix inputs)
+    ../core.nix
+    ../laptop.nix
+    (import ../ux.nix inputs)
   ]
 
   networking.hostName = "clecompt-pine";
