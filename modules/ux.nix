@@ -92,10 +92,10 @@ in {
     ];
   };
 
-  programs.hyprland = with hyprland.packages.${pkgs.system}; {
+  programs.hyprland = {
     enable = true;
-    package = hyprland;
-    portalPackage = xdg-desktop-portal-hyprland;
+    package = hyprland.packages.${pkgs.system}.default;
+    portalPackage = hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
   };
 
   services = {
