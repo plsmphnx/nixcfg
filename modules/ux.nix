@@ -1,4 +1,4 @@
-{ ags, hyprland, hypridle, hyprlock, xdph, ... }: { config, lib, pkgs, ... }: let
+{ ags, hyprland, hypridle, hyprlock, ... }: { config, lib, pkgs, ... }: let
   fluent-icons = pkgs.fluent-icon-theme.override {
     colorVariants = [ "grey" ];
     roundedIcons = true;
@@ -92,10 +92,10 @@ in {
     ];
   };
 
-  programs.hyprland = {
+  programs.hyprland = with hyprland.packages.${pkgs.system}; {
     enable = true;
-    package = hyprland.packages.${pkgs.system}.default;
-    portalPackage = xdph.packages.${pkgs.system}.default;
+    package = hyprland;
+    portalPackage = xdg-desktop-portal-hyprland;
   };
 
   services = {
