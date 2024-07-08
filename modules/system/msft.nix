@@ -2,7 +2,7 @@ inputs: { config, lib, pkgs, ... }: {
   imports = [
     ../core.nix
     ../laptop.nix
-    ../policy.nix
+#    ../policy.nix
     (import ../ux.nix inputs)
     ../hardware/intel.nix
   ];
