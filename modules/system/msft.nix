@@ -16,9 +16,9 @@ inputs: { config, lib, pkgs, ... }: {
   users.users.clecompt.extraGroups = [ "docker" ];
 
   environment.systemPackages = with pkgs; [
-    (azure-cli.withExtensions [
-      azure-cli.extensions.bastion
-    ])
+#    (azure-cli.withExtensions [
+#      azure-cli.extensions.bastion
+#    ])
     docker-compose
     dotnet-sdk_8
     gcc
