@@ -30,7 +30,7 @@ inputs: { config, lib, pkgs, ... }: {
     kubectl
     kubernetes-helm
     nodejs_20
-    quickemu
+#    quickemu
     surface-control
     tmuxp
     vscode.fhs
