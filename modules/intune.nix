@@ -1,14 +1,4 @@
-{ config, lib, pkgs, ... }: {
-  boot = {
-    bootspec.enable = true;
-    loader.efi.canTouchEfiVariables = true;
-    lanzaboote = {
-      enable = true;
-      pkiBundle = "/etc/secureboot";
-      configurationLimit = 4;
-    };
-  };
-
+{ lib, pkgs, ... }: {
   services = {
     gnome.glib-networking.enable = true;
     intune.enable = true;

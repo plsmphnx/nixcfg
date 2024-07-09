@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ pkgs, ... }: {
   hardware.openrazer = {
     enable = true;
     users = [ "clecompt" ];

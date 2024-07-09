@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }: {
+{ pkgs, inputs, ... }: {
   # System
   system.stateVersion = "unstable";
   nixpkgs.config.allowUnfree = true;
@@ -22,6 +22,8 @@
   systemd.coredump.enable = false;
   networking.nftables.enable = true;
   hardware.enableAllFirmware = true;
+  virtualisation.podman.enable = true;
+  boot.enableContainers = false;
 
   # Packages
   environment = {

@@ -1,4 +1,4 @@
-{ ags, hyprland, hypridle, hyprlock, ... }: { config, lib, pkgs, ... }: let
+{ ags, hyprland, hypridle, hyprlock, ... }: { lib, pkgs, ... }: let
   fluent-icons = pkgs.fluent-icon-theme.override {
     colorVariants = [ "grey" ];
     roundedIcons = true;
