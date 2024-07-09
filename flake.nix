@@ -12,12 +12,12 @@
     nixosModules = {
       core = import ./modules/core.nix;
       laptop = import ./modules/laptop.nix;
-      policy = import ./modules/policy.nix;
+      msft = import ./modules/msft.nix;
       ux = import ./modules/ux.nix inputs;
 
       blade = import ./modules/system/blade.nix inputs;
-      msft = import ./modules/system/msft.nix inputs;
       pbp = import ./modules/system/pbp.nix inputs;
+      surface = import ./modules/system/surface.nix inputs;
     };
     packages = systems (pkgs: {
       megazeux = pkgs.callPackage ./packages/megazeux.nix {};
