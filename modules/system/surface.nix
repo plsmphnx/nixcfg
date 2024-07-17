@@ -20,4 +20,8 @@ inputs: { config, lib, pkgs, ... }: {
       configurationLimit = 4;
     };
   };
+
+  environment.systemPackages = with pkgs; [
+    surface-control
+  ];
 }
