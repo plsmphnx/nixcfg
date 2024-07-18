@@ -112,11 +112,11 @@ in {
     greetd = {
       enable = true;
       settings = rec {
-        initial_session = {
+        initial_session = lib.mkDefault {
           command = "Hyprland";
           user = "clecompt";
         };
-        default_session = initial_session;
+        default_session = lib.mkDefault initial_session;
       };
     };
 
