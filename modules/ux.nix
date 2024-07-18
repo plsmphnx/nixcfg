@@ -109,17 +109,6 @@ in {
 
     gvfs.enable = true;
 
-    greetd = {
-      enable = true;
-      settings = rec {
-        initial_session = lib.mkDefault {
-          command = "Hyprland";
-          user = "clecompt";
-        };
-        default_session = lib.mkDefault initial_session;
-      };
-    };
-
     gnome.gnome-keyring.enable = true;
   };
 
@@ -150,8 +139,8 @@ in {
       hypridle = {
         description = "Hyprland's idle daemon";
         documentation = [ "https://github.com/hyprwm/hypridle" ];
-        wantedBy = [ "graphical-session.target" ];
-        partOf = [ "graphical-session.target" ];
+        wantedBy = [ "hyprland-session.target" ];
+        partOf = [ "hyprland-session.target" ];
         path = [ hyprland.packages.${pkgs.system}.default ];
         serviceConfig = {
           ExecStart = lib.getExe hypridle.packages.${pkgs.system}.default;
@@ -161,7 +150,7 @@ in {
       hyprlock = {
         description = "Hyprland's GPU-accelerated screen locking utility";
         documentation = [ "https://github.com/hyprwm/hyprlock" ];
-        wantedBy = [ "graphical-session.target" ];
+        wantedBy = [ "hyprland-session.target" ];
         restartIfChanged = false;
         serviceConfig = {
           ExecStart = lib.getExe hyprlock.packages.${pkgs.system}.default;
@@ -170,8 +159,8 @@ in {
       kanshi = {
         description = "Dynamic display configuration";
         documentation = [ "https://sr.ht/~emersion/kanshi" ];
-        wantedBy = [ "graphical-session.target" ];
-        partOf = [ "graphical-session.target" ];
+        wantedBy = [ "hyprland-session.target" ];
+        partOf = [ "hyprland-session.target" ];
         serviceConfig = {
           ExecStart = lib.getExe pkgs.kanshi;
           Restart = "on-failure";

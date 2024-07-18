@@ -3,6 +3,7 @@ inputs: { pkgs, ... }: {
     ../core.nix
     ../laptop.nix
     (import ../ux.nix inputs)
+    ../login.nix
     ../hardware/intel.nix
     ../hardware/nvidia.nix
     ../hardware/razer.nix

@@ -12,6 +12,7 @@
     nixosModules = {
       core = import ./modules/core.nix;
       laptop = import ./modules/laptop.nix;
+      login = import ./modules/login.nix;
       msft = import ./modules/msft.nix;
       ux = import ./modules/ux.nix inputs;
 
