@@ -23,7 +23,10 @@
   networking.nftables.enable = true;
   hardware.enableAllFirmware = true;
   virtualisation.podman.enable = true;
-  boot.enableContainers = false;
+  boot = {
+    enableContainers = false;
+    initrd.systemd.enable = true;
+  };
 
   # Packages
   environment = {
