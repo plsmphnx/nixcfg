@@ -2,7 +2,7 @@
   inputs = {
     nixpkgs.url  = "github:nixos/nixpkgs/nixos-unstable";
     ags.url      = "github:aylur/ags";
-    hyprland.url = "git+https://github.com/hyprwm/hyprland?submodules=1&ref=refs/tags/v0.41.2";
+    hyprland.url = "git+https://github.com/hyprwm/hyprland?submodules=1";
     hypridle.url = "git+https://github.com/hyprwm/hypridle?submodules=1";
     hyprlock.url = "git+https://github.com/hyprwm/hyprlock?submodules=1";
   };
