@@ -1,4 +1,4 @@
-{ ags, hyprland, hypridle, hyprlock, ... }: { lib, pkgs, ... }: let
+{ ags, ... }: { lib, pkgs, ... }: let
   fluent-icons = pkgs.fluent-icon-theme.override {
     colorVariants = [ "grey" ];
     roundedIcons = true;
@@ -92,11 +92,7 @@ in {
     ];
   };
 
-  programs.hyprland = {
-    enable = true;
-    package = hyprland.packages.${pkgs.system}.default;
-    portalPackage = hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
-  };
+  programs.hyprland.enable = true;
 
   services = {
     pipewire = {
@@ -141,9 +137,9 @@ in {
         documentation = [ "https://github.com/hyprwm/hypridle" ];
         wantedBy = [ "hyprland-session.target" ];
         partOf = [ "hyprland-session.target" ];
-        path = [ hyprland.packages.${pkgs.system}.default ];
+        path = [ pkgs.hyprland ];
         serviceConfig = {
-          ExecStart = lib.getExe hypridle.packages.${pkgs.system}.default;
+          ExecStart = lib.getExe pkgs.hypridle;
           Restart = "on-failure";
         };
       };
@@ -153,7 +149,7 @@ in {
         wantedBy = [ "hyprland-session.target" ];
         restartIfChanged = false;
         serviceConfig = {
-          ExecStart = lib.getExe hyprlock.packages.${pkgs.system}.default;
+          ExecStart = lib.getExe pkgs.hyprlock;
         };
       };
       kanshi = {
