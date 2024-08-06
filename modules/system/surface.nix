@@ -22,6 +22,11 @@ inputs: { config, lib, pkgs, ... }: {
     };
   };
 
+  swapDevices = [{
+    device = "/swap";
+    size = 32*1024;
+  }];
+
   environment.systemPackages = with pkgs; [
     surface-control
   ];
