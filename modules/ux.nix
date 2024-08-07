@@ -36,15 +36,6 @@
     fonts = [ "NerdFontsSymbolsOnly" ];
   };
 in {
-  nix.settings = {
-    substituters = [
-      "https://hyprland.cachix.org"
-    ];
-    trusted-public-keys = [
-      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
-    ];
-  };
-
   environment = {
     sessionVariables.NIXOS_OZONE_WL = "1";
     systemPackages = with pkgs; [
@@ -74,6 +65,8 @@ in {
       vimix-cursors
       
       ags.packages.${system}.default
+      hypridle
+      hyprlock
       hyprnome-empty
       kanshi
 
@@ -121,47 +114,5 @@ in {
   qt = {
     enable = true;
     style = "kvantum";
-  };
-
-  systemd.user = {
-    targets.hyprland-session = {
-      description = "Hyprland compositor session";
-      documentation = [ "man:systemd.special(7)" ];
-      bindsTo = [ "graphical-session.target" ];
-      wants = [ "graphical-session-pre.target" ];
-      after = [ "graphical-session-pre.target" ];
-    };
-    services = {
-      hypridle = {
-        description = "Hyprland's idle daemon";
-        documentation = [ "https://github.com/hyprwm/hypridle" ];
-        wantedBy = [ "hyprland-session.target" ];
-        partOf = [ "hyprland-session.target" ];
-        path = [ pkgs.hyprland ];
-        serviceConfig = {
-          ExecStart = lib.getExe pkgs.hypridle;
-          Restart = "on-failure";
-        };
-      };
-      hyprlock = {
-        description = "Hyprland's GPU-accelerated screen locking utility";
-        documentation = [ "https://github.com/hyprwm/hyprlock" ];
-        wantedBy = [ "hyprland-session.target" ];
-        restartIfChanged = false;
-        serviceConfig = {
-          ExecStart = lib.getExe pkgs.hyprlock;
-        };
-      };
-      kanshi = {
-        description = "Dynamic display configuration";
-        documentation = [ "https://sr.ht/~emersion/kanshi" ];
-        wantedBy = [ "hyprland-session.target" ];
-        partOf = [ "hyprland-session.target" ];
-        serviceConfig = {
-          ExecStart = lib.getExe pkgs.kanshi;
-          Restart = "on-failure";
-        };
-      };
-    };
   };
 }
