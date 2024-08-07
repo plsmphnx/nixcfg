@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }: {
+{ pkgs, inputs, lib, ... }: {
   # System
   system.stateVersion = "unstable";
   nixpkgs.config.allowUnfree = true;
@@ -30,7 +30,7 @@
 
   # Packages
   environment = {
-    binsh = "${pkgs.dash}/bin/dash";
+    binsh = lib.getExe pkgs.dash;
     etc = {
       "grc.zsh".source = "${pkgs.grc}/etc/grc.zsh";
       "grc.conf".source = "${pkgs.grc}/etc/grc.conf";
