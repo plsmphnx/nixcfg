@@ -28,7 +28,7 @@
     };
     cargoDeps = drv.cargoDeps.overrideAttrs (lib.const {
       inherit src;
-      outputHash = "sha256-zQFscaK2fNQWTadQl/muawoK4FDN8Ps6mPetnvfR7OE=";
+      outputHash = "sha256-LmHWV5Ps2YRXfAnhO+a0o6VpS3/4gsmto2J6oQb4Csw=";
     });
   });
 
