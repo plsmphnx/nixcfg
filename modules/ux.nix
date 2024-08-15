@@ -24,7 +24,7 @@
       owner = "plsmphnx";
       repo = "hyprnome";
       rev = "empty";
-      hash = "sha256-fnTR79VaQrrpKj09TiNNeX4X9zQlpjvjg5+yHXl02w8=";
+      hash = "";
     };
     cargoDeps = drv.cargoDeps.overrideAttrs (lib.const {
       inherit src;
