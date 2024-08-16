@@ -1,7 +1,14 @@
 {
   inputs = {
-    nixpkgs.url  = "github:nixos/nixpkgs/nixos-unstable";
-    ags.url      = "github:aylur/ags";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    ags = {
+      url = "github:aylur/ags";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    quickshell = {
+      url = "github:outfoxxed/quickshell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs = { self, nixpkgs, ... } @ inputs: let
     systems = fn: nixpkgs.lib.mapAttrs (_: fn) nixpkgs.legacyPackages;

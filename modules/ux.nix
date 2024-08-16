@@ -1,4 +1,4 @@
-{ ags, ... }: { lib, pkgs, ... }: let
+{ ags, quickshell, ... }: { lib, pkgs, ... }: let
   fluent-icons = pkgs.fluent-icon-theme.override {
     colorVariants = [ "grey" ];
     roundedIcons = true;
@@ -65,8 +65,9 @@ in {
       vimix-cursors
       
       ags.packages.${system}.default
+      quickshell.packages.${system}.default
+
       hypridle
-      hyprlock
       hyprnome-empty
       kanshi
 
@@ -106,10 +107,7 @@ in {
     extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
   };
 
-  security = {
-    rtkit.enable = true;
-    pam.services.hyprlock.enableGnomeKeyring = true;
-  };
+  security.rtkit.enable = true;
 
   qt = {
     enable = true;
