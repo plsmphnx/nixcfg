@@ -5,9 +5,12 @@
       Restart = "no";
     };
     overrideStrategy = "asDropin";
+    before = lib.mkIf default [ "graphical.target" ];
     wantedBy = lib.mkIf default [ "graphical.target" ];
   };
 in {
+  environment.systemPackages = [ pkgs.weston ];
+
   systemd = {
     defaultUnit = "graphical.target";
     services = {
