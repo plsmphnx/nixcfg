@@ -1,19 +1,6 @@
 { config, lib, pkgs, ... }: let
-  vtwait = pkgs.writeCBin "vtwait" ''
-    #include <stdlib.h>
-    #include <linux/vt.h>
-    #include <sys/ioctl.h>
-    int main(int argc, char *argv[]) {
-      return ioctl(0, VT_WAITACTIVE, atoi(argv[1]));
-    }
-  '';
-
-  tty = vt: "tty${vt}";
-  dev = vt: "/dev/${tty vt}";
-  getty = vt: "getty@${tty vt}.service";
-  logind = "systemd-logind.service";
-  plymouth = "plymouth-quit-wait.service";
-  user-sessions = "user-sessions.service";
+  vtwait = pkgs.writeCBin "vtwait"
+    (builtins.readFile ../tools/vtwait.c);
 in with lib; {
   options.vtlogin = mkOption {
     type = types.attrsOf types.str;
@@ -24,20 +11,24 @@ in with lib; {
     services = {
       "autovt@tty1".enable = mkDefault false;
     } // concatMapAttrs (vt: user: {
-      "vtlogin-${vt}" = {
-        wants = [ logind user-sessions ];
-        after = [ (getty vt) logind plymouth user-sessions ];
+      "vtlogin-${vt}" = let
+        getty = "getty@tty${vt}.service";
+        logind = "systemd-logind.service";
+        plymouth = "plymouth-quit-wait.service";
+        sessions = "systemd-user-sessions.service";
+      in {
+        wants = [ logind sessions ];
+        after = [ getty logind plymouth sessions ];
 
         wantedBy = [ config.systemd.defaultUnit ];
         before = [ config.systemd.defaultUnit ];
 
-        conflicts = [ (getty vt) ];
+        conflicts = [ getty ];
 
-        unitConfig.ConditionPathExists = dev vt;
+        unitConfig.ConditionPathExists = "/dev/tty${vt}";
         serviceConfig = {
           Type = "idle";
           Restart = "always";
-          RestartSec = 0;
 
           ExecStartPre = "${vtwait}/bin/vtwait ${vt}";
           TimeoutStartSec = "infinity";
@@ -45,18 +36,11 @@ in with lib; {
           ExecStart = "${pkgs.shadow}/bin/login -f ${user}";
           ImportCredential = "login.*";
 
-          TTYPath = dev vt;
-          TTYReset = true;
-          TTYVHangup = true;
-          TTYVTDisallocate = true;
-
-          IgnoreSIGPIPE = false;
-          SendSIGHUP = true;
-
-          UtmpIdentifier = tty vt;
-          UtmpMode = "login";
-
+          TTYPath = "/dev/tty${vt}";
           StandardInput = "tty";
+
+          UtmpIdentifier = "tty${vt}";
+          UtmpMode = "login";
         };
 
         restartIfChanged = false;

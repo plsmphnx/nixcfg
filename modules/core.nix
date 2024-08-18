@@ -1,4 +1,7 @@
-{ pkgs, inputs, lib, ... }: {
+{ pkgs, inputs, lib, ... }: let
+  os-util = pkgs.writeScriptBin "os"
+    (builtins.readFile ../tools/os.sh);
+in {
   # System
   system.stateVersion = "unstable";
   nixpkgs.config.allowUnfree = true;
@@ -43,11 +46,10 @@
       highlight
       jq
       libqalculate
+      os-util
       ouch
       pass
       wget
-
-      (import ../tools/os.nix pkgs)
     ];
   };
   programs = {
