@@ -16,6 +16,4 @@
       }];
     }];
   };
-
-  boot.kernelParams = [ "console=tty2" ];
 }
