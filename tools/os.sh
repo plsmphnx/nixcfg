@@ -2,7 +2,11 @@
 case $1 in
   up*)
     nix flake update /etc/nixos
-    nixos-rebuild switch
+    if [ -z "$2" ]; then
+      nixos-rebuild switch
+    else
+      nixos-rebuild switch --build-host "$2"
+    fi
     ;;
   clean)
     if [ "$2" = "full" ]; then
