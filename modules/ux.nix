@@ -35,6 +35,16 @@
   nerdfonts-symbols = pkgs.nerdfonts.override {
     fonts = [ "NerdFontsSymbolsOnly" ];
   };
+
+  qs = quickshell.packages.${system}.default.override {
+    withCrashReporter = false;
+    withQtSvg = false;
+    withWayland = false;
+    withX11 = false;
+    withPipewire = false;
+    withHyprland = false;
+    withQMLLib = false;
+  };
 in {
   environment = {
     sessionVariables.NIXOS_OZONE_WL = "1";
@@ -65,7 +75,7 @@ in {
       vimix-cursors
       
       ags.packages.${system}.default
-      quickshell.packages.${system}.default
+      qs
 
       hypridle
       hyprnome-empty
