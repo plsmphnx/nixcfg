@@ -36,7 +36,7 @@
     fonts = [ "NerdFontsSymbolsOnly" ];
   };
 
-  qs = quickshell.packages.${system}.default.override {
+  qs = quickshell.packages.${pkgs.system}.default.override {
     withCrashReporter = false;
     withQtSvg = false;
     withWayland = false;
