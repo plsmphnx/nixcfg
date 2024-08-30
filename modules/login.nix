@@ -1,8 +1,6 @@
 { lib, pkgs, ... }: {
   imports = [ ./vtlogin.nix ];
 
-  environment.systemPackages = [ pkgs.weston ];
-
   security = {
     pam.services = {
       login.enableGnomeKeyring = lib.mkForce false;

@@ -3,9 +3,9 @@ case $1 in
   up*)
     nix flake update /etc/nixos
     if [ -z "$2" ]; then
-      nixos-rebuild switch
+      nixos-rebuild switch --fast
     else
-      nixos-rebuild switch --build-host "$2"
+      nixos-rebuild switch --fast --use-substitutes --build-host "$2"
     fi
     ;;
   clean)
