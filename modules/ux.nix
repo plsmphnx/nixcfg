@@ -98,7 +98,7 @@ in {
 
   programs.hyprland = with hyprland.packages.${pkgs.system}; {
     enable = true;
-    package = hyprland;
+    package = default;
     portalPackage = xdg-desktop-portal-hyprland;
   };
 
