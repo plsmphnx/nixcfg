@@ -1,4 +1,4 @@
-{ ags, quickshell, ... }: { lib, pkgs, ... }: let
+{ ags, hyprland, quickshell, ... }: { lib, pkgs, ... }: let
   fluent-icons = pkgs.fluent-icon-theme.override {
     colorVariants = [ "grey" ];
     roundedIcons = true;
@@ -96,7 +96,20 @@ in {
     ];
   };
 
-  programs.hyprland.enable = true;
+  programs.hyprland = with hyprland.packages.${pkgs.system}; {
+    enable = true;
+    package = hyprland;
+    portalPackage = xdg-desktop-portal-hyprland;
+  };
+
+  nix.settings = {
+    substituters = [
+      "https://hyprland.cachix.org"
+    ];
+    trusted-public-keys = [
+      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+    ];
+  };
 
   services = {
     pipewire = {
