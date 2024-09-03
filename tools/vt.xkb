@@ -1,0 +1,10 @@
+default partial alphanumeric_keys function_keys keypad_keys modifier_keys
+xkb_symbols "vt" {
+    include "us"
+    include "pc"
+    include "srvr_ctrl(no_srvr_keys)"
+    key <ESC> {
+        type="CTRL+ALT",
+        symbols[Group1] = [ NoSymbol, NoSymbol, NoSymbol, NoSymbol, XF86_Switch_VT_2 ]
+    };
+};

@@ -123,6 +123,12 @@ in {
     gvfs.enable = true;
 
     gnome.gnome-keyring.enable = true;
+
+    xserver.xkb.extraLayouts.vt = {
+      description = "US layout with only one VT switch.";
+      languages = [ "eng" ];
+      symbolsFile = ../tools/vt.xkb;
+    };
   };
 
   xdg.portal = {
