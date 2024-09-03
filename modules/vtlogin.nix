@@ -27,7 +27,6 @@ in with lib; {
 
         unitConfig.ConditionPathExists = "/dev/tty${vt}";
         serviceConfig = {
-          Type = "exec";
           Restart = "always";
 
           ExecStartPre = "${vtwait}/bin/vtwait ${vt}";
