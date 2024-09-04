@@ -12,4 +12,8 @@
     };
   };
   services.xserver.videoDrivers = [ "nvidia" ];
+  systemd.services.lock.before = [
+    "nvidia-hibernate.service"
+    "nvidia-suspend.service"
+  ];
 }
