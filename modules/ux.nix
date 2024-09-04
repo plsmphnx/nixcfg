@@ -142,4 +142,14 @@ in {
     enable = true;
     style = "kvantum";
   };
+
+  systemd.services.lock = {
+    before = [ "sleep.target" ];
+    wantedBy = [ "sleep.target" ];
+
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${config.systemd.package}/bin/systemctl --user --machine=clecompt@ start --wait lock";
+    };
+  };
 }
