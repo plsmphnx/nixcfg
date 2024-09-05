@@ -8,9 +8,7 @@
   environment = {
     sessionVariables.DOTNET_ROOT = "${pkgs.dotnet-sdk_8}";
     systemPackages = with pkgs; [
-      (azure-cli.withExtensions [
-        azure-cli.extensions.bastion
-      ])
+      dapr-cli
       docker-compose
       dotnet-sdk_8
       gcc
@@ -21,7 +19,7 @@
       k9s
       kubectl
       kubernetes-helm
-      nodejs_20
+      step-cli
       tmuxp
       vscode.fhs
     ];
