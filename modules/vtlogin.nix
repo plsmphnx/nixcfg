@@ -6,44 +6,47 @@ in with lib; {
     type = types.attrsOf types.str;
   };
 
-  config.systemd = {
-    defaultUnit = mkDefault "graphical.target";
-    services = {
-      "autovt@tty1".enable = mkDefault false;
-    } // concatMapAttrs (vt: user: {
-      "vtlogin-${vt}" = let
-        getty = "getty@tty${vt}.service";
-        logind = "systemd-logind.service";
-        plymouth = "plymouth-quit-wait.service";
-        sessions = "systemd-user-sessions.service";
-      in {
-        wants = [ logind sessions ];
-        after = [ getty logind plymouth sessions ];
+  config = {
+    environment.systemPackages = [ vtwait ];
+    systemd = {
+      defaultUnit = mkDefault "graphical.target";
+      services = {
+        "autovt@tty1".enable = mkDefault false;
+      } // concatMapAttrs (vt: user: {
+        "vtlogin-${vt}" = let
+          getty = "getty@tty${vt}.service";
+          logind = "systemd-logind.service";
+          plymouth = "plymouth-quit-wait.service";
+          sessions = "systemd-user-sessions.service";
+        in {
+          wants = [ logind sessions ];
+          after = [ getty logind plymouth sessions ];
 
-        wantedBy = [ config.systemd.defaultUnit ];
-        before = [ config.systemd.defaultUnit ];
+          wantedBy = [ config.systemd.defaultUnit ];
+          before = [ config.systemd.defaultUnit ];
 
-        conflicts = [ getty ];
+          conflicts = [ getty ];
 
-        unitConfig.ConditionPathExists = "/dev/tty${vt}";
-        serviceConfig = {
-          Restart = "always";
+          unitConfig.ConditionPathExists = "/dev/tty${vt}";
+          serviceConfig = {
+            Restart = "always";
 
-          ExecStartPre = "${vtwait}/bin/vtwait ${vt}";
-          TimeoutStartSec = "infinity";
+            ExecStartPre = "${vtwait}/bin/vtwait ${vt}";
+            TimeoutStartSec = "infinity";
 
-          ExecStart = "${pkgs.shadow}/bin/login -f ${user}";
-          ImportCredential = "login.*";
+            ExecStart = "${pkgs.shadow}/bin/login -f ${user}";
+            ImportCredential = "login.*";
 
-          TTYPath = "/dev/tty${vt}";
-          StandardInput = "tty";
+            TTYPath = "/dev/tty${vt}";
+            StandardInput = "tty";
 
-          UtmpIdentifier = "tty${vt}";
-          UtmpMode = "login";
+            UtmpIdentifier = "tty${vt}";
+            UtmpMode = "login";
+          };
+
+          restartIfChanged = false;
         };
-
-        restartIfChanged = false;
-      };
-    }) config.vtlogin;
+      }) config.vtlogin;
+    };
   };
 }
