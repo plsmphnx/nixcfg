@@ -128,13 +128,4 @@ in {
     enable = true;
     style = "kvantum";
   };
-
-  systemd.services.sleep = {
-    before = [ "sleep.target" ];
-    wantedBy = [ "sleep.target" ];
-    serviceConfig = {
-      Type = "oneshot";
-      ExecStart = "systemctl --user --machine=clecompt@ start sleep.target";
-    };
-  };
 }
