@@ -1,7 +1,10 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    exec-util.url = "github:plsmphnx/exec-util";
+    exec-util = {
+      url = "github:plsmphnx/exec-util";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     ags = {
       url = "github:aylur/ags";
       inputs.nixpkgs.follows = "nixpkgs";
