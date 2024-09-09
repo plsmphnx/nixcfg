@@ -1,4 +1,4 @@
-{ ags, hyprland, quickshell, ... }: { config, lib, pkgs, ... }: let
+{ ags, exec-util, hyprland, ... }: { config, lib, pkgs, ... }: let
   fluent-icons = pkgs.fluent-icon-theme.override {
     colorVariants = [ "grey" ];
     roundedIcons = true;
@@ -35,16 +35,6 @@
   nerdfonts-symbols = pkgs.nerdfonts.override {
     fonts = [ "NerdFontsSymbolsOnly" ];
   };
-
-  qs = quickshell.packages.${pkgs.system}.default.override {
-    withCrashReporter = false;
-    withQtSvg = false;
-    withWayland = false;
-    withX11 = false;
-    withPipewire = false;
-    withHyprland = false;
-    withQMLLib = false;
-  };
 in {
   environment = {
     sessionVariables.NIXOS_OZONE_WL = "1";
@@ -75,11 +65,12 @@ in {
       vimix-cursors
       
       ags.packages.${system}.default
-      qs
+      exec-util.packages.${system}.default
 
-      hypridle
+      hyprlock
       hyprnome-empty
       kanshi
+      vlock
 
       ffmpegthumbnailer
       kdePackages.qtwayland
@@ -117,12 +108,10 @@ in {
       alsa.enable = true;
       pulse.enable = true;
     };
-
     flatpak.enable = true;
-
     gvfs.enable = true;
-
     gnome.gnome-keyring.enable = true;
+    systemd-lock-handler.enable = true;
   };
 
   xdg.portal = {
@@ -130,20 +119,24 @@ in {
     extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
   };
 
-  security.rtkit.enable = true;
+  security = {
+    rtkit.enable = true;
+    pam.services.hyprlock.enableGnomeKeyring = true;
+  };
 
   qt = {
     enable = true;
     style = "kvantum";
   };
 
-  systemd.services.lock = {
+  systemd.services.sleep = {
     before = [ "sleep.target" ];
     wantedBy = [ "sleep.target" ];
+    path = [ config.systemd.package ];
 
     serviceConfig = {
       Type = "oneshot";
-      ExecStart = "${config.systemd.package}/bin/systemctl --user --machine=clecompt@ start --wait lock";
+      ExecStart = "systemctl --user --machine=clecompt@ start --wait sleep.target";
     };
   };
 }

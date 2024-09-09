@@ -1,12 +1,9 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    exec-util.url = "github:plsmphnx/exec-util";
     ags = {
       url = "github:aylur/ags";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    quickshell = {
-      url = "github:outfoxxed/quickshell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland.url = "git+https://github.com/hyprwm/hyprland?submodules=1";

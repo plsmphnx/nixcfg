@@ -1,11 +1,11 @@
 { lib, pkgs, ... }: {
-  imports = [ ./vtlogin.nix ];
+  systemd.services."getty@".serviceConfig.ExecStart = lib.mkForce [
+    ""
+    "${pkgs.shadow}/bin/login -f clecompt"
+  ];
 
   security = {
-    pam.services = {
-      login.enableGnomeKeyring = lib.mkForce false;
-      lock.enableGnomeKeyring = true;
-    };
+    pam.services.login.enableGnomeKeyring = lib.mkForce false;
     sudo.extraRules = [{
       users = [ "clecompt" ];
       commands = [{
