@@ -132,11 +132,9 @@ in {
   systemd.services.sleep = {
     before = [ "sleep.target" ];
     wantedBy = [ "sleep.target" ];
-    path = [ config.systemd.package ];
-
     serviceConfig = {
       Type = "oneshot";
-      ExecStart = "systemctl --user --machine=clecompt@ start --wait sleep.target";
+      ExecStart = "systemctl --user --machine=clecompt@ start sleep.target";
     };
   };
 }
