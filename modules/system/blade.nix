@@ -2,6 +2,7 @@ inputs: { pkgs, ... }: {
   imports = [
     ../core.nix
     ../laptop.nix
+    ../login.nix
     (import ../ux.nix inputs)
     ../hardware/intel.nix
     ../hardware/nvidia.nix

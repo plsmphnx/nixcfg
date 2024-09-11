@@ -1,4 +1,4 @@
-{ ags, exec-util, hyprland, ... }: { config, lib, pkgs, ... }: let
+{ ags, exec-util, ... }: { config, lib, pkgs, ... }: let
   fluent-icons = pkgs.fluent-icon-theme.override {
     colorVariants = [ "grey" ];
     roundedIcons = true;
@@ -87,20 +87,7 @@ in {
     ];
   };
 
-  programs.hyprland = with hyprland.packages.${pkgs.system}; {
-    enable = true;
-    package = default;
-    portalPackage = xdg-desktop-portal-hyprland;
-  };
-
-  nix.settings = {
-    substituters = [
-      "https://hyprland.cachix.org"
-    ];
-    trusted-public-keys = [
-      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
-    ];
-  };
+  programs.hyprland.enable = true;
 
   services = {
     pipewire = {
