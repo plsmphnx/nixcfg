@@ -69,7 +69,7 @@ in {
 
       hyprlock
       hyprnome-empty
-      kanshi
+      shikane
       vlock
 
       ffmpegthumbnailer
