@@ -1,4 +1,7 @@
-{ ags, exec-util, ... }: { config, lib, pkgs, ... }: let
+inputs: { config, lib, pkgs, ... }: let
+  flakes = lib.mapAttrs
+    (_: flake: flake.packages.${pkgs.system}.default or null) inputs;
+
   fluent-icons = pkgs.fluent-icon-theme.override {
     colorVariants = [ "grey" ];
     roundedIcons = true;
@@ -64,8 +67,9 @@ in {
       fluent-theme
       vimix-cursors
       
-      ags.packages.${system}.default
-      exec-util.packages.${system}.default
+      flakes.ags
+      flakes.exec-util
+      flakes.hyprmks
 
       hyprlock
       hyprnome-empty

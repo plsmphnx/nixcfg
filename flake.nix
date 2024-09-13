@@ -1,15 +1,13 @@
 {
-  inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    exec-util = {
-      url = "github:plsmphnx/exec-util";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    ags = {
-      url = "github:aylur/ags";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+  inputs = let
+    nixpkg = url: { inherit url; inputs.nixpkgs.follows = "nixpkgs"; };
+  in {
+    nixpkgs.url  = "github:nixos/nixpkgs/nixos-unstable";
     hyprland.url = "git+https://github.com/hyprwm/hyprland?submodules=1";
+
+    ags       = nixpkg "github:aylur/ags";
+    exec-util = nixpkg "github:plsmphnx/exec-util";
+    hyprmks   = nixpkg "github:plsmphnx/hyprmks";
   };
   outputs = { self, nixpkgs, ... } @ inputs: let
     systems = fn: nixpkgs.lib.mapAttrs (_: fn) nixpkgs.legacyPackages;
