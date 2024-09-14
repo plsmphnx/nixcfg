@@ -1,11 +1,13 @@
 #!/bin/sh
 case $1 in
   up*)
-    nix flake update /etc/nixos
-    if [ -z "$2" ]; then
-      nixos-rebuild switch --fast
-    else
+    if [ -n "$2" ]; then
+      nix flake update /etc/nixos
+    fi
+    if echo "$2" | grep -q "@"; then
       nixos-rebuild switch --fast --use-substitutes --build-host "$2"
+    else
+      nixos-rebuild switch --fast
     fi
     ;;
   clean)
