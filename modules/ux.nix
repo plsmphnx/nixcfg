@@ -55,7 +55,6 @@ in {
 
       foot
       imv
-      l3afpad
       lite-xl
       luakit
       mpv
