@@ -20,6 +20,7 @@ inputs: { pkgs, ... }: {
       efi.canTouchEfiVariables = true;
     };
     kernelPackages = pkgs.linuxPackages_xanmod_latest;
+    kernelModules = [ "ntsync" ];
   };
 
   hardware.nvidia.prime = {
