@@ -28,13 +28,12 @@
       ux = import ./modules/ux.nix inputs;
 
       blade = import ./modules/system/blade.nix inputs;
+      deck = import ./modules/system/deck.nix inputs;
       pbp = import ./modules/system/pbp.nix inputs;
       surface = import ./modules/system/surface.nix inputs;
     };
     packages = systems (pkgs: {
       megazeux = pkgs.callPackage ./packages/megazeux.nix {};
-      steamdeck-dkms = pkgs.linuxPackages_latest.callPackage
-        ./packages/steamdeck-dkms.nix {};
     });
   };
 }
