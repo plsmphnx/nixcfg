@@ -15,6 +15,7 @@ inputs: { config, pkgs, lib, ... }: {
       enableKernelPatches = false;
     };
     steamos = {
+      useSteamOSConfig = false;
       enableDefaultCmdlineConfig = true;
       enableSysctlConfig = true;
     };
