@@ -15,7 +15,7 @@
       git-credential-manager
       go_1_21
       graphviz
-      k3d
+      (k3d.override { k3sVersion = "latest"; })
       k9s
       kubectl
       kubernetes-helm
