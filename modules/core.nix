@@ -1,4 +1,8 @@
 { pkgs, inputs, lib, ... }: let
+  sh = pkgs.runCommandLocal "sh" { meta.priority = -1; } ''
+    mkdir -p $out/bin
+    ln -s ${lib.getExe pkgs.dash} $out/bin/sh
+  '';
   os-util = pkgs.writeScriptBin "os"
     (builtins.readFile ../tools/os.sh);
 in {
@@ -33,7 +37,6 @@ in {
 
   # Packages
   environment = {
-    binsh = lib.getExe pkgs.dash;
     etc = {
       "grc.zsh".source = "${pkgs.grc}/etc/grc.zsh";
       "grc.conf".source = "${pkgs.grc}/etc/grc.conf";
@@ -49,6 +52,7 @@ in {
       os-util
       ouch
       pass
+      sh
       wget
     ];
   };
@@ -59,6 +63,7 @@ in {
     tmux.enable = true;
     zsh.enable = true;
   };
+  services.envfs.enable = true;
 
   # User
   users = {
