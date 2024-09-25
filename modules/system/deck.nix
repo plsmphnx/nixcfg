@@ -54,4 +54,11 @@ inputs: { config, pkgs, lib, ... }: {
     steamdeck-firmware
     tpm2-tss
   ];
+
+  security.wrappers.flatpak = {
+    owner = "root";
+    group = "root";
+    source = "${pkgs.flatpak}/bin/flatpak";
+    capabilities = "cap_sys_nice-pie";
+  };
 }
