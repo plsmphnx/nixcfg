@@ -4,7 +4,7 @@ inputs: { ... }: {
     ../laptop.nix
     ../login.nix
     (import ../ux.nix inputs)
-  ]
+  ];
 
   networking.hostName = "clecompt-pine";
 
