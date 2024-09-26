@@ -21,4 +21,6 @@ inputs: { ... }: {
 
     kernelModules = [ "rkvdec" ];
   };
+
+  hardware.alsa.enablePersistence = true;
 }
