@@ -21,6 +21,4 @@ inputs: { ... }: {
 
     kernelModules = [ "rkvdec" ];
   };
-
-  sound.enable = true;
 }
