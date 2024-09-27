@@ -13,7 +13,7 @@
       dotnet-sdk_8
       gcc
       git-credential-manager
-      go_1_21
+      go_1_23
       graphviz
       (k3d.override { k3sVersion = "${kubectl.version}-k3s1"; })
       k9s
