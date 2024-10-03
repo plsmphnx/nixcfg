@@ -1,7 +1,7 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    hyprland.url = "git+https://github.com/hyprwm/hyprland?submodules=1";
+    hyprland.url = "github:hyprwm/hyprland";
 
     ags = {
       url = "github:aylur/ags";
