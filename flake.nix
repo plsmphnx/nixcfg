@@ -1,7 +1,6 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    hyprland.url = "github:hyprwm/hyprland";
 
     ags = {
       url = "github:aylur/ags";
@@ -21,7 +20,7 @@
   in {
     nixosModules = {
       core = import ./modules/core.nix;
-      edge = import ./modules/edge.nix inputs;
+      edge = import ./modules/edge.nix;
       laptop = import ./modules/laptop.nix;
       login = import ./modules/login.nix;
       msft = import ./modules/msft.nix;

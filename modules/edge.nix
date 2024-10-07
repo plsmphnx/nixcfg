@@ -1,11 +1,8 @@
-{ hyprland, ... }: { pkgs, ... }: {
-  programs.hyprland = with hyprland.packages.${pkgs.system}; {
-    package = default;
-    portalPackage = xdg-desktop-portal-hyprland;
-  };
-
+{ ... }: {
   nix.settings = {
     substituters = [
+      # hyprland.url = "github:hyprwm/hyprland";
+      # hyprland.nixosModules.default
       "https://hyprland.cachix.org"
     ];
     trusted-public-keys = [
