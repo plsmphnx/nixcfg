@@ -45,8 +45,8 @@ in {
       umask 027
     '';
     systemPackages = with pkgs; [
+      bat
       grc
-      highlight
       jq
       libqalculate
       os-util
