@@ -8,6 +8,7 @@
   environment = {
     sessionVariables.DOTNET_ROOT = "${pkgs.dotnet-sdk_8}";
     systemPackages = with pkgs; [
+      cargo
       dapr-cli
       docker-compose
       dotnet-sdk_8
@@ -19,6 +20,7 @@
       k9s
       kubectl
       kubernetes-helm
+      rustc
       step-cli
       tmuxp
       vscode.fhs
