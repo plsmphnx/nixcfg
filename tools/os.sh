@@ -5,9 +5,9 @@ case $1 in
       nix flake update /etc/nixos
     fi
     if echo "$2" | grep -q "@"; then
-      nixos-rebuild switch --fast --use-substitutes --build-host "$2"
+      nixos-rebuild switch --fast --impure --use-substitutes --build-host "$2"
     else
-      nixos-rebuild switch --fast
+      nixos-rebuild switch --fast --impure
     fi
     ;;
   clean)
