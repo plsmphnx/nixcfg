@@ -4,6 +4,14 @@
   users.users.clecompt.extraGroups = [ "docker" ];
 
   programs.ssh.startAgent = true;
+  services.openssh = {
+    enable = true;
+    startWhenNeeded = true;
+    settings = {
+      AllowUsers = [ "clecompt" ];
+      PermitRootLogin = "no";
+    };
+  };
 
   environment = {
     sessionVariables.DOTNET_ROOT = "${pkgs.dotnet-sdk_8}";
