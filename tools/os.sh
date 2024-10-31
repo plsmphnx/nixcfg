@@ -19,8 +19,8 @@ case $1 in
   user)
     case $2 in
       up*)
-        NIXPKGS_ALLOW_UNFREE=1 nix profile upgrade '.*' --no-write-lock-file --impure
-        if which flatpak > /dev/null; then
+        NIXPKGS_ALLOW_UNFREE=1 nix profile upgrade --all --no-write-lock-file --impure
+        if command -v flatpak 2>&1 >/dev/null; then
           flatpak update -uy
         fi
         ;;
@@ -29,7 +29,7 @@ case $1 in
           nix profile wipe-history
         fi
         nix store gc
-        if which flatpak > /dev/null; then
+        if command -v flatpak 2>&1 >/dev/null; then
           flatpak uninstall --unused -uy
         fi
         ;;
