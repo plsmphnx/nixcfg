@@ -16,9 +16,6 @@ inputs: { ... }: {
       efiInstallAsRemovable = true;
       configurationLimit = 4;
     };
-
-    consoleLogLevel = 2;
-
     kernelModules = [ "rkvdec" ];
   };
 
