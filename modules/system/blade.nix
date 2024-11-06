@@ -1,4 +1,4 @@
-inputs: { pkgs, ... }: {
+inputs: { pkgs, lib, ... }: {
   imports = [
     ../core.nix
     ../laptop.nix
@@ -19,7 +19,7 @@ inputs: { pkgs, ... }: {
       };
       efi.canTouchEfiVariables = true;
     };
-    kernelPackages = pkgs.linuxPackages_xanmod_latest;
+    kernelPackages = lib.mkDefault pkgs.linuxPackages_xanmod_latest;
     kernelModules = [ "ntsync" ];
   };
 
