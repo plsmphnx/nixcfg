@@ -29,7 +29,7 @@
       kubectl
       kubernetes-helm
       rustc
-      step-cli
+#      step-cli
       tmuxp
       vscode.fhs
     ];
