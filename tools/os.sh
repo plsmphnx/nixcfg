@@ -39,5 +39,8 @@ else
       shift 1
       NIXPKGS_ALLOW_UNFREE=1 nix profile install "$@" --no-write-lock-file --impure
       ;;
+    l*)
+      nix profile list | sed -En 's/Name: +(.*)/\1/p'
+      ;;
   esac
 fi
