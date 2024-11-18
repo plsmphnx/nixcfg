@@ -54,11 +54,14 @@ in {
     size = 16*1024;
   }];
 
-  environment.systemPackages = with pkgs; [
-    jupiter-dock-updater-bin
-    steamdeck-firmware
-    tpm2-tss
-  ];
+  environment = {
+    etc.timezone.text = config.time.timeZone + "\n";
+    systemPackages = with pkgs; [
+      jupiter-dock-updater-bin
+      steamdeck-firmware
+      tpm2-tss
+    ];
+  };
 
   security.wrappers.flatpak = {
     owner = "root";
