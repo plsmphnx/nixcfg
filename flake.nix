@@ -3,7 +3,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     ags = {
-      url = "github:aylur/ags/v1.8.2";
+      url = "github:aylur/ags/v1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     exec-util = {
