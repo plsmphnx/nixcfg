@@ -49,7 +49,6 @@ in {
 
       brightnessctl
       grimblast
-      pamixer
       playerctl
       xdg-utils
 
