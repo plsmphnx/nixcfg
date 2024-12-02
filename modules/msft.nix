@@ -14,7 +14,8 @@
   };
 
   environment = with pkgs; {
-    sessionVariables.DOTNET_ROOT = "${dotnetCorePackages.dotnet_8.sdk.src}";
+    sessionVariables.DOTNET_ROOT =
+      "${dotnetCorePackages.dotnet_8.sdk.src}/share/dotnet";
     systemPackages = [
       cargo
       dapr-cli
