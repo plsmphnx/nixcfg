@@ -13,13 +13,13 @@
     };
   };
 
-  environment = {
-    sessionVariables.DOTNET_ROOT = "${pkgs.dotnet-sdk_8}";
-    systemPackages = with pkgs; [
+  environment = with pkgs; {
+    sessionVariables.DOTNET_ROOT = "${dotnetCorePackages.dotnet_8.sdk.src}";
+    systemPackages = [
       cargo
       dapr-cli
       docker-compose
-      dotnet-sdk_8
+      dotnetCorePackages.dotnet_8.sdk
       gcc
       git-credential-manager
       go_1_23
@@ -29,7 +29,7 @@
       kubectl
       kubernetes-helm
       rustc
-#      step-cli
+      step-cli
       tmuxp
       vscode.fhs
     ];
