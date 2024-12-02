@@ -34,10 +34,6 @@ inputs: { config, lib, pkgs, ... }: let
       outputHash = "sha256-LmHWV5Ps2YRXfAnhO+a0o6VpS3/4gsmto2J6oQb4Csw=";
     });
   });
-
-  nerdfonts-symbols = pkgs.nerdfonts.override {
-    fonts = [ "NerdFontsSymbolsOnly" ];
-  };
 in {
   environment = {
     sessionVariables.NIXOS_OZONE_WL = "1";
@@ -49,7 +45,6 @@ in {
 
       brightnessctl
       grimblast
-      pamixer
       playerctl
       xdg-utils
 
@@ -66,9 +61,10 @@ in {
       fluent-theme
       vimix-cursors
       
-      flakes.ags
+      flakes.astal
       flakes.exec-util
       flakes.hyprmks
+      flakes.shell
 
       hyprlock
       hyprnome-empty
@@ -86,7 +82,7 @@ in {
     packages = with pkgs; [
       corefonts
       google-fonts
-      nerdfonts-symbols
+      nerd-fonts.symbols-only
     ];
   };
 

@@ -2,8 +2,8 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    ags = {
-      url = "github:aylur/ags/v1.8.2";
+    astal = {
+      url = "github:aylur/astal";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     exec-util = {
@@ -13,6 +13,13 @@
     hyprmks = {
       url = "github:plsmphnx/hyprmks";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+    shell = {
+      url = "github:plsmphnx/shell";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        astal.follows = "astal";
+      };
     };
   };
   outputs = { self, nixpkgs, ... } @ inputs: let
