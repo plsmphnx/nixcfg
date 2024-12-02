@@ -65,9 +65,10 @@ in {
       fluent-theme
       vimix-cursors
       
-      flakes.ags
+      flakes.astal
       flakes.exec-util
       flakes.hyprmks
+      flakes.shell
 
       hyprlock
       hyprnome-empty
