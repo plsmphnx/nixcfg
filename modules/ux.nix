@@ -61,7 +61,6 @@ in {
       fluent-theme
       vimix-cursors
       
-      flakes.astal
       flakes.exec-util
       flakes.hyprmks
       flakes.shell

@@ -2,10 +2,6 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    astal = {
-      url = "github:aylur/astal";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     exec-util = {
       url = "github:plsmphnx/exec-util";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -16,10 +12,7 @@
     };
     shell = {
       url = "github:plsmphnx/shell";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        astal.follows = "astal";
-      };
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
   outputs = { self, nixpkgs, ... } @ inputs: let
