@@ -46,6 +46,7 @@ in {
     '';
     systemPackages = with pkgs; [
       bat
+      btop
       grc
       jq
       libqalculate
