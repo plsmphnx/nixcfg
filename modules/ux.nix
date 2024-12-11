@@ -21,19 +21,6 @@ inputs: { config, lib, pkgs, ... }: let
     themeVariants = [ "grey" ];
     tweaks = [ "blur" "noborder" "round" ];
   };
-
-  hyprnome-empty = pkgs.hyprnome.overrideAttrs (drv: rec {
-    src = pkgs.fetchFromGitHub {
-      owner = "plsmphnx";
-      repo = "hyprnome";
-      rev = "empty";
-      hash = "sha256-pFx+Kj7dFxE63/hOYeItUPwEP22i4w9yiivAm1A9M0Q=";
-    };
-    cargoDeps = drv.cargoDeps.overrideAttrs (lib.const {
-      inherit src;
-      outputHash = "sha256-LmHWV5Ps2YRXfAnhO+a0o6VpS3/4gsmto2J6oQb4Csw=";
-    });
-  });
 in {
   environment = {
     sessionVariables.NIXOS_OZONE_WL = "1";
@@ -62,11 +49,11 @@ in {
       vimix-cursors
       
       flakes.exec-util
+      flakes.hyprjump
       flakes.hyprmks
       flakes.shell
 
       hyprlock
-      hyprnome-empty
       shikane
       vlock
 

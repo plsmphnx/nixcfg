@@ -6,6 +6,10 @@
       url = "github:plsmphnx/exec-util";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    hyprjump = {
+      url = "github:plsmphnx/hyprjump";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     hyprmks = {
       url = "github:plsmphnx/hyprmks";
       inputs.nixpkgs.follows = "nixpkgs";
