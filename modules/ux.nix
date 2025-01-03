@@ -21,6 +21,10 @@ inputs: { config, lib, pkgs, ... }: let
     themeVariants = [ "grey" ];
     tweaks = [ "blur" "noborder" "round" ];
   };
+
+  mpv = pkgs.mpv.override {
+    scripts = with pkgs.mpvScripts; [ mpris ];
+  };
 in {
   environment = {
     sessionVariables.NIXOS_OZONE_WL = "1";
