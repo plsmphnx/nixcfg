@@ -14,11 +14,7 @@
   };
 
   environment.systemPackages = with pkgs; [
-    docker-compose
     git-credential-manager
-    (k3d.override { k3sVersion = "${kubectl.version}-k3s1"; })
-    k9s
-    kubectl
     tmuxp
     vscode.fhs
   ];
