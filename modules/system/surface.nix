@@ -3,7 +3,6 @@ inputs: { config, lib, pkgs, ... }: {
     ../core.nix
     ../laptop.nix
     ../login.nix
-    ../msft.nix
     (import ../ux.nix inputs)
     ../hardware/intel.nix
   ];
