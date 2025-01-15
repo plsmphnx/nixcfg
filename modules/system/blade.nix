@@ -21,7 +21,7 @@ inputs: { pkgs, lib, ... }: {
     };
     kernelPackages = lib.mkDefault pkgs.linuxPackages_xanmod_latest;
     kernelModules = [ "ntsync" ];
-    boot.kernelParams = [ "nvidia.NVreg_PreserveVideoMemoryAllocations=1" ];
+    kernelParams = [ "nvidia.NVreg_PreserveVideoMemoryAllocations=1" ];
   };
 
   hardware.nvidia = {
