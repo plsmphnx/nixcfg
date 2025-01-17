@@ -69,4 +69,8 @@ in {
     source = "${pkgs.flatpak}/bin/flatpak";
     capabilities = "cap_sys_nice-pie";
   };
+
+  systemd.sleep.extraConfig = ''
+    HibernateMode=shutdown
+  '';
 }
