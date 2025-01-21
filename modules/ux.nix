@@ -79,14 +79,18 @@ in {
   programs.hyprland.enable = true;
 
   services = {
+    avahi = {
+      enable = true;
+      nssmdns4 = true;
+    };
+    flatpak.enable = true;
+    gnome.gnome-keyring.enable = true;
+    gvfs.enable = true;
     pipewire = {
       enable = true;
       alsa.enable = true;
       pulse.enable = true;
     };
-    flatpak.enable = true;
-    gvfs.enable = true;
-    gnome.gnome-keyring.enable = true;
     systemd-lock-handler.enable = true;
   };
 
