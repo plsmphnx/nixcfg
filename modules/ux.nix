@@ -94,6 +94,10 @@ in {
     systemd-lock-handler.enable = true;
   };
 
+  networking.networkmanager.enable = true;
+
+  users.users.clecompt.extraGroups = [ "networkmanager" ];
+
   xdg.portal = {
     enable = true;
     extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
