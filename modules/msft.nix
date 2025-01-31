@@ -13,5 +13,6 @@
     git-credential-manager
     tmuxp
     vscode.fhs
+    wayvnc
   ];
 }
