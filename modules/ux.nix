@@ -2,7 +2,9 @@ inputs: { config, lib, pkgs, ... }: let
   flakes = lib.mapAttrs
     (_: flake: flake.packages.${pkgs.system}.default or null) inputs;
 
-  fluent-icons = pkgs.fluent-icon-theme.override {
+  fluent-icons = (pkgs.fluent-icon-theme.overrideAttrs (_: {
+    dontCheckForBrokenSymlinks = true;
+  })).override {
     colorVariants = [ "grey" ];
     roundedIcons = true;
   };
