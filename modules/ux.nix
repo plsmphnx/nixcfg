@@ -57,6 +57,7 @@ in {
       flakes.hyprmks
       flakes.shell
 
+      hypridle
       hyprlock
       shikane
       vlock

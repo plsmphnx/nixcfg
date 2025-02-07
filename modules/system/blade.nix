@@ -21,15 +21,11 @@ inputs: { pkgs, lib, ... }: {
     };
     kernelPackages = lib.mkDefault pkgs.linuxPackages_xanmod_latest;
     kernelModules = [ "ntsync" ];
-    kernelParams = [ "nvidia.NVreg_PreserveVideoMemoryAllocations=1" ];
   };
 
-  hardware.nvidia = {
-    prime = {
-      nvidiaBusId = "PCI:1:0:0";
-      intelBusId = "PCI:0:2:0";
-    };
-    open = false;
+  hardware.nvidia.prime = {
+    nvidiaBusId = "PCI:1:0:0";
+    intelBusId = "PCI:0:2:0";
   };
 
   environment.systemPackages = with pkgs; [
