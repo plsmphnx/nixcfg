@@ -1,6 +1,6 @@
 { pkgs, ... }: {
   imports = [
-    ../pc.nix
+    ./pc.nix
   ];
 
   networking.networkmanager.wifi.backend = "iwd";
