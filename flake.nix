@@ -28,6 +28,7 @@
       laptop = import ./modules/laptop.nix;
       login = import ./modules/login.nix;
       msft = import ./modules/msft.nix;
+      pc = import ./modules/pc.nix;
       ux = import ./modules/ux.nix inputs;
 
       blade = import ./modules/system/blade.nix inputs;

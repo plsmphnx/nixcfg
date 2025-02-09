@@ -12,13 +12,6 @@ inputs: { pkgs, lib, ... }: {
   networking.hostName = "clecompt-prime";
 
   boot = {
-    loader = {
-      systemd-boot = {
-        enable = true;
-        configurationLimit = 4;
-      };
-      efi.canTouchEfiVariables = true;
-    };
     kernelPackages = lib.mkDefault pkgs.linuxPackages_xanmod_latest;
     kernelModules = [ "ntsync" ];
   };

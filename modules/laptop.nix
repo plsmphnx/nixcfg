@@ -1,4 +1,8 @@
 { pkgs, ... }: {
+  imports = [
+    ../pc.nix
+  ];
+
   networking.networkmanager.wifi.backend = "iwd";
   hardware.bluetooth.enable = true;
   powerManagement.enable = true;
@@ -14,10 +18,4 @@
   systemd.sleep.extraConfig = ''
     HibernateDelaySec=1800
   '';
-
-  environment.systemPackages = with pkgs; [
-    lshw
-    pciutils
-    usbutils
-  ];
 }

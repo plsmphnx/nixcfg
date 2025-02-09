@@ -8,16 +8,13 @@ inputs: { ... }: {
 
   networking.hostName = "clecompt-pine";
 
-  boot = {
-    loader.grub = {
-      enable = true;
-      device = "nodev";
-      efiSupport = true;
-      efiInstallAsRemovable = true;
-      configurationLimit = 4;
-    };
-    kernelModules = [ "rkvdec" ];
-  };
+  boot.loader.efi.canTouchEfiVariables = false;
 
-  hardware.alsa.enablePersistence = true;
+  hardware = {
+    alsa.enablePersistence = true;
+    deviceTree = {
+      enable = true;
+      name = "rockchip/rk3399-pinebook-pro.dtb";
+    };
+  };
 }

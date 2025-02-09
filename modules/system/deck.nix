@@ -38,15 +38,7 @@ in {
       "steamdeck_hwmon"
       "steamdeck_extcon"
     ];
-
-    loader = {
-      systemd-boot = {
-        enable = true;
-        configurationLimit = 4;
-        consoleMode = "auto";
-      };
-      efi.canTouchEfiVariables = true;
-    };
+    loader.systemd-boot.consoleMode = "auto";
   };
 
   swapDevices = [{

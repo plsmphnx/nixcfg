@@ -11,14 +11,11 @@ inputs: { config, lib, pkgs, ... }: {
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
-
-    bootspec.enable = true;
-    loader.efi.canTouchEfiVariables = true;
     lanzaboote = {
       enable = true;
       pkiBundle = "/etc/secureboot";
-      configurationLimit = 4;
     };
+    loader.systemd-boot.enable = false;
   };
 
   swapDevices = [{
