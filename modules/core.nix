@@ -1,4 +1,4 @@
-{ pkgs, inputs, lib, ... }: let
+{ config, pkgs, inputs, lib, ... }: let
   sh = pkgs.runCommandLocal "sh" { meta.priority = -1; } ''
     mkdir -p $out/bin
     ln -s ${lib.getExe pkgs.dash} $out/bin/sh
@@ -7,7 +7,7 @@
     (builtins.readFile ../tools/os.sh);
 in {
   # System
-  system.stateVersion = "unstable";
+  system.stateVersion = config.system.nixos.release;
   nixpkgs.config.allowUnfree = true;
   nix = {
     settings = {
