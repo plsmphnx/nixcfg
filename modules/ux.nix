@@ -58,7 +58,6 @@ in {
 
       hypridle
       hyprlock
-      shikane
       vlock
 
       ffmpegthumbnailer
