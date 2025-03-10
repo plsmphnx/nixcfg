@@ -75,7 +75,13 @@ in {
     ];
   };
 
-  programs.hyprland.enable = true;
+  programs = {
+    appimage = {
+      enable = true;
+      binfmt = true;
+    };
+    hyprland.enable = true;
+  };
 
   services = {
     avahi = {
@@ -90,6 +96,7 @@ in {
       alsa.enable = true;
       pulse.enable = true;
     };
+    printing.enable = true;
     systemd-lock-handler.enable = true;
   };
 
