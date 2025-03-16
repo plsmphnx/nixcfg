@@ -1,8 +1,8 @@
-# chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
-# chaotic.nixosModules.default
 { pkgs, ... }: {
   boot = {
-    kernelPackages = pkgs.linuxPackages_cachyos;
+    # github:chaotic-cx/nyx/nyxpkgs-unstable
+    kernelPackages =
+      pkgs.linuxPackages_cachyos or pkgs.linuxPackages_xanmod_latest;
     kernelModules = [ "ntsync" ];
   };
   services.scx = {

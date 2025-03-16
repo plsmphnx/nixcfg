@@ -1,6 +1,6 @@
 inputs: { pkgs, lib, ... }: {
   imports = [
-    ../core.nix
+    ../gaming.nix
     ../laptop.nix
     ../login.nix
     (import ../ux.nix inputs)
@@ -10,8 +10,6 @@ inputs: { pkgs, lib, ... }: {
   ];
 
   networking.hostName = "clecompt-prime";
-
-  boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_xanmod_latest;
 
   swapDevices = [{
     device = "/swap";

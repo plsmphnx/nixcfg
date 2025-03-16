@@ -1,10 +1,10 @@
-# requires: github:jovian-experiments/jovian-nixos
+# github:jovian-experiments/jovian-nixos
 inputs: { config, pkgs, lib, ... }: let 
   steamdeck-dkms = config.boot.kernelPackages.callPackage
     ../../packages/steamdeck-dkms.nix {};
 in {
   imports = [
-    ../core.nix
+    ../gaming.nix
     ../laptop.nix
     ../login.nix
     (import ../ux.nix inputs)
@@ -29,7 +29,6 @@ in {
   };
 
   boot = {
-    kernelPackages = lib.mkDefault pkgs.linuxPackages_xanmod_latest;
     extraModulePackages = [ steamdeck-dkms ];
     kernelModules = [
       "steamdeck"

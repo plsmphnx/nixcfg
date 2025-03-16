@@ -1,7 +1,5 @@
 { pkgs, ... }: {
-  imports = [
-    ./pc.nix
-  ];
+  imports = [ ./pc.nix ];
 
   networking.networkmanager.wifi.backend = "iwd";
   hardware.bluetooth.enable = true;

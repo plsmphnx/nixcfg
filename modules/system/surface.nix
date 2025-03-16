@@ -1,6 +1,5 @@
 inputs: { config, lib, pkgs, ... }: {
   imports = [
-    ../core.nix
     ../laptop.nix
     ../login.nix
     (import ../ux.nix inputs)
@@ -10,7 +9,6 @@ inputs: { config, lib, pkgs, ... }: {
   networking.hostName = "clecompt-dev";
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_latest;
     lanzaboote = {
       enable = true;
       pkiBundle = "/etc/secureboot";

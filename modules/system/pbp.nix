@@ -1,6 +1,5 @@
 inputs: { ... }: {
   imports = [
-    ../core.nix
     ../laptop.nix
     ../login.nix
     (import ../ux.nix inputs)

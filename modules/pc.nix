@@ -1,9 +1,14 @@
 { lib, pkgs, ... }: {
-  boot.loader = {
-    efi.canTouchEfiVariables = lib.mkDefault true;
-    systemd-boot = {
-      enable = lib.mkDefault true;
-      configurationLimit = 4;
+  imports = [ ./core.nix ];
+
+  boot = {
+    kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
+    loader = {
+      efi.canTouchEfiVariables = lib.mkDefault true;
+      systemd-boot = {
+        enable = lib.mkDefault true;
+        configurationLimit = 4;
+      };
     };
   };
 

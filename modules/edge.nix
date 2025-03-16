@@ -1,8 +1,7 @@
 { ... }: {
   nix.settings = {
     substituters = [
-      # hyprland.url = "github:hyprwm/hyprland";
-      # hyprland.nixosModules.default
+      # github:hyprwm/hyprland
       "https://hyprland.cachix.org"
     ];
     trusted-public-keys = [
