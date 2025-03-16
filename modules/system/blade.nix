@@ -11,10 +11,12 @@ inputs: { pkgs, lib, ... }: {
 
   networking.hostName = "clecompt-prime";
 
-  boot = {
-    kernelPackages = lib.mkDefault pkgs.linuxPackages_xanmod_latest;
-    kernelModules = [ "ntsync" ];
-  };
+  boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_xanmod_latest;
+
+  swapDevices = [{
+    device = "/swap";
+    size = 32*1024;
+  }];
 
   hardware.nvidia.prime = {
     nvidiaBusId = "PCI:1:0:0";

@@ -32,13 +32,12 @@ in {
     kernelPackages = lib.mkDefault pkgs.linuxPackages_xanmod_latest;
     extraModulePackages = [ steamdeck-dkms ];
     kernelModules = [
-      "ntsync"
       "steamdeck"
       "steamdeck_leds"
       "steamdeck_hwmon"
       "steamdeck_extcon"
     ];
-    loader.systemd-boot.consoleMode = "auto";
+    loader.systemd-boot.consoleMode = "5";
   };
 
   swapDevices = [{

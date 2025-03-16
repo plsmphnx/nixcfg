@@ -25,6 +25,7 @@
     nixosModules = {
       core = import ./modules/core.nix;
       edge = import ./modules/edge.nix;
+      gaming = import ./modules/gaming.nix;
       laptop = import ./modules/laptop.nix;
       login = import ./modules/login.nix;
       msft = import ./modules/msft.nix;

@@ -12,4 +12,6 @@
     pciutils
     usbutils
   ];
+
+  services.fwupd.enable = true;
 }
