@@ -1,12 +1,14 @@
-{ lib, pkgs, ... }: {
+{ lib, pkgs, ... }: let
+  mkUserDefault = lib.mkOverride 1250;
+in{
   imports = [ ./core.nix ];
 
   boot = {
-    kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
+    kernelPackages = mkUserDefault pkgs.linuxPackages_latest;
     loader = {
-      efi.canTouchEfiVariables = lib.mkDefault true;
+      efi.canTouchEfiVariables = mkUserDefault true;
       systemd-boot = {
-        enable = lib.mkDefault true;
+        enable = mkUserDefault true;
         configurationLimit = 4;
       };
     };
