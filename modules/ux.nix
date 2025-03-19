@@ -31,7 +31,7 @@ in {
       blueberry
       iwgtk
       networkmanagerapplet
-      pavucontrol
+      pwvucontrol
 
       brightnessctl
       grimblast
