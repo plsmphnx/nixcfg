@@ -43,7 +43,7 @@ in {
       lite-xl
       luakit
       mpv
-      pcmanfm
+      nemo
       qalculate-gtk
       zathura
 
