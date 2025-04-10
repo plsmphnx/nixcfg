@@ -47,6 +47,8 @@ in {
     systemPackages = with pkgs; [
       bat
       btop
+      ffmpeg-headless
+      file
       gcc
       grc
       jq
@@ -56,6 +58,7 @@ in {
       pass
       sh
       wget
+      whois
     ];
   };
   programs = {
