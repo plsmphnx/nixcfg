@@ -6,7 +6,7 @@
   os-util = pkgs.writeScriptBin "os"
     (builtins.readFile ../tools/os.sh);
 in {
-  # System
+  # system
   system.stateVersion = config.system.nixos.release;
   nixpkgs.config.allowUnfree = true;
   nix = {
@@ -35,7 +35,7 @@ in {
     initrd.systemd.enable = true;
   };
 
-  # Packages
+  # packages
   environment = {
     etc = {
       "grc.zsh".source = "${pkgs.grc}/etc/grc.zsh";
@@ -70,7 +70,7 @@ in {
   };
   services.envfs.enable = true;
 
-  # User
+  # user
   users = {
     users.clecompt = {
       isNormalUser = true;

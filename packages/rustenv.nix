@@ -1,7 +1,8 @@
-{ packages ? [], lib, libclang, llvmPackages, runCommandLocal, stdenv }: let
+# requires: llvmPackages.clang
+{ packages ? [], lib, libclang, runCommandLocal, stdenv }: let
   dev = map (pkg: pkg.dev) packages;
 in runCommandLocal "rustenv" {
-  buildInputs = [ libclang.lib llvmPackages.clang ] ++ dev;
+  buildInputs = [ libclang.lib ] ++ dev;
 } ''
   mkdir -p $out/share
   echo "export PKG_CONFIG_PATH=$(
