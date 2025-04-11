@@ -17,11 +17,6 @@ in {
       enable = true;
       enableKernelPatches = false;
     };
-    steamos = {
-      useSteamOSConfig = false;
-      enableDefaultCmdlineConfig = true;
-      enableSysctlConfig = true;
-    };
     steam = {
       enable = true;
       environment.XKB_DEFAULT_OPTIONS = "srvrkeys:none";
