@@ -39,6 +39,7 @@
     };
     packages = systems (pkgs: {
       megazeux = pkgs.callPackage ./packages/megazeux.nix {};
+      rustenv = pkgs.callPackage ./packages/rustenv.nix {};
       steamdeck-dkms = pkgs.linuxPackages_latest.callPackage
         ./packages/steamdeck-dkms.nix {}; # For testing only.
     });
