@@ -1,6 +1,6 @@
 { packages ? [], lib, libclang, llvmPackages, runCommandLocal, stdenv }: let
   dev = map (pkg: pkg.dev) packages;
-in pkgs.runCommandLocal "rustenv" {
+in runCommandLocal "rustenv" {
   buildInputs = [ libclang.lib llvmPackages.clang ] ++ dev;
 } ''
   mkdir -p $out/share
