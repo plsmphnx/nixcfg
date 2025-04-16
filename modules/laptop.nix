@@ -6,7 +6,10 @@
   powerManagement.enable = true;
 
   services = {
-    upower.enable = true;
+    upower = {
+      enable = true;
+      criticalPowerAction = "PowerOff";
+    };
     logind = {
       powerKey = "ignore";
       lidSwitch = "suspend-then-hibernate";
