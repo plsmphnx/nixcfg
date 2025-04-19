@@ -38,6 +38,7 @@
       surface = import ./modules/system/surface.nix inputs;
     };
     packages = systems (pkgs: {
+      accurse = pkgs.callPackage ./packages/accurse.nix {};
       megazeux = pkgs.callPackage ./packages/megazeux.nix {};
       rustenv = pkgs.callPackage ./packages/rustenv.nix {};
       steamdeck-dkms = pkgs.linuxPackages_latest.callPackage
