@@ -18,6 +18,10 @@
       url = "github:plsmphnx/shell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    vimix-cursors = {
+      url = "github:plsmphnx/vimix-cursors";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs = { self, nixpkgs, ... } @ inputs: let
     systems = fn: nixpkgs.lib.mapAttrs (_: fn) nixpkgs.legacyPackages;
@@ -38,7 +42,6 @@
       surface = import ./modules/system/surface.nix inputs;
     };
     packages = systems (pkgs: {
-      accurse = pkgs.callPackage ./packages/accurse.nix {};
       megazeux = pkgs.callPackage ./packages/megazeux.nix {};
       rustenv = pkgs.callPackage ./packages/rustenv.nix {};
       steamdeck-dkms = pkgs.linuxPackages_latest.callPackage

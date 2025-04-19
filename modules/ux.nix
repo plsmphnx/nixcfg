@@ -49,7 +49,7 @@ in {
 
       fluent-icons
       fluent-theme
-      vimix-cursors
+      flakes.vimix-cursors
       
       flakes.exec-util
       flakes.hyprjump
