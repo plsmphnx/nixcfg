@@ -18,8 +18,8 @@
       url = "github:plsmphnx/shell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    vimix-cursors = {
-      url = "github:plsmphnx/vimix-cursors";
+    theme = {
+      url = "github:plsmphnx/theme";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

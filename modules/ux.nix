@@ -1,25 +1,7 @@
 inputs: { config, lib, pkgs, ... }: let
-  flakes = lib.mapAttrs
-    (_: flake: flake.packages.${pkgs.system}.default or null) inputs;
-
-  fluent-icons = pkgs.fluent-icon-theme.override {
-    colorVariants = [ "grey" ];
-  };
-
-  fluent-theme = (pkgs.fluent-gtk-theme.overrideAttrs (_: {
-    preInstall = ''
-      sed -i "/primary/s/white/rgba(white, 0.9)/g" ./src/_sass/_colors.scss
-      sed -i "/\$background:/s/#333333/#000000/gi" ./src/_sass/_colors.scss
-      sed -i "/\$surface:/s/#3C3C3C/#000000/gi" ./src/_sass/_colors.scss
-      sed -i "/\$blur_opacity:/s/0\.5/0.4/g" ./src/_sass/_colors.scss
-      sed -i "/\$window-radius:/s/.px/0px/g" ./src/_sass/_variables.scss    
-    '';
-  })).override {
-    colorVariants = [ "dark" ];
-    sizeVariants = [ "compact" ];
-    themeVariants = [ "grey" ];
-    tweaks = [ "blur" "noborder" "round" ];
-  };
+  flakes = lib.mapAttrs (_: flake:
+    flake.packages.${pkgs.system}.default or flake.packages.${pkgs.system}
+  ) inputs;
 
   mpv = pkgs.mpv.override {
     scripts = with pkgs.mpvScripts; [ mpris ];
@@ -47,9 +29,9 @@ in {
       qalculate-gtk
       zathura
 
-      fluent-icons
-      fluent-theme
-      flakes.vimix-cursors
+      flakes.theme.cursor
+      flakes.theme.icon
+      flakes.theme.gtk
       
       flakes.exec-util
       flakes.hyprjump
