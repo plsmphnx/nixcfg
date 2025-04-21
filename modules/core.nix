@@ -57,6 +57,7 @@ in {
       ouch
       pass
       sh
+      trashy
       wget
       whois
     ];
