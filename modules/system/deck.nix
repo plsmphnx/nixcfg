@@ -21,6 +21,11 @@ in {
       enable = true;
       environment.XKB_DEFAULT_OPTIONS = "srvrkeys:none";
     };
+    steamos = {
+      useSteamOSConfig = false;
+      enableDefaultCmdlineConfig = true;
+      enableSysctlConfig = true;
+    };
   };
 
   boot = {
