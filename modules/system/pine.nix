@@ -4,8 +4,6 @@ inputs: { ... }: {
     (import ../ux.nix inputs)
   ];
 
-  networking.hostName = "clecompt-pine";
-
   boot.loader.efi.canTouchEfiVariables = false;
 
   hardware = {

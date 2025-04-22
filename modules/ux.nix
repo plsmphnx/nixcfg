@@ -1,4 +1,4 @@
-inputs: { config, lib, pkgs, ... }: let
+inputs: { lib, pkgs, user, ... }: let
   flakes = lib.mapAttrs (_: flake:
     flake.packages.${pkgs.system}.default or flake.packages.${pkgs.system}
   ) inputs;
@@ -82,7 +82,7 @@ in {
   };
 
   networking.networkmanager.enable = true;
-  users.users.clecompt.extraGroups = [ "networkmanager" ];
+  users.users.${user}.extraGroups = [ "networkmanager" ];
 
   xdg.portal = {
     enable = true;

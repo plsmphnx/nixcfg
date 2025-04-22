@@ -1,9 +1,9 @@
-{ lib, pkgs, ... }: {
+{ pkgs, user, ... }: {
   services.openssh = {
     enable = true;
     startWhenNeeded = true;
     settings = {
-      AllowUsers = [ "clecompt" ];
+      AllowUsers = [ user ];
       PermitRootLogin = "no";
     };
   };

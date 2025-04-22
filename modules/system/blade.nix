@@ -1,12 +1,10 @@
-inputs: { pkgs, lib, ... }: {
+inputs: { pkgs, ... }: {
   imports = [
     (import ../gaming.nix inputs)
     ../laptop.nix
     ../hardware/intel.nix
     ../hardware/nvidia.nix
   ];
-
-  networking.hostName = "clecompt-prime";
 
   swapDevices = [{
     device = "/swap";

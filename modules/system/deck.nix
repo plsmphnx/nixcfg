@@ -1,5 +1,5 @@
 # github:jovian-experiments/jovian-nixos
-inputs: { config, pkgs, lib, ... }: let 
+inputs: { config, pkgs, ... }: let 
   steamdeck-dkms = config.boot.kernelPackages.callPackage
     ../../packages/steamdeck-dkms.nix {};
 in {
@@ -7,8 +7,6 @@ in {
     (import ../gaming.nix inputs)
     ../laptop.nix    
   ];
-
-  networking.hostName = "clecompt-deck";
 
   jovian = {
     devices.steamdeck = {

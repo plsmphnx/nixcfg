@@ -6,16 +6,20 @@
     };
     nvidia = {
       modesetting.enable = true;
-      package = config.boot.kernelPackages.nvidiaPackages.beta;
       powerManagement.enable = true;
+
+      package = config.boot.kernelPackages.nvidiaPackages.beta;
+
       open = false;
     };
     nvidia-container-toolkit.enable = true;
   };
+
   services.xserver.videoDrivers = [ "nvidia" ];
   systemd.services.lock.before = [
     "nvidia-hibernate.service"
     "nvidia-suspend.service"
   ];
+
   boot.kernelParams = [ "nvidia.NVreg_PreserveVideoMemoryAllocations=1" ];
 }
