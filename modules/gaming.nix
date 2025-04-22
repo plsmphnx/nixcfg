@@ -5,9 +5,13 @@
       pkgs.linuxPackages_cachyos or pkgs.linuxPackages_xanmod_latest;
     kernelModules = [ "ntsync" ];
   };
-  services.scx = {
-    enable = true;
-    scheduler = "scx_bpfland";
+  services = {
+    hardware.openrgb.enable = true;
+    scx = {
+      enable = true;
+      scheduler = "scx_bpfland";
+    };
   };
   programs.gamemode.enable = true;
+  hardware.xpadneo.enable = true;
 }

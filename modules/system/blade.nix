@@ -6,7 +6,6 @@ inputs: { pkgs, lib, ... }: {
     (import ../ux.nix inputs)
     ../hardware/intel.nix
     ../hardware/nvidia.nix
-    ../hardware/razer.nix
   ];
 
   networking.hostName = "clecompt-prime";
