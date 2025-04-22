@@ -3,8 +3,7 @@
     mkdir -p $out/bin
     ln -s ${lib.getExe pkgs.dash} $out/bin/sh
   '';
-  os-util = pkgs.writeScriptBin "os"
-    (builtins.readFile ../tools/os.sh);
+  os = pkgs.writeScriptBin "os" (builtins.readFile ../tools/os.sh);
 in {
   # system
   system.stateVersion = config.system.nixos.release;
@@ -53,7 +52,7 @@ in {
       grc
       jq
       libqalculate
-      os-util
+      os
       ouch
       pass
       sh

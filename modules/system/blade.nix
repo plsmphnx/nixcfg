@@ -1,9 +1,7 @@
 inputs: { pkgs, lib, ... }: {
   imports = [
-    ../gaming.nix
+    (import ../gaming.nix inputs)
     ../laptop.nix
-    ../login.nix
-    (import ../ux.nix inputs)
     ../hardware/intel.nix
     ../hardware/nvidia.nix
   ];

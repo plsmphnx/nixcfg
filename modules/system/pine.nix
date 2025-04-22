@@ -1,7 +1,6 @@
 inputs: { ... }: {
   imports = [
     ../laptop.nix
-    ../login.nix
     (import ../ux.nix inputs)
   ];
 

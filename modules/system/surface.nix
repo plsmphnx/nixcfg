@@ -1,12 +1,11 @@
 inputs: { config, lib, pkgs, ... }: {
   imports = [
     ../laptop.nix
-    ../login.nix
     (import ../ux.nix inputs)
     ../hardware/intel.nix
   ];
 
-  networking.hostName = "clecompt-dev";
+  networking.hostName = "clecompt-surface";
 
   boot = {
     lanzaboote = {

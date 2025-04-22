@@ -4,10 +4,8 @@ inputs: { config, pkgs, lib, ... }: let
     ../../packages/steamdeck-dkms.nix {};
 in {
   imports = [
-    ../gaming.nix
-    ../laptop.nix
-    ../login.nix
-    (import ../ux.nix inputs)
+    (import ../gaming.nix inputs)
+    ../laptop.nix    
   ];
 
   networking.hostName = "clecompt-deck";

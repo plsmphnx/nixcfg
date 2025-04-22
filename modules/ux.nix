@@ -42,7 +42,6 @@ in {
       hyprlock
       vlock
 
-      ffmpegthumbnailer
       kdePackages.qtwayland
       libsForQt5.qt5.qtwayland
     ];
