@@ -1,5 +1,5 @@
 inputs: { pkgs, ... }: {
-  imports = [ (import ../ux.nix inputs) ];
+  imports = [ (import ./ux.nix inputs) ];
 
   boot = {
     # github:chaotic-cx/nyx/nyxpkgs-unstable
