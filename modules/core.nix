@@ -34,7 +34,6 @@ in {
   };
   hardware.enableAllFirmware = true;
 
-  time.timeZone = "America/Los_Angeles";
   systemd.coredump.enable = false;
   virtualisation.podman.enable = true;
 
@@ -74,7 +73,10 @@ in {
     zsh.enable = true;
   };
 
-  services.envfs.enable = true;
+  services = {
+    envfs.enable = true;
+    tzupdate.enable = true;
+  };
 
   # user
   users = {
