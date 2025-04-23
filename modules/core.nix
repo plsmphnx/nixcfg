@@ -88,6 +88,6 @@ in {
       homeMode = "750";
       shell = pkgs.zsh;
     };
-    groups.${user}.gid = users.${user}.uid;
+    groups.${user}.gid = config.users.users.${user}.uid;
   };
 }
