@@ -1,5 +1,5 @@
 # requires: llvmPackages.clang
-{ packages ? [], lib, libclang, runCommandLocal, stdenv }: let
+{ packages ? [], lib, libclang, runCommandLocal }: let
   dev = map (pkg: pkg.dev) packages;
 in runCommandLocal "rustenv" {
   buildInputs = [ libclang.lib ] ++ dev;

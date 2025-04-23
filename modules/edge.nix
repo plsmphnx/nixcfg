@@ -1,4 +1,4 @@
-{ ... }: {
+{
   nix.settings = {
     substituters = [
       # github:hyprwm/hyprland

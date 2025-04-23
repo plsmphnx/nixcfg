@@ -4,7 +4,7 @@ inputs: { lib, pkgs, user, ... }: let
   ) inputs;
 
   mpv = pkgs.mpv.override {
-    scripts = with pkgs.mpvScripts; [ mpris ];
+    scripts = [ pkgs.mpvScripts.mpris ];
   };
 in {
   environment = {
@@ -86,7 +86,7 @@ in {
 
   xdg.portal = {
     enable = true;
-    extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
 
   security = {

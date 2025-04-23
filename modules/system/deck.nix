@@ -1,5 +1,5 @@
 # github:jovian-experiments/jovian-nixos
-inputs: { config, pkgs, ... }: let 
+inputs: { config, lib, pkgs, ... }: let 
   steamdeck-dkms = config.boot.kernelPackages.callPackage
     ../../packages/steamdeck-dkms.nix {};
 in {
@@ -49,7 +49,7 @@ in {
   security.wrappers.flatpak = {
     owner = "root";
     group = "root";
-    source = "${pkgs.flatpak}/bin/flatpak";
+    source = lib.getExe pkgs.flatpak;
     capabilities = "cap_sys_nice-pie";
   };
 

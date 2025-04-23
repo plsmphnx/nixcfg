@@ -1,4 +1,4 @@
-{ ... }: {
+{
   imports = [ ./pc.nix ];
 
   networking.networkmanager.wifi.backend = "iwd";

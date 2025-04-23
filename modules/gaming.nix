@@ -17,7 +17,7 @@ inputs: { pkgs, ... }: {
     };
   };
 
-  environment.systemPackages = with pkgs; [ piper ];
+  environment.systemPackages = [ pkgs.piper ];
 
   programs.gamemode.enable = true;
 

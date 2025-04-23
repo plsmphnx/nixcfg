@@ -16,7 +16,5 @@ inputs: { pkgs, ... }: {
     intelBusId = "PCI:0:2:0";
   };
 
-  environment.systemPackages = with pkgs; [
-    wl-gammarelay-rs
-  ];
+  environment.systemPackages = [ pkgs.wl-gammarelay-rs ];
 }

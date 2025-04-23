@@ -5,7 +5,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "AliceLR";
     repo = "megazeux";
-    rev = "refs/tags/v${version}";
+    rev = "v${version}";
     sha256 = "sha256-7KNf+pHb7UOnEoK2YiKfHbTxiqtFxWMY8uVhihVRGeU=";
   };
   buildInputs = [ libpng libogg libvorbis SDL2 ];

@@ -18,7 +18,5 @@ inputs: { pkgs, ... }: {
     size = 32*1024;
   }];
 
-  environment.systemPackages = with pkgs; [
-    surface-control
-  ];
+  environment.systemPackages = [ pkgs.surface-control ];
 }

@@ -1,4 +1,4 @@
-inputs: { ... }: {
+inputs: {
   imports = [
     ../laptop.nix
     (import ../ux.nix inputs)

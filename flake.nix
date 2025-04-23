@@ -1,10 +1,25 @@
 {
   inputs = {
-    exec-util.url = "github:plsmphnx/exec-util";
-    hyprjump.url = "github:plsmphnx/hyprjump";
-    hyprmks.url = "github:plsmphnx/hyprmks";
-    shell.url = "github:plsmphnx/shell";
-    theme.url = "github:plsmphnx/theme";
+    exec-util = {
+      url = "github:plsmphnx/exec-util";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    hyprjump = {
+      url = "github:plsmphnx/hyprjump";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    hyprmks = {
+      url = "github:plsmphnx/hyprmks";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    shell = {
+      url = "github:plsmphnx/shell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    theme = {
+      url = "github:plsmphnx/theme";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs = { self, nixpkgs, ... } @ inputs: let
     systems = fn: nixpkgs.lib.mapAttrs (_: fn) nixpkgs.legacyPackages;

@@ -1,5 +1,6 @@
-{ fetchFromGitHub, kernel, stdenv }:
-stdenv.mkDerivation rec {
+{ fetchFromGitHub, kernel, stdenv }: let
+  modDir = "lib/modules/${kernel.modDirVersion}";
+in stdenv.mkDerivation rec {
   pname = "steamdeck-dkms";
   version = "6.8.12-valve2";
   src = fetchFromGitHub {
@@ -10,12 +11,10 @@ stdenv.mkDerivation rec {
   };
   hardeningDisable = [ "pic" ];
   nativeBuildInputs = kernel.moduleBuildDependencies;
-  makeFlags = [
-    "KERNEL_DIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-  ];
+  makeFlags = [ "KERNEL_DIR=${kernel.dev}/${modDir}/build" ];
   installPhase = ''
     for file in *.ko; do
-      install -D $file $out/lib/modules/${kernel.modDirVersion}/misc/$file
+      install -D $file $out/${modDir}/misc/$file
     done
   '';
 }

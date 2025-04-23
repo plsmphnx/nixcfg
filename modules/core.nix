@@ -1,9 +1,9 @@
-{ config, host, pkgs, inputs, lib, user, ... }: let
+{ config, host, inputs, lib, pkgs, user, ... }: let
   sh = pkgs.runCommandLocal "sh" { meta.priority = -1; } ''
     mkdir -p $out/bin
     ln -s ${lib.getExe pkgs.dash} $out/bin/sh
   '';
-  os = pkgs.writeScriptBin "os" (builtins.readFile ../tools/os.sh);
+  os = pkgs.writeScriptBin "os" (lib.readFile ../tools/os.sh);
 in {
   # system
   nix = {
@@ -19,7 +19,7 @@ in {
       trusted-users = [ "@wheel" ];
       use-cgroups = true;
     };
-    registry = builtins.mapAttrs (input: flake: { inherit flake; }) inputs;
+    registry = lib.mapAttrs (_: flake: { inherit flake; }) inputs;
   };
   nixpkgs.config.allowUnfree = true;
   system.stateVersion = config.system.nixos.release;
@@ -88,8 +88,6 @@ in {
       homeMode = "750";
       shell = pkgs.zsh;
     };
-    groups.${user} = {
-      gid = 1000;
-    };
+    groups.${user}.gid = users.${user}.uid;
   };
 }
