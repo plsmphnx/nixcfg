@@ -10,11 +10,9 @@
 
       package = config.boot.kernelPackages.nvidiaPackages.beta;
 
-      open = false;
+      open = true;
     };
     nvidia-container-toolkit.enable = true;
   };
-
   services.xserver.videoDrivers = [ "nvidia" ];
-  boot.kernelParams = [ "nvidia.NVreg_PreserveVideoMemoryAllocations=1" ];
 }
