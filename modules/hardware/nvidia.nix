@@ -16,10 +16,5 @@
   };
 
   services.xserver.videoDrivers = [ "nvidia" ];
-  systemd.services.lock.before = [
-    "nvidia-hibernate.service"
-    "nvidia-suspend.service"
-  ];
-
   boot.kernelParams = [ "nvidia.NVreg_PreserveVideoMemoryAllocations=1" ];
 }
