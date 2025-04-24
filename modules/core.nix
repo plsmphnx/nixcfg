@@ -60,6 +60,7 @@ in {
       pass
       sh
       trashy
+      tzupdate
       wget
       whois
     ];
@@ -73,10 +74,7 @@ in {
     zsh.enable = true;
   };
 
-  services = {
-    envfs.enable = true;
-    tzupdate.enable = true;
-  };
+  services.envfs.enable = true;
 
   # user
   users = {
