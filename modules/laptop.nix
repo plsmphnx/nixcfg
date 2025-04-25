@@ -1,4 +1,4 @@
-{
+{ config, ... }: {
   imports = [
     ./hibernate.nix
     ./pc.nix
@@ -14,7 +14,8 @@
     };
     logind = {
       powerKey = "ignore";
-      lidSwitch = "suspend-then-hibernate";
+      lidSwitch = if (config.hibernate.size != null)
+        then "suspend-then-hibernate" else "suspend";
     };
   };
 }

@@ -52,6 +52,7 @@ in {
       ffmpeg-headless
       file
       gcc
+      glib
       grc
       jq
       libqalculate
@@ -59,7 +60,6 @@ in {
       ouch
       pass
       sh
-      trashy
       tzupdate
       wget
       whois
@@ -74,7 +74,10 @@ in {
     zsh.enable = true;
   };
 
-  services.envfs.enable = true;
+  services = {
+    envfs.enable = true;
+    gvfs.enable = true;
+  };
 
   # user
   users = {
