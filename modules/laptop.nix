@@ -1,9 +1,11 @@
 {
-  imports = [ ./pc.nix ];
+  imports = [
+    ./hibernate.nix
+    ./pc.nix
+  ];
 
   networking.networkmanager.wifi.backend = "iwd";
   hardware.bluetooth.enable = true;
-  powerManagement.enable = true;
 
   services = {
     upower = {
@@ -15,8 +17,4 @@
       lidSwitch = "suspend-then-hibernate";
     };
   };
-
-  systemd.sleep.extraConfig = ''
-    HibernateDelaySec=1800
-  '';
 }

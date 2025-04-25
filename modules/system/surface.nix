@@ -13,10 +13,7 @@ inputs: { pkgs, ... }: {
     loader.systemd-boot.enable = false;
   };
 
-  swapDevices = [{
-    device = "/swap";
-    size = 32*1024;
-  }];
+  hibernate.size = 32;
 
   environment.systemPackages = [ pkgs.surface-control ];
 }

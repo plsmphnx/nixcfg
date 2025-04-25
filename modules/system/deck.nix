@@ -35,10 +35,7 @@ in {
     loader.systemd-boot.consoleMode = "5";
   };
 
-  swapDevices = [{
-    device = "/swap";
-    size = 16*1024;
-  }];
+  hibernate.size = 16;
 
   environment.systemPackages = with pkgs; [
     jupiter-dock-updater-bin
