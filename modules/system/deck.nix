@@ -50,7 +50,13 @@ in {
     capabilities = "cap_sys_nice-pie";
   };
 
-  systemd.sleep.extraConfig = ''
-    HibernateMode=shutdown
-  '';
+  systemd = {
+    sleep.extraConfig = ''
+      HibernateMode=shutdown
+    '';
+    tmpfiles.settings.hibernate."/sys/power/disk".w.argument = "shutdown";
+  };
+
+  # causes screen shutoff; disable until root cause
+  services.hardware.openrgb.enable = lib.mkForce false;
 }
