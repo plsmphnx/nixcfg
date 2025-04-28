@@ -56,7 +56,4 @@ in {
     '';
     tmpfiles.settings.hibernate."/sys/power/disk".w.argument = "shutdown";
   };
-
-  # causes screen shutoff; disable until root cause
-  services.hardware.openrgb.enable = lib.mkForce false;
 }
