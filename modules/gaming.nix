@@ -9,15 +9,12 @@ inputs: { pkgs, ... }: {
   };
 
   services = {
-    hardware.openrgb.enable = true;
     ratbagd.enable = true;
     scx = {
       enable = true;
       scheduler = "scx_bpfland";
     };
   };
-
-  environment.systemPackages = [ pkgs.piper ];
 
   programs.gamemode.enable = true;
 
