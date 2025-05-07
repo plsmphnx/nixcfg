@@ -54,7 +54,7 @@ in {
       gcc
       glib
       grc
-      jq
+      jaq
       libqalculate
       os
       ouch
