@@ -1,4 +1,4 @@
-{ lib, pkgs, user, ... }: {
+inputs: { pkgs, user, ... }: {
   imports = [
     (import ../gaming.nix inputs)
     ../laptop.nix
