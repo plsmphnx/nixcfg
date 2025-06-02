@@ -10,10 +10,10 @@ in with lib; {
     };
 
     mode = mkOption {
-      type = types.nullOr types.string;
+      type = types.nullOr types.str;
       default = null;
       example = "shutdown";
-      description = "Hibernation mode string.";
+      description = "Hibernation mode.";
     };
 
     delay = mkOption {
