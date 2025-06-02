@@ -2,8 +2,8 @@ inputs: { pkgs, ... }: {
   imports = [
     (import ../gaming.nix inputs)
     ../laptop.nix
-    ../hardware/intel.nix
-    ../hardware/nvidia.nix
+    ../hardware/cpu/intel.nix
+    ../hardware/gpu/nvidia.nix
   ];
 
   hibernate.size = 32;

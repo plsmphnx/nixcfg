@@ -37,6 +37,7 @@
 
       blade = import ./modules/system/blade.nix inputs;
       deck = import ./modules/system/deck.nix inputs;
+      gpd = import ./modules/system/gpd.nix inputs;
       pine = import ./modules/system/pine.nix inputs;
       surface = import ./modules/system/surface.nix inputs;
     };

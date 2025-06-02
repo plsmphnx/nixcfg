@@ -5,7 +5,7 @@ inputs: { config, lib, pkgs, ... }: let
 in {
   imports = [
     (import ../gaming.nix inputs)
-    ../laptop.nix    
+    ../laptop.nix
   ];
 
   jovian = {
@@ -35,7 +35,10 @@ in {
     loader.systemd-boot.consoleMode = "5";
   };
 
-  hibernate.size = 16;
+  hibernate = {
+    size = 16;
+    mode = "shutdown";
+  };
 
   environment.systemPackages = with pkgs; [
     jupiter-dock-updater-bin
@@ -48,12 +51,5 @@ in {
     group = "root";
     source = lib.getExe pkgs.flatpak;
     capabilities = "cap_sys_nice-pie";
-  };
-
-  systemd = {
-    sleep.extraConfig = ''
-      HibernateMode=shutdown
-    '';
-    tmpfiles.settings.hibernate."/sys/power/disk".w.argument = "shutdown";
   };
 }

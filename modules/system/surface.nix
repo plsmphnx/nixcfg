@@ -2,7 +2,7 @@ inputs: { pkgs, ... }: {
   imports = [
     ../laptop.nix
     (import ../ux.nix inputs)
-    ../hardware/intel.nix
+    ../hardware/cpu/intel.nix
   ];
 
   boot = {

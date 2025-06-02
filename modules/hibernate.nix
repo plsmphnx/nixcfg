@@ -9,6 +9,13 @@ in with lib; {
       description = "RAM size for hibernation, in gigabytes.";
     };
 
+    mode = mkOption {
+      type = types.nullOr types.string;
+      default = null;
+      example = "shutdown";
+      description = "Hibernation mode string.";
+    };
+
     delay = mkOption {
       type = types.int;
       default = 30;
@@ -27,9 +34,13 @@ in with lib; {
       sleep.extraConfig = ''
         HibernateDelaySec=${toString (cfg.delay * 60)}
         HibernateOnACPower=no
+      '' + optionalString (cfg.mode != null) ''
+        HibernateMode=${cfg.mode}
       '';
       tmpfiles.settings.hibernate = {
         "/sys/power/image_size".w.argument = toString (cfg.size * 1073741824);
+      } // optionalAttrs (cfg.mode != null) {
+        "/sys/power/disk".w.argument = cfg.mode;
       };
     };
   };
