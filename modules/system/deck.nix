@@ -46,10 +46,5 @@ in {
     tpm2-tss
   ];
 
-  security.wrappers.flatpak = {
-    owner = "root";
-    group = "root";
-    source = lib.getExe pkgs.flatpak;
-    capabilities = "cap_sys_nice-pie";
-  };
+  services.flatpak.removeCapSysNice = true;
 }

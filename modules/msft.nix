@@ -14,4 +14,6 @@
     vscode.fhs
     wayvnc
   ];
+
+  virtualisation.podman.dockerCompat = true;
 }

@@ -1,6 +1,6 @@
 { config, ... }: {
   imports = [
-    ./hibernate.nix
+    ./library/hibernate.nix
     ./pc.nix
   ];
 

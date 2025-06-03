@@ -28,12 +28,14 @@
       core = import ./modules/core.nix;
       edge = import ./modules/edge.nix;
       gaming = import ./modules/gaming.nix inputs;
-      hibernate = import ./modules/hibernate.nix;
       laptop = import ./modules/laptop.nix;
       login = import ./modules/login.nix;
       msft = import ./modules/msft.nix;
       pc = import ./modules/pc.nix;
       ux = import ./modules/ux.nix inputs;
+
+      flatpak = import ./modules/library/flatpak.nix;
+      hibernate = import ./modules/library/hibernate.nix;
 
       blade = import ./modules/system/blade.nix inputs;
       deck = import ./modules/system/deck.nix inputs;
