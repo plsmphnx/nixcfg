@@ -21,5 +21,8 @@ inputs: { pkgs, ... }: {
 
   programs.gamemode.enable = true;
 
-  hardware.xpadneo.enable = true;
+  hardware = {
+    steam-hardware.enable = true;
+    xpadneo.enable = true;
+  };
 }
