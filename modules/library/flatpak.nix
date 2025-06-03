@@ -1,4 +1,4 @@
-{ config, lib, ... }: let
+{ config, lib, pkgs, ... }: let
   cfg = config.services.flatpak;
 in with lib; {
   options.services.flatpak = {
