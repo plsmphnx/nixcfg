@@ -20,6 +20,11 @@
       url = "github:plsmphnx/theme";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    gpdfan = {
+      url = "github:cryolitia/gpd-fan-driver";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs = { self, nixpkgs, ... } @ inputs: let
     systems = fn: nixpkgs.lib.mapAttrs (_: fn) nixpkgs.legacyPackages;
