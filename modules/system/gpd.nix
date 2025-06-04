@@ -19,7 +19,7 @@ inputs: { config, pkgs, user, ... }: {
     inherit user;
 
     package = let
-      adjustor = pkgs.callPackage ../packages/adjustor.nix {};
+      adjustor = pkgs.callPackage ../../packages/adjustor.nix {};
       python = pkgs.python3.withPackages (_: [ adjustor ] );
     in pkgs.handheld-daemon.overridePythonAttrs (old: {
       dependencies = old.dependencies ++ [ adjustor ];
