@@ -1,6 +1,6 @@
 #!/bin/sh
 if [ $(id -u) = 0 ]; then
-  OPT="--fast --impure"
+  OPT="--no-reexec --impure"
   case $1 in
     u*)
       if [ "$2" != "-" ]; then
