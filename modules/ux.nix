@@ -15,6 +15,7 @@ in {
       networkmanagerapplet
       pwvucontrol
 
+      app2unit
       brightnessctl
       grimblast
       playerctl
