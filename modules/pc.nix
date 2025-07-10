@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }: let
+{ lib, pkgs, user, ... }: let
   mkUserDefault = lib.mkOverride 1250;
 in{
   imports = [ ./core.nix ];
@@ -12,6 +12,8 @@ in{
         configurationLimit = 4;
       };
     };
+    initrd.systemd.enable = true;
+    enableContainers = false;
   };
 
   environment.systemPackages = with pkgs; [
@@ -20,5 +22,16 @@ in{
     usbutils
   ];
 
-  services.fwupd.enable = true;
+  services = {
+    fwupd.enable = true;
+    tailscale = {
+      enable = true;
+      extraSetFlags = [ "--operator=${user}" ];
+      extraDaemonFlags = [ "--no-logs-no-support" ];
+    };
+  };
+
+  networking.nftables.enable = true;
+
+  hardware.enableAllFirmware = true;
 }

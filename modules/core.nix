@@ -6,6 +6,8 @@
   os = pkgs.writeScriptBin "os" (lib.readFile ../tools/os.sh);
 in {
   # system
+  networking.hostName = host;
+
   nix = {
     settings = {
       auto-optimise-store = true;
@@ -23,16 +25,6 @@ in {
   };
   nixpkgs.config.allowUnfree = true;
   system.stateVersion = config.system.nixos.release;
-
-  boot = {
-    enableContainers = false;
-    initrd.systemd.enable = true;
-  };
-  networking = {
-    hostName = host;
-    nftables.enable = true;
-  };
-  hardware.enableAllFirmware = true;
 
   systemd.coredump.enable = false;
   virtualisation.podman.enable = true;
