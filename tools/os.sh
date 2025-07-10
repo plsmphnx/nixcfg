@@ -13,7 +13,7 @@ if [ $(id -u) = 0 ]; then
       fi
       ;;
     c*)
-      if [ "$2" = "full" ]; then
+      if [ "$2" != "-" ]; then
         nix profile wipe-history --profile /nix/var/nix/profiles/system
       fi
       nix store gc
@@ -30,7 +30,7 @@ else
       fi
       ;;
     c*)
-      if [ "$2" = "full" ]; then
+      if [ "$2" != "-" ]; then
         nix profile wipe-history
       fi
       nix store gc

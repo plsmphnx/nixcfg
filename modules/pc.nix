@@ -24,6 +24,15 @@ in{
 
   services = {
     fwupd.enable = true;
+    openssh = {
+      enable = true;
+      openFirewall = false;
+      startWhenNeeded = true;
+      settings = {
+        AllowUsers = [ user ];
+        PermitRootLogin = "no";
+      };
+    };
     tailscale = {
       enable = true;
       extraSetFlags = [ "--operator=${user}" ];
