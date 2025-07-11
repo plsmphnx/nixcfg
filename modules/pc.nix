@@ -1,4 +1,4 @@
-{ lib, pkgs, user, ... }: let
+{ config, lib, pkgs, user, ... }: let
   mkUserDefault = lib.mkOverride 1250;
 in{
   imports = [ ./core.nix ];
@@ -37,10 +37,16 @@ in{
       enable = true;
       extraSetFlags = [ "--operator=${user}" ];
       extraDaemonFlags = [ "--no-logs-no-support" ];
+      interfaceName = "vpn0";
     };
   };
 
-  networking.nftables.enable = true;
+  networking = {
+    nftables.enable = true;
+    firewall.trustedInterfaces = [
+      config.services.tailscale.interfaceName
+    ];
+  };
 
   hardware.enableAllFirmware = true;
 }
