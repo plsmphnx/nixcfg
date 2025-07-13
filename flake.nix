@@ -43,7 +43,6 @@
       hibernate = import ./modules/library/hibernate.nix;
 
       blade = import ./modules/system/blade.nix inputs;
-      deck = import ./modules/system/deck.nix inputs;
       gpd = import ./modules/system/gpd.nix inputs;
       pine = import ./modules/system/pine.nix inputs;
       surface = import ./modules/system/surface.nix inputs;
@@ -51,8 +50,6 @@
     packages = systems (pkgs: with pkgs; {
       megazeux = callPackage ./packages/megazeux.nix {};
       rustenv = callPackage ./packages/rustenv.nix {};
-      steamdeck-dkms = linuxPackages_latest.callPackage
-        ./packages/steamdeck-dkms.nix {}; # For testing only.
     });
   };
 }
