@@ -48,6 +48,7 @@
       surface = import ./modules/system/surface.nix inputs;
     };
     packages = systems (pkgs: with pkgs; {
+      adjustor = callPackage ./packages/adjustor.nix {};
       megazeux = callPackage ./packages/megazeux.nix {};
       rustenv = callPackage ./packages/rustenv.nix {};
     });
