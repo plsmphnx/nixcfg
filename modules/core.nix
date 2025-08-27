@@ -59,7 +59,6 @@ in {
       pass
       sh
       tzupdate
-      wget
       whois
     ];
   };

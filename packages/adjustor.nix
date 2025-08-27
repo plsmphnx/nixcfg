@@ -9,14 +9,14 @@
   wrapGAppsHook3
 }: python3Packages.buildPythonPackage rec {
   pname = "adjustor";
-  version = "3.11.1";
+  version = "3.11.5";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "hhd-dev";
     repo = "adjustor";
     rev = "refs/tags/v${version}";
-    hash = "sha256-ppmBIHQX8XfU07F9GkAKSSZYcG1jF3UfBW45B8ROtyY=";
+    hash = "sha256-5E3I/PTukDTIZSF8tv7C+zjdXr0Sl4M5UY1FHWrbOhc=";
   };
 
   postPatch = ''
