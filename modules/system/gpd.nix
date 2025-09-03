@@ -11,15 +11,18 @@ inputs: { pkgs, user, ... }: {
   ];
 
   hibernate = {
-    size = 48;
+    size = 64;
     mode = "shutdown";
   };
 
   environment.systemPackages = [ pkgs.tpm2-tss ];
 
-  services.handheld-daemon = {
-    enable = true;
-    inherit user;
+  services = {
+    handheld-daemon = {
+      enable = true;
+      inherit user;
+    };
+    memreserver.enable = true;
   };
 
   hardware.gpd-fan.enable = true;
