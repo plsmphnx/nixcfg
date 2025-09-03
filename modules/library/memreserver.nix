@@ -5,8 +5,14 @@ in with lib; {
   options.services.memreserver.enable =
     mkEnableOption "the memreserver AMD VRAM eviction helper";
 
-  config.systemd = mkIf cfg.enable {
-    packages = [ memreserver ];
-    services.memreserver.wantedBy = [ "sleep.target" ];
+  config.systemd.services = mkIf cfg.enable {
+    memreserver = {
+      serviceConfig = {
+        Type = "oneshot";
+        ExecStart = "${memreserver}/bin/memreserver";
+      };
+      wantedBy = [ "sleep.target" ];
+      before = [ "sleep.target" ];
+    };
   };
 }

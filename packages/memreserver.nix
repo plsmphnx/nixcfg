@@ -11,8 +11,4 @@ stdenv.mkDerivation rec {
   };
   nativeBuildInputs = [ meson ninja pkg-config ];
   buildInputs = [ libdrm ];
-  postInstall = ''
-    install -m 644 -D -t "$out/lib/systemd/system" $src/memreserver.service
-    sed -i "s#/usr/local#$out#g" $out/lib/systemd/system/memreserver.service
-  '';
 }

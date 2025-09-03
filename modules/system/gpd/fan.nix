@@ -5,7 +5,7 @@
       tgts = map (t: t + ".target") tgt;
     in {
       serviceConfig = {
-        Kind = "oneshot";
+        Type = "oneshot";
         ExecStart = "/bin/sh -c 'echo ${toString val} | tee ${path}'";
       };
       wantedBy = tgts;
