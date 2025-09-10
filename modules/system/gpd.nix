@@ -6,8 +6,6 @@ inputs: { pkgs, user, ... }: {
     ../hardware/gpu/amd.nix
     inputs.gpdfan.nixosModules.default
     ./gpd/adjustor.nix
-    ./gpd/fan.nix
-    ./gpd/switch.nix
   ];
 
   hibernate = {
@@ -31,4 +29,12 @@ inputs: { pkgs, user, ... }: {
     enable = true;
     capSysNice = true;
   };
+
+  systemd.user.targets.hhd = {
+    bindsTo = [ "dev-hhd.device" ];
+    after   = [ "dev-hhd.device" "default.target" ];
+  };
+  services.udev.extraRules = ''
+    KERNELS=="input[0-9]*", SUBSYSTEMS=="input", ATTRS{name}=="Handheld Daemon Controller", SYMLINK+="hhd", TAG+="systemd", ENV{SYSTEMD_USER_WANTS}="hhd.target"
+  '';
 }
