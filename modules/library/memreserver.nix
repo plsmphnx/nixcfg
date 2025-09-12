@@ -1,5 +1,6 @@
 { config, lib, pkgs, ... }: let
   cfg = config.services.memreserver;
+
   memreserver = pkgs.callPackage ../../packages/memreserver.nix {};
 in with lib; {
   options.services.memreserver.enable =

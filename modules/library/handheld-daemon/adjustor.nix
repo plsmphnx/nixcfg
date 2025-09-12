@@ -5,7 +5,7 @@ in with lib; {
   options.services.handheld-daemon.adjustor.enable =
     mkEnableOption "Handheld Daemon Adjustor";
 
-  config = mkIf cfg.adjustor.enable {
+  config = mkIf (cfg.enable && cfg.adjustor.enable) {
     services.handheld-daemon.package = let
       python = pkgs.python3.withPackages (_: [ adjustor ] );
     in pkgs.handheld-daemon.overridePythonAttrs (old: {
