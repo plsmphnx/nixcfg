@@ -20,7 +20,7 @@ inputs: { lib, pkgs, user, ... }: {
       enable = true;
       inherit user;
       adjustor.enable = true;
-      fanSleep = true;
+      fanSleep = "manual_edge";
       controllerTarget = true;
     };
     memreserver.enable = true;

@@ -13,12 +13,16 @@
   };
 in with lib; {
   options.services.handheld-daemon.fanSleep = mkOption {
-    type = types.bool;
-    description = "Disable custom fan curves during sleep.";
+    type = types.nullOr types.str;
+    default = null;
+    example = "manual_edge";
+    description = ''
+      Disable custom fan curves during sleep and reset them to this on resume.
+    '';
   };
 
-  config.systemd.services = mkIf (cfg.enable && cfg.fanSleep) {
+  config.systemd.services = mkIf (cfg.enable && cfg.fanSleep != null) {
     fan-sleep = fans "disabled" "before" "sleep.target";
-    fan-awake = fans "manual_edge" "after" "post-resume.target";
+    fan-awake = fans cfg.fanSleep "after" "post-resume.target";
   };
 }
