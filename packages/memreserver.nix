@@ -11,4 +11,5 @@ stdenv.mkDerivation rec {
   };
   nativeBuildInputs = [ meson ninja pkg-config ];
   buildInputs = [ libdrm ];
+  meta.mainProgram = "memreserver";
 }

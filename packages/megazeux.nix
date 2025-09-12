@@ -16,4 +16,5 @@ stdenv.mkDerivation rec {
       --sysconfdir $out/etc \
       --gamesdir $out/bin
   '';
+  meta.mainProgram = "megazeux";
 }

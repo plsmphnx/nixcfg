@@ -9,7 +9,7 @@ in with lib; {
     memreserver = {
       serviceConfig = {
         Type = "oneshot";
-        ExecStart = "${memreserver}/bin/memreserver";
+        ExecStart = lib.getExe memreserver;
       };
       wantedBy = [ "sleep.target" ];
       before = [ "sleep.target" ];
