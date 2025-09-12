@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }: let
   cfg = config.services.handheld-daemon;
-  adjustor = pkgs.callPackage ../../packages/adjustor.nix {};
+  adjustor = pkgs.callPackage ../../../packages/adjustor.nix {};
 in with lib; {
   options.services.handheld-daemon.adjustor.enable =
     mkEnableOption "Handheld Daemon Adjustor";
