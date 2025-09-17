@@ -35,8 +35,8 @@ in {
       flakes.theme.gtk
       
       flakes.exec-util
-      flakes.hyprjump
-      flakes.hyprmks
+      flakes.hypr.jump
+      flakes.hypr.keys
       flakes.shell
 
       hypridle

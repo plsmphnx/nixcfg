@@ -4,12 +4,8 @@
       url = "github:plsmphnx/exec-util";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hyprjump = {
-      url = "github:plsmphnx/hyprjump";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    hyprmks = {
-      url = "github:plsmphnx/hyprmks";
+    hypr = {
+      url = "github:plsmphnx/hypr";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     shell = {
