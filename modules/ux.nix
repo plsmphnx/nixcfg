@@ -36,7 +36,7 @@ in {
       
       flakes.exec-util
       flakes.hypr.jump
-      flakes.hypr.keys
+      flakes.hypr.mods
       flakes.shell
 
       hypridle
