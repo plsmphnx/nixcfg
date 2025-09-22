@@ -25,9 +25,9 @@ inputs: { lib, pkgs, user, ... }: {
           boost = false;
           fan = {
             mode = "manual_edge";
-            manual_edge = builtins.listToAttrs (map (temp: {
+            manual_edge = lib.listToAttrs (map (temp: {
               name = "st${toString temp}";
-              value = builtins.ceil ((100 * temp * temp) / (90 * 90));
+              value = (100 * temp * temp) / (90 * 90);
             }) [ 40 45 50 55 60 65 70 80 90 ]);
           };
         };

@@ -6,11 +6,10 @@
     serviceConfig = {
       Type = "oneshot";
       ExecStart = "${getExe' pkgs.handheld-daemon "hhdctl"} set ${
-        concatStringsSep " " (
-          mapAttrsToListRecursive
-            (path: value: "${concatStringsSep "." path}=${toString value}")
-            cfg
-        )
+        concatStringsSep " " (mapAttrsToListRecursive (p: v: let
+          state = concatStringsSep "." p;
+          value = if isBool v then boolToString v else toString v;
+        in "${state}=${value}") cfg)
       }";
     };
   };
