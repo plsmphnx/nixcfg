@@ -48,10 +48,24 @@ in with lib; {
 
   config = mkIf cfg.enable {
     systemd = {
+      paths = mkIf (cfg.config != null) {
+        handheld-daemon-api = {
+          wantedBy = [ "handheld-daemon.service" ];
+          pathConfig = {
+            PathChanged = "/run/hhd/api";
+            Unit = "handheld-daemon-api.target";
+          };
+        };
+      };
+
+      targets = mkIf (cfg.config != null) {
+        handheld-daemon-api = {};
+      };
+
       services = {
       } // optionalAttrs (cfg.config != null) {
         handheld-daemon-config =
-          svc "after" "handheld-daemon.service" cfg.config;
+          svc "after" "handheld-daemon-api.target" cfg.config;
       } // optionalAttrs (cfg.fanSleep != null) {
         fan-sleep =
           svc "before" "sleep.target" { tdp.qam.fan.mode = "disabled"; };
