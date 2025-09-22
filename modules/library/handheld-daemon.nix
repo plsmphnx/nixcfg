@@ -70,7 +70,7 @@ in with lib; {
     services.udev = mkIf cfg.controllerTarget {
       extraRules = ''
         KERNELS=="input[0-9]*", SUBSYSTEMS=="input", ATTRS{name}=="Handheld Daemon Controller", SYMLINK+="hhd", TAG+="systemd", ENV{SYSTEMD_USER_WANTS}="hhd.target"
-      ''
+      '';
     };
   };
 }
