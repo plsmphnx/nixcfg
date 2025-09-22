@@ -12,8 +12,8 @@ in with lib; {
     };
   };
 
-  config.security.wrappers = mkIf (cfg.enable && cfg.removeCapSysNice) {
-    flatpak = {
+  config = mkIf (cfg.enable && cfg.removeCapSysNice) {
+    security.wrappers.flatpak = {
       owner = "root";
       group = "root";
       source = lib.getExe pkgs.flatpak;

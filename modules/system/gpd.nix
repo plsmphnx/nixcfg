@@ -19,6 +19,26 @@ inputs: { lib, pkgs, user, ... }: {
     handheld-daemon = {
       enable = true;
       inherit user;
+      config.tdp = {
+        qam = {
+          tdp = 15;
+          boost = false;
+          fan = {
+            mode = "manual_edge";
+            manual_edge = listToAttrs (map (temp: {
+              name = "st${toString temp}";
+              value = floor ((temp / 90) * (temp / 90));
+            }) [ 40 45 50 55 60 65 70 80 90 ]);
+          };
+        };
+        amd_energy.mode = {
+          mode = "manual";
+          manual = {
+            cpu_pref = "power";
+            cpu_boost = "disabled";
+          };
+        };
+      };
       adjustor.enable = true;
       fanSleep = "manual_edge";
       controllerTarget = true;
@@ -26,7 +46,10 @@ inputs: { lib, pkgs, user, ... }: {
     memreserver.enable = true;
   };
 
-  hardware.gpd-fan.enable = true;
+  hardware = {
+    amdgpu.performanceLevel = "low";
+    gpd-fan.enable = true;
+  };
 
   programs.gamescope = {
     enable = true;
