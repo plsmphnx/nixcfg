@@ -1,8 +1,6 @@
 { config, lib, pkgs, ... }: let
   cfg = config.services.handheld-daemon;
-  svc = dir: tgt: cfg: with lib; {
-    wantedBy = [ tgt ];
-    ${dir} = [ tgt ];
+  svc = cfg: sys: with lib; {
     serviceConfig = {
       Type = "oneshot";
       ExecStart = "${getExe' pkgs.handheld-daemon "hhdctl"} set ${
@@ -12,7 +10,7 @@
         in "${state}=${value}") cfg)
       }";
     };
-  };
+  } // sys;
 in with lib; {
   imports = [ ./handheld-daemon/adjustor.nix ];
 
@@ -47,29 +45,18 @@ in with lib; {
 
   config = mkIf cfg.enable {
     systemd = {
-      paths = mkIf (cfg.config != null) {
-        handheld-daemon-api = {
-          wantedBy = [ "handheld-daemon.service" ];
-          pathConfig = {
-            PathChanged = "/run/hhd/api";
-            Unit = "handheld-daemon-api.target";
-          };
-        };
-      };
-
-      targets = mkIf (cfg.config != null) {
-        handheld-daemon-api = {};
-      };
-
       services = {
       } // optionalAttrs (cfg.config != null) {
-        handheld-daemon-config =
-          svc "after" "handheld-daemon-api.target" cfg.config;
+        handheld-daemon-set = svc cfg.config {};
       } // optionalAttrs (cfg.fanSleep != null) {
-        fan-sleep =
-          svc "before" "sleep.target" { tdp.qam.fan.mode = "disabled"; };
-        fan-awake = 
-          svc "after" "post-resume.target" { tdp.qam.fan.mode = cfg.fanSleep; };
+        fan-sleep = svc { tdp.qam.fan.mode = "disabled"; } {
+          wantedBy = [ "sleep.target" ];
+          before   = [ "sleep.target" ];
+        };
+        fan-awake = svc { tdp.qam.fan.mode = cfg.fanSleep; } {
+          wantedBy = [ "post-resume.target" ];
+          after    = [ "post-resume.target" ];
+        };
       };
 
       user.targets = mkIf cfg.controllerTarget {
