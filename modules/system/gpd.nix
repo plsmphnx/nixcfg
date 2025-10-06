@@ -25,13 +25,6 @@ inputs: { lib, pkgs, user, ... }: {
           qam = {
             tdp = 15;
             boost = false;
-            fan = {
-              mode = "manual_edge";
-              manual_edge = lib.listToAttrs (map (temp: {
-                name = "st${toString temp}";
-                value = (100 * temp * temp) / (90 * 90);
-              }) [ 40 45 50 55 60 65 70 80 90 ]);
-            };
           };
           amd_energy.mode = {
             mode = "manual";
@@ -43,7 +36,11 @@ inputs: { lib, pkgs, user, ... }: {
         };
       };
       adjustor.enable = true;
-      fanSleep = "manual_edge";
+      fan = {
+        mode = "manual_edge";
+        sleep = true;
+        fn = t: t * t;
+      };
       controllerTarget = true;
     };
     memreserver.enable = true;
