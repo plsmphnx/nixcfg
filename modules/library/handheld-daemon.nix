@@ -11,9 +11,13 @@
       }";
     };
   } // sys;
+  key = {
+    edge = "manual_edge";
+    tctl = "manual_junction";
+  };
   sts = {
-    manual_edge = [ 40 45 50 55 60 65 70 80 90 ];
-    manual_junction = [ 40 50 60 70 90 100 ];
+    edge = [ 40 45 50 55 60 65 70 80 90 ];
+    tctl = [ 40 50 60 70 90 100 ];
   };
 in with lib; {
   imports = [ ./handheld-daemon/adjustor.nix ];
@@ -35,9 +39,9 @@ in with lib; {
 
     fan = {
       mode = mkOption {
-        type = types.enum [ "disabled" "manual_edge" "manual_junction" ];
-        default = "disabled";
-        example = "manual_edge";
+        type = types.nullOr (types.enum [ "edge" "tctl" ]);
+        default = null;
+        example = "edge";
         description = "Handheld Daemon fan mode.";
       };
 
@@ -60,28 +64,26 @@ in with lib; {
   config = mkIf cfg.enable {
     assertions = [
       {
-        assertion = cfg.fan.mode != "disabled" || !cfg.fan.sleep;
+        assertion = cfg.fan.mode != null || !cfg.fan.sleep;
         message = "The HHD fan sleep service requires a manual fan mode.";
       }
       {
-        assertion = cfg.fan.mode != "disabled" || cfg.fan.fn == null;
+        assertion = cfg.fan.mode != null || cfg.fan.fn == null;
         message = "The HHD fan function requires a manual fan mode.";
       }
     ];
 
     systemd = {
       services = mkMerge [
-        (mkIf (cfg.config != null || cfg.fan.mode != "disabled") {
+        (mkIf (cfg.config != null || cfg.fan.mode != null) {
           handheld-daemon-set = svc (foldr recursiveUpdate (cfg.config or {}) [
-            (if (cfg.fan.mode != "disabled") then {
-              tdp.qam.fan.mode = cfg.fan.mode;
+            (if (cfg.fan.mode != null) then {
+              tdp.qam.fan.mode = key.${cfg.fan.mode};
             } else {})
             (if (cfg.fan.fn != null) then {
-              tdp.qam.fan.${cfg.fan.mode} = let
-                max = (last sts.${cfg.fan.mode}) + 0.0;
-              in lib.listToAttrs (map (temp: {
+              tdp.qam.fan.${key.${cfg.fan.mode}} = lib.listToAttrs (map (temp: {
                 name = "st${toString temp}";
-                value = builtins.ceil (100.0 * (cfg.fan.fn (temp / max)));
+                value = builtins.ceil (100.0 * (cfg.fan.fn (temp / 100.0)));
               }) sts.${cfg.fan.mode});
             } else {})
           ]) {};
@@ -92,7 +94,7 @@ in with lib; {
             wantedBy = [ "sleep.target" ];
             before   = [ "sleep.target" ];
           };
-          fan-awake = svc { tdp.qam.fan.mode = cfg.fan.mode; } {
+          fan-awake = svc { tdp.qam.fan.mode = key.${cfg.fan.mode}; } {
             wantedBy = [ "post-resume.target" ];
             after    = [ "post-resume.target" ];
           };

@@ -37,9 +37,9 @@ inputs: { lib, pkgs, user, ... }: {
       };
       adjustor.enable = true;
       fan = {
-        mode = "manual_edge";
+        mode = "edge";
         sleep = true;
-        fn = t: t * t;
+        fn = t: (t * t) / 0.81;
       };
       controllerTarget = true;
     };
