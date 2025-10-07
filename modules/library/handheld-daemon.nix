@@ -83,7 +83,9 @@ in with lib; {
             (if (cfg.fan.fn != null) then {
               tdp.qam.fan.${key.${cfg.fan.mode}} = lib.listToAttrs (map (temp: {
                 name = "st${toString temp}";
-                value = builtins.ceil (100.0 * (cfg.fan.fn (temp / 100.0)));
+                value = with builtins; elemAt (sort lessThan [0 (
+                  ceil (100.0 * (cfg.fan.fn (temp / 100.0)))
+                ) 100]) 1;
               }) sts.${cfg.fan.mode});
             } else {})
           ]) {};
