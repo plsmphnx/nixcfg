@@ -35,6 +35,8 @@
       pc = import ./modules/pc.nix;
       ux = import ./modules/ux.nix inputs;
 
+      razer = import ./modules/hardware/razer.nix;
+
       flatpak = import ./modules/library/flatpak.nix;
       hibernate = import ./modules/library/hibernate.nix;
 
