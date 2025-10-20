@@ -19,14 +19,37 @@ inputs: { lib, pkgs, user, ... }: {
     handheld-daemon = {
       enable = true;
       inherit user;
+      config = {
+        hhd.settings.tdp_enable = true;
+        tdp = {
+          qam = {
+            tdp = 15;
+            boost = false;
+          };
+          amd_energy.mode = {
+            mode = "manual";
+            manual = {
+              cpu_pref = "power";
+              cpu_boost = "disabled";
+            };
+          };
+        };
+      };
       adjustor.enable = true;
-      fanSleep = "manual_edge";
+      fan = {
+        mode = "edge";
+        sleep = true;
+        fn = t: (t * t) / 0.81;
+      };
       controllerTarget = true;
     };
     memreserver.enable = true;
   };
 
-  hardware.gpd-fan.enable = true;
+  hardware = {
+    amdgpu.performanceLevel = "low";
+    gpd-fan.enable = true;
+  };
 
   programs.gamescope = {
     enable = true;

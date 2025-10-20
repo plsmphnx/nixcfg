@@ -1,5 +1,8 @@
 {
-  imports = [ ../../library/memreserver.nix ];
+  imports = [
+    ../../library/amdgpu.nix
+    ../../library/memreserver.nix
+  ];
   hardware = {
     graphics = {
       enable = true;
