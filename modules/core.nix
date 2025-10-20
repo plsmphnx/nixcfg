@@ -5,7 +5,6 @@
   '';
   os = pkgs.writeScriptBin "os" (lib.readFile ../tools/os.sh);
 in {
-  # system
   networking.hostName = host;
 
   nix = {
@@ -35,7 +34,6 @@ in {
   systemd.coredump.enable = false;
   virtualisation.podman.enable = true;
 
-  # packages
   environment = {
     etc = {
       "grc.zsh".source = "${pkgs.grc}/etc/grc.zsh";
@@ -76,7 +74,6 @@ in {
     gvfs.enable = true;
   };
 
-  # user
   users = {
     users.${user} = {
       isNormalUser = true;

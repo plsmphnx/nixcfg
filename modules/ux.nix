@@ -26,14 +26,14 @@ in {
       luakit
       mpv
       nemo
-      pragtical
+      (pragtical.override { mbedtls_2 = mbedtls; })
       qalculate-gtk
       zathura
 
       flakes.theme.cursor
       flakes.theme.icon
       flakes.theme.gtk
-      
+
       flakes.exec-util
       flakes.hypr.jump
       flakes.hypr.mods
