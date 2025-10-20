@@ -23,10 +23,10 @@ in {
 
       foot
       imv
-      lite-xl
       luakit
       mpv
       nemo
+      pragtical
       qalculate-gtk
       zathura
 
