@@ -40,7 +40,11 @@ else
       ;;
     i*)
       shift 1
-      nix profile install "$@" $OPT
+      nix profile add "$@" $OPT
+      ;;
+    r*)
+      shift 1
+      nix profile remove "$@"
       ;;
     l*)
       nix profile list | sed -En 's/Name: +(.*)/\1/p'
