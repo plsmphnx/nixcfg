@@ -5,6 +5,8 @@
   '';
   os = pkgs.writeScriptBin "os" (lib.readFile ../tools/os.sh);
 in {
+  imports = [ ./library/systemd-user.nix ];
+
   networking.hostName = host;
 
   nix = {
@@ -31,8 +33,16 @@ in {
   nixpkgs.config.allowUnfree = true;
   system.stateVersion = config.system.nixos.release;
 
-  systemd.coredump.enable = false;
   virtualisation.podman.enable = true;
+  systemd = {
+    coredump.enable = false;
+    user.path = [
+      "/run/wrappers/bin"
+      "/run/current-system/sw/bin"
+      "%h/.nix-profile/bin"
+      "%h/.local/bin"
+    ];
+  };
 
   environment = {
     etc = {
