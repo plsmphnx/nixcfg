@@ -47,6 +47,7 @@
     };
     packages = systems (pkgs: with pkgs; {
       adjustor = callPackage ./packages/adjustor.nix {};
+      azurevpnclient = callPackage ./packages/azurevpnclient.nix {};
       megazeux = callPackage ./packages/megazeux.nix {};
       memreserver = callPackage ./packages/memreserver.nix {};
       rustenv = callPackage ./packages/rustenv.nix {};

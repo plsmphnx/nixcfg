@@ -1,4 +1,6 @@
 { pkgs, user, ... }: {
+  imports = [ ./library/azurevpnclient.nix ];
+
   environment.systemPackages = with pkgs; [
     git-credential-manager
     tmuxp
