@@ -36,6 +36,7 @@ in {
   virtualisation.podman.enable = true;
   systemd = {
     coredump.enable = false;
+    services."user@".serviceConfig.UMask = "0027";
     user.path = [
       "/run/wrappers/bin"
       "/run/current-system/sw/bin"
