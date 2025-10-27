@@ -78,10 +78,10 @@ in {
       pulse.enable = true;
     };
     printing.enable = true;
+    resolved.enable = true;
     systemd-lock-handler.enable = true;
   };
 
-  systemd.network.enable = true;
   networking.networkmanager.enable = true;
   users.users.${user}.extraGroups = [ "networkmanager" ];
 
