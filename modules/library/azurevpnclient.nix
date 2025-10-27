@@ -17,7 +17,7 @@ in with lib; {
       default = "networkmanager";
       example = "wheel";
       description = "Group with permissions to utilize resolved.";
-    }; 
+    };
   };
 
   config = mkIf cfg.enable {
@@ -50,7 +50,7 @@ in with lib; {
         '';
       }) cfg.certs);
 
-      systemPackages = [ zenity ];
+      systemPackages = [ azurevpnclient zenity ];
     };
   };
 }

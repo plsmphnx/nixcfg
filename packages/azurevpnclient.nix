@@ -57,6 +57,10 @@ in stdenv.mkDerivation rec {
     patchelf $out/opt/microsoft/${pname}/${pname} \
       --add-needed $out/opt/microsoft/${pname}/lib/libLinuxCore.so
     ln -s $out/opt/microsoft/${pname}/${pname} $out/bin/${pname}
+    substituteInPlace $out/share/applications/${pname}.desktop \
+      --replace /opt/microsoft/${pname}/${pname} /run/wrappers/bin/${pname} \
+      --replace /opt $out/opt \
+      --replace /usr/share $out/share
   '';
 
   meta.mainProgram = pname;
