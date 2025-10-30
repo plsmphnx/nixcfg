@@ -1,7 +1,7 @@
 inputs: { lib, pkgs, user, ... }: let
-  flakes = lib.mapAttrs (_: flake:
-    flake.packages.${pkgs.system}.default or flake.packages.${pkgs.system}
-  ) inputs;
+  flakes = lib.mapAttrs (_: flake: let
+    packages = flake.packages.${pkgs.stdenv.hostPlatform.system};
+  in packages.default or packages) inputs;
 
   mpv = pkgs.mpv.override {
     scripts = [ pkgs.mpvScripts.mpris ];
