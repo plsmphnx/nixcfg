@@ -48,6 +48,8 @@ in {
     ];
   };
 
+  systemd.packages = [ flakes.shell ];
+
   fonts = {
     fontconfig.subpixel.rgba = "rgb";
     packages = with pkgs; [
