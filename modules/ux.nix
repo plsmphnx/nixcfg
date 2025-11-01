@@ -48,7 +48,10 @@ in {
     ];
   };
 
-  systemd.packages = [ flakes.shell ];
+  systemd = {
+    packages = [ flakes.shell ];
+    user.targets.graphical-session.wants = [ "shell.service" ];
+  };
 
   fonts = {
     fontconfig.subpixel.rgba = "rgb";
