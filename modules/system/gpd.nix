@@ -18,6 +18,8 @@ inputs: { lib, pkgs, user, ... }: {
   services = {
     handheld-daemon = {
       enable = true;
+      ui.enable = true;
+      adjustor.enable = true;
       inherit user;
       config = {
         hhd.settings.tdp_enable = true;
@@ -35,7 +37,6 @@ inputs: { lib, pkgs, user, ... }: {
           };
         };
       };
-      adjustor.enable = true;
       fan = {
         mode = "edge";
         sleep = true;

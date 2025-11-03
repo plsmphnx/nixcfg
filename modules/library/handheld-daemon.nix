@@ -20,8 +20,6 @@
     tctl = [ 40 50 60 70 90 100 ];
   };
 in with lib; {
-  imports = [ ./handheld-daemon/adjustor.nix ];
-
   options.services.handheld-daemon = {
     config = mkOption {
       type = types.nullOr types.attrs;
