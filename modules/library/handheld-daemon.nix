@@ -22,16 +22,16 @@
 in with lib; {
   options.services.handheld-daemon = {
     config = mkOption {
-      type = types.nullOr types.attrs;
-      default = null;
+      type = types.attrs;
+      default = {};
       example = { tdp.qam.tdp = 15; };
       description = "Handheld Daemon configuration.";
     };
 
     fan = {
       mode = mkOption {
-        type = types.nullOr (types.enum [ "edge" "tctl" ]);
-        default = null;
+        type = types.enum [ "auto" "edge" "tctl" ];
+        default = "auto";
         example = "edge";
         description = "Handheld Daemon fan mode.";
       };
@@ -55,20 +55,20 @@ in with lib; {
   config = mkIf cfg.enable {
     assertions = [
       {
-        assertion = cfg.fan.mode != null || !cfg.fan.sleep;
+        assertion = cfg.fan.mode != "auto" || !cfg.fan.sleep;
         message = "The HHD fan sleep service requires a manual fan mode.";
       }
       {
-        assertion = cfg.fan.mode != null || cfg.fan.fn == null;
+        assertion = cfg.fan.mode != "auto" || cfg.fan.fn == null;
         message = "The HHD fan function requires a manual fan mode.";
       }
     ];
 
     systemd = {
       services = mkMerge [
-        (mkIf (cfg.config != null || cfg.fan.mode != null) {
-          handheld-daemon-set = svc (foldr recursiveUpdate (cfg.config or {}) [
-            (if (cfg.fan.mode != null) then {
+        (mkIf (cfg.config != {} || cfg.fan.mode != "auto") {
+          handheld-daemon-set = svc (foldr recursiveUpdate cfg.config [
+            (if (cfg.fan.mode != "auto") then {
               tdp.qam.fan.mode = key.${cfg.fan.mode};
             } else {})
             (if (cfg.fan.fn != null) then {

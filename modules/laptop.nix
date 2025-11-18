@@ -7,6 +7,11 @@
   networking.networkmanager.wifi.backend = "iwd";
   hardware.bluetooth.enable = true;
 
+  hibernate.options = {
+    DelaySec = "1800";
+    OnACPower = "no";
+  };
+
   services = {
     upower = {
       enable = true;

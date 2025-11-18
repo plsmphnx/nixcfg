@@ -10,7 +10,7 @@ inputs: { lib, pkgs, user, ... }: {
 
   hibernate = {
     size = 64;
-    mode = "shutdown";
+    options.Mode = "shutdown";
   };
 
   environment.systemPackages = [ pkgs.tpm2-tss ];

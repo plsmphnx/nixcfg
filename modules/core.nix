@@ -36,13 +36,11 @@ in {
   virtualisation.podman.enable = true;
   systemd = {
     coredump.enable = false;
-    services."user@".serviceConfig.UMask = "0027";
-    user.path = [
-      "/run/wrappers/bin"
-      "/run/current-system/sw/bin"
-      "%h/.nix-profile/bin"
-      "%h/.local/bin"
-    ];
+    user = {
+      env.PATH = lib.mkBefore
+        "/run/wrappers/bin:/run/current-system/sw/bin:%h/.nix-profile/bin:%h/.local/bin";
+      umask = "027";
+    };
   };
 
   environment = {
@@ -50,9 +48,6 @@ in {
       "grc.zsh".source = "${pkgs.grc}/etc/grc.zsh";
       "grc.conf".source = "${pkgs.grc}/etc/grc.conf";
     };
-    extraInit = ''
-      umask 027
-    '';
     systemPackages = with pkgs; [
       bat
       btop
