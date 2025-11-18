@@ -13,5 +13,16 @@ inputs: { pkgs, ... }: {
     intelBusId = "PCI:0:2:0";
   };
 
+  systemd.user.devices = {
+    nvidia = {
+      vendor = "0x10de";
+      device = "0x249c";
+    };
+    intel = {
+      vendor = "0x8086";
+      device = "0x9a60";
+    };
+  };
+
   environment.systemPackages = [ pkgs.wl-gammarelay-rs ];
 }
