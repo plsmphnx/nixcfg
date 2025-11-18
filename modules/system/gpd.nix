@@ -42,7 +42,6 @@ inputs: { lib, pkgs, user, ... }: {
         sleep = true;
         fn = t: (t * t) / 0.81;
       };
-      controllerTarget = true;
     };
     memreserver.enable = true;
   };
@@ -56,4 +55,6 @@ inputs: { lib, pkgs, user, ... }: {
     enable = true;
     capSysNice = true;
   };
+
+  systemd.user.devices.hhd.name = "Handheld Daemon Controller";
 }

@@ -28,13 +28,6 @@ in with lib; {
       description = "Handheld Daemon configuration.";
     };
 
-    controllerTarget = mkOption {
-      type = types.bool;
-      default = false;
-      example = true;
-      description = "Add a user target tied to the Handheld Daemon Controller.";
-    };
-
     fan = {
       mode = mkOption {
         type = types.nullOr (types.enum [ "edge" "tctl" ]);
@@ -79,7 +72,7 @@ in with lib; {
               tdp.qam.fan.mode = key.${cfg.fan.mode};
             } else {})
             (if (cfg.fan.fn != null) then {
-              tdp.qam.fan.${key.${cfg.fan.mode}} = lib.listToAttrs (map (temp: {
+              tdp.qam.fan.${key.${cfg.fan.mode}} = listToAttrs (map (temp: {
                 name = "st${toString temp}";
                 value = with builtins; elemAt (sort lessThan [0 (
                   ceil (100.0 * (cfg.fan.fn (temp / 100.0)))
@@ -100,19 +93,6 @@ in with lib; {
           };
         })
       ];
-
-      user.targets = mkIf cfg.controllerTarget {
-        hhd = {
-          bindsTo = [ "dev-hhd.device" ];
-          after   = [ "dev-hhd.device" "default.target" ];
-        };
-      };
-    };
-
-    services.udev = mkIf cfg.controllerTarget {
-      extraRules = ''
-        KERNELS=="input[0-9]*", SUBSYSTEMS=="input", ATTRS{name}=="Handheld Daemon Controller", SYMLINK+="hhd", TAG+="systemd", ENV{SYSTEMD_USER_WANTS}="hhd.target"
-      '';
     };
   };
 }

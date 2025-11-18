@@ -9,7 +9,7 @@ in with lib; {
     systemd.services.memreserver = {
       serviceConfig = {
         Type = "oneshot";
-        ExecStart = lib.getExe memreserver;
+        ExecStart = getExe memreserver;
       };
       wantedBy = [ "sleep.target" ];
       before = [ "sleep.target" ];
