@@ -56,5 +56,5 @@ inputs: { lib, pkgs, user, ... }: {
     capSysNice = true;
   };
 
-  systemd.user.devices.hhd.name = "Handheld Daemon Controller";
+  systemd.user.devices.gamepad.phys = "usb-0000:c6:00.0-3.1/input0";
 }
