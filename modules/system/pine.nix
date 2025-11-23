@@ -15,4 +15,6 @@ inputs: {
       name = "rockchip/rk3399-pinebook-pro.dtb";
     };
   };
+
+  services.logind.settings.Login.HandlePowerKey = "ignore";
 }

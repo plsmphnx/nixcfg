@@ -16,4 +16,6 @@ inputs: { pkgs, ... }: {
   hibernate.size = 32;
 
   environment.systemPackages = [ pkgs.surface-control ];
+
+  services.logind.settings.Login.HandlePowerKey = "ignore";
 }

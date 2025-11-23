@@ -104,4 +104,6 @@ in {
     enable = true;
     style = "kvantum";
   };
+
+  hardware.graphics.enable = true;
 }

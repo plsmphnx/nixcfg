@@ -44,6 +44,7 @@ inputs: { lib, pkgs, user, ... }: {
       };
     };
     memreserver.enable = true;
+    logind.settings.Login.HandlePowerKey = "hibernate";
   };
 
   hardware = {

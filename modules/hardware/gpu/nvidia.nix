@@ -1,9 +1,5 @@
 { config, ... }: {
   hardware = {
-    graphics = {
-      enable = true;
-      enable32Bit = true;
-    };
     nvidia = {
       package = config.boot.kernelPackages.nvidiaPackages.beta;
       open = true;

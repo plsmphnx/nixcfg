@@ -17,10 +17,7 @@
       enable = true;
       criticalPowerAction = "PowerOff";
     };
-    logind.settings.Login = {
-      HandlePowerKey = "ignore";
-      HandleLidSwitch = if (config.hibernate.size != null)
-        then "suspend-then-hibernate" else "suspend";
-    };
+    logind.settings.Login.HandleLidSwitch = if (config.hibernate.size != null)
+      then "suspend-then-hibernate" else "suspend";
   };
 }

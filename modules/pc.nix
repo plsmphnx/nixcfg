@@ -1,6 +1,6 @@
 { config, lib, pkgs, user, ... }: let
   mkUserDefault = lib.mkOverride 1250;
-in{
+in {
   imports = [ ./core.nix ];
 
   boot = {
@@ -16,15 +16,12 @@ in{
     enableContainers = false;
   };
 
-  environment.systemPackages = with pkgs; [
-    lshw
-    pciutils
-    usbutils
-  ];
+  environment.systemPackages = with pkgs; [ lshw pciutils usbutils ];
 
   services = {
     fstrim.enable = true;
     fwupd.enable = true;
+    logind.settings.Login.HandlePowerKey = mkUserDefault "suspend";
     openssh = {
       enable = true;
       openFirewall = false;
@@ -44,9 +41,7 @@ in{
 
   networking = {
     nftables.enable = true;
-    firewall.trustedInterfaces = [
-      config.services.tailscale.interfaceName
-    ];
+    firewall.trustedInterfaces = [ config.services.tailscale.interfaceName ];
   };
 
   hardware.enableAllFirmware = true;
