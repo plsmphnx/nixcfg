@@ -6,7 +6,7 @@ inputs: {
 
   boot.loader.efi.canTouchEfiVariables = false;
 
-  hibernate.size = 4;
+  environment.hibernate.size = 4;
 
   hardware = {
     alsa.enablePersistence = true;

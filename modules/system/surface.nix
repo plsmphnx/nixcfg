@@ -13,9 +13,10 @@ inputs: { pkgs, ... }: {
     loader.systemd-boot.enable = false;
   };
 
-  hibernate.size = 32;
-
-  environment.systemPackages = [ pkgs.surface-control ];
+  environment = {
+    hibernate.size = 32;
+    systemPackages = [ pkgs.surface-control ];
+  };
 
   services.logind.settings.Login.HandlePowerKey = "ignore";
 }

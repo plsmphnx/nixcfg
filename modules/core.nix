@@ -1,11 +1,10 @@
 { config, host, inputs, lib, pkgs, user, ... }: let
-  sh = pkgs.runCommandLocal "sh" { meta.priority = -1; } ''
-    mkdir -p $out/bin
-    ln -s ${lib.getExe pkgs.dash} $out/bin/sh
-  '';
   os = pkgs.writeScriptBin "os" (lib.readFile ../tools/os.sh);
 in {
-  imports = [ ./library/systemd-user.nix ];
+  imports = [
+    ./library/environment.nix
+    ./library/systemd-user.nix
+  ];
 
   networking.hostName = host;
 
@@ -44,6 +43,11 @@ in {
   };
 
   environment = {
+    alias = {
+      jq = lib.getExe pkgs.jaq;
+      sh = lib.getExe pkgs.dash;
+      wget = lib.getExe' pkgs.curl "wcurl";
+    };
     etc = {
       "grc.zsh".source = "${pkgs.grc}/etc/grc.zsh";
       "grc.conf".source = "${pkgs.grc}/etc/grc.conf";
@@ -56,12 +60,10 @@ in {
       gcc
       glib
       grc
-      jaq
       libqalculate
       os
       ouch
       pass
-      sh
       tzupdate
       whois
     ];

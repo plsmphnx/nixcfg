@@ -37,9 +37,6 @@
 
       razer = import ./modules/hardware/razer.nix;
 
-      flatpak = import ./modules/library/flatpak.nix;
-      hibernate = import ./modules/library/hibernate.nix;
-
       blade = import ./modules/system/blade.nix inputs;
       gpd = import ./modules/system/gpd.nix inputs;
       pine = import ./modules/system/pine.nix inputs;

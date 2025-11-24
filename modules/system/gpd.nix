@@ -8,12 +8,13 @@ inputs: { lib, pkgs, user, ... }: {
     ../library/handheld-daemon.nix
   ];
 
-  hibernate = {
-    size = 64;
-    options.Mode = "shutdown";
+  environment = {
+    hibernate = {
+      size = 64;
+      options.Mode = "shutdown";
+    };
+    systemPackages = [ pkgs.tpm2-tss ];
   };
-
-  environment.systemPackages = [ pkgs.tpm2-tss ];
 
   services = {
     handheld-daemon = {
