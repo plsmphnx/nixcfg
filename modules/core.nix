@@ -34,7 +34,7 @@ in {
 
   virtualisation.podman.enable = true;
   systemd = {
-    coredump.enable = false;
+    coredump.extraConfig = "Storage=journal";
     user = {
       env.PATH = lib.mkBefore
         "/run/wrappers/bin:/run/current-system/sw/bin:%h/.nix-profile/bin:%h/.local/bin";
