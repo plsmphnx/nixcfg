@@ -22,9 +22,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-  outputs = { self, nixpkgs, ... } @ inputs: let
-    systems = fn: nixpkgs.lib.mapAttrs (_: fn) nixpkgs.legacyPackages;
-  in {
+  outputs = { self, nixpkgs, ... } @ inputs: {
     nixosModules = {
       core = import ./modules/core.nix;
       edge = import ./modules/edge.nix;
@@ -42,12 +40,11 @@
       pine = import ./modules/system/pine.nix inputs;
       surface = import ./modules/system/surface.nix inputs;
     };
-    packages = systems (pkgs: with pkgs; {
-      adjustor = callPackage ./packages/adjustor.nix {};
-      azurevpnclient = callPackage ./packages/azurevpnclient.nix {};
-      megazeux = callPackage ./packages/megazeux.nix {};
-      memreserver = callPackage ./packages/memreserver.nix {};
-      rustenv = callPackage ./packages/rustenv.nix {};
-    });
+    packages = nixpkgs.lib.mapAttrs (_: pkgs:
+      pkgs.lib.packagesFromDirectoryRecursive {
+        inherit (pkgs) callPackage;
+        directory = ./packages;
+      }
+    ) nixpkgs.legacyPackages;
   };
 }

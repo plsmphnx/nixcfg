@@ -1,4 +1,4 @@
-{ pkgs, user, ... }: {
+{ pkgs, ... }: {
   imports = [ ./library/azurevpnclient.nix ];
 
   environment.systemPackages = with pkgs; [
