@@ -53,16 +53,13 @@ in with lib; {
   };
 
   config = mkIf cfg.enable {
-    assertions = [
-      {
-        assertion = cfg.fan.mode != "auto" || !cfg.fan.sleep;
-        message = "The HHD fan sleep service requires a manual fan mode.";
-      }
-      {
-        assertion = cfg.fan.mode != "auto" || cfg.fan.fn == null;
-        message = "The HHD fan function requires a manual fan mode.";
-      }
-    ];
+    assertions = [{
+      assertion = cfg.fan.mode != "auto" || !cfg.fan.sleep;
+      message = "The HHD fan sleep service requires a manual fan mode.";
+    }{
+      assertion = cfg.fan.mode != "auto" || cfg.fan.fn == null;
+      message = "The HHD fan function requires a manual fan mode.";
+    }];
 
     systemd = {
       services = mkMerge [

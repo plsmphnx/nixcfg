@@ -9,11 +9,9 @@ inputs: { pkgs, user, ... }: {
   ];
 
   environment = {
-    hibernate = {
-      size = 64;
-      options.Mode = "shutdown";
-    };
+    hibernate.options.Mode = "shutdown";
     systemPackages = [ pkgs.tpm2-tss ];
+    swap = 64;
   };
 
   services = {

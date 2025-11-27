@@ -4,9 +4,12 @@
   networking.networkmanager.wifi.backend = "iwd";
   hardware.bluetooth.enable = true;
 
-  environment.hibernate.options = {
-    DelaySec = "1800";
-    OnACPower = "no";
+  environment.hibernate = {
+    enable = lib.mkDefault (config.environment.swap > 0);
+    options = {
+      DelaySec = "1800";
+      OnACPower = "no";
+    };
   };
 
   services = {
@@ -15,7 +18,7 @@
       criticalPowerAction = "PowerOff";
     };
     logind.settings.Login = let
-      suspend = if (config.environment.hibernate.size != null)
+      suspend = if config.environment.hibernate.enable
         then "suspend-then-hibernate" else "suspend";
     in {
       HandleLidSwitch = lib.mkDefault suspend;

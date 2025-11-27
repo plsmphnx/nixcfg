@@ -9,12 +9,7 @@ in with lib; {
     };
 
     hibernate = {
-      size = mkOption {
-        type = types.ints.unsigned;
-        default = 0;
-        example = 16;
-        description = "RAM size for hibernation, in gigabytes.";
-      };
+      enable = mkEnableOption "hibernation";
 
       options = mkOption {
         type = types.attrsOf types.str;
@@ -23,9 +18,21 @@ in with lib; {
         description = "Hibernate options; see {manpage}`sleep.conf.d(5)`.";
       };
     };
+
+    swap = mkOption {
+      type = types.ints.unsigned;
+      default = 0;
+      example = 16;
+      description = "Swap file size, in gigabytes.";
+    };
   };
 
   config = {
+    assertions = [{
+      assertion = cfg.swap > 0 || !cfg.hibernate.enable;
+      message = "Enabling hibernation requires a swap file.";
+    }];
+
     environment.systemPackages = mkIf (cfg.alias != {}) [(
       pkgs.runCommandLocal "alias" { meta.priority = -1; } ''
         mkdir -p $out/bin
@@ -35,18 +42,18 @@ in with lib; {
       ''
     )];
 
-    swapDevices = mkIf (cfg.hibernate.size > 0) [{
+    swapDevices = mkIf (cfg.swap > 0) [{
       device = "/swap";
-      size = cfg.hibernate.size * 1024;
+      size = cfg.swap * 1024;
     }];
 
-    systemd = mkIf (cfg.hibernate.size > 0) {
+    systemd = mkIf cfg.hibernate.enable {
       sleep.extraConfig = concatStringsSep "\n"
         (mapAttrsToList (k: v: "Hibernate${k}=${v}") cfg.hibernate.options);
 
       tmpfiles.settings.hibernate = {
         "/sys/power/image_size".w.argument =
-          toString (cfg.hibernate.size * 1024 * 1024 * 1024);
+          toString (cfg.swap * 1024 * 1024 * 1024);
       } // optionalAttrs (cfg.hibernate.options ? "Mode") {
         "/sys/power/disk".w.argument = cfg.hibernate.options.Mode;
       };

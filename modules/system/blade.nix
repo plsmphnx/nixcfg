@@ -22,5 +22,9 @@ inputs: { pkgs, ... }: {
     };
   };
 
-  environment.systemPackages = [ pkgs.wl-gammarelay-rs ];
+  environment = {
+    hibernate.enable = false;
+    systemPackages = [ pkgs.wl-gammarelay-rs ];
+    swap = 32;
+  };
 }
