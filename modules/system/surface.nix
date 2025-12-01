@@ -1,8 +1,8 @@
-inputs: { pkgs, ... }: {
+{ outputs, pkgs, ... }: {
   imports = [
-    ../laptop.nix
-    (import ../ux.nix inputs)
-    ../hardware/cpu/intel.nix
+    outputs.nixosModules.laptop
+    outputs.nixosModules.ux
+    outputs.nixosModules.hardware.cpu.intel
   ];
 
   boot = {

@@ -1,11 +1,11 @@
-inputs: { pkgs, user, ... }: {
+{ inputs, outputs, pkgs, user, ... }: {
   imports = [
-    (import ../gaming.nix inputs)
-    ../laptop.nix
-    ../hardware/cpu/amd.nix
-    ../hardware/gpu/amd.nix
+    outputs.nixosModules.gaming
+    outputs.nixosModules.laptop
+    outputs.nixosModules.hardware.cpu.amd
+    outputs.nixosModules.hardware.gpu.amd
     inputs.gpdfan.nixosModules.default
-    ../library/handheld-daemon.nix
+    outputs.nixosModules.library.handheld-daemon
   ];
 
   environment = {

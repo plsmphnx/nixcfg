@@ -1,9 +1,9 @@
-{ config, host, inputs, lib, pkgs, user, ... }: let
+{ config, flakes, host, lib, outputs, pkgs, user, ... }: let
   os = pkgs.writeScriptBin "os" (lib.readFile ../tools/os.sh);
 in {
   imports = [
-    ./library/environment.nix
-    ./library/systemd-user.nix
+    outputs.nixosModules.library.environment
+    outputs.nixosModules.library.systemd-user
   ];
 
   networking.hostName = host;
@@ -27,7 +27,7 @@ in {
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       ];
     };
-    registry = lib.mapAttrs (_: flake: { inherit flake; }) inputs;
+    registry = lib.mapAttrs (_: flake: { inherit flake; }) flakes;
   };
   nixpkgs.config.allowUnfree = true;
   system.stateVersion = config.system.nixos.release;

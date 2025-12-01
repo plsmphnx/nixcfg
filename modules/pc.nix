@@ -1,7 +1,7 @@
-{ config, lib, pkgs, user, ... }: let
+{ config, lib, outputs, pkgs, user, ... }: let
   mkUserDefault = lib.mkOverride 1250;
 in {
-  imports = [ ./core.nix ];
+  imports = [ outputs.nixosModules.core ];
 
   boot = {
     kernelPackages = mkUserDefault pkgs.linuxPackages_latest;
@@ -40,6 +40,7 @@ in {
   };
 
   networking = {
+    networkmanager.wifi.backend = "iwd";
     nftables.enable = true;
     firewall.trustedInterfaces = [ config.services.tailscale.interfaceName ];
   };

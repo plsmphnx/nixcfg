@@ -1,7 +1,7 @@
-inputs: {
+{ outputs, ... }: {
   imports = [
-    ../laptop.nix
-    (import ../ux.nix inputs)
+    outputs.nixosModules.laptop
+    outputs.nixosModules.ux
   ];
 
   boot.loader.efi.canTouchEfiVariables = false;

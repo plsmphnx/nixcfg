@@ -22,25 +22,20 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-  outputs = { self, nixpkgs, ... } @ inputs: {
-    nixosModules = {
-      core = import ./modules/core.nix;
-      edge = import ./modules/edge.nix;
-      gaming = import ./modules/gaming.nix inputs;
-      laptop = import ./modules/laptop.nix;
-      login = import ./modules/login.nix;
-      msft = import ./modules/msft.nix;
-      pc = import ./modules/pc.nix;
-      ux = import ./modules/ux.nix inputs;
-
-      razer = import ./modules/hardware/razer.nix;
-
-      blade = import ./modules/system/blade.nix inputs;
-      gpd = import ./modules/system/gpd.nix inputs;
-      pine = import ./modules/system/pine.nix inputs;
-      surface = import ./modules/system/surface.nix inputs;
-    };
-    packages = nixpkgs.lib.mapAttrs (_: pkgs:
+  outputs = { self, nixpkgs, ... }: with nixpkgs.lib; {
+    nixosModules = updateManyAttrsByPath (
+      map (file: {
+        path = path.subpath.components
+          (removeSuffix ".nix" (path.removePrefix ./modules file));
+        update = _: let
+          mod = import file;
+        in if builtins.isFunction mod then ({
+          config, lib, options, pkgs, # default
+          flakes, host, user, ...     # special
+        } @ args: mod (args // self)) else mod;
+      }) (filesystem.listFilesRecursive ./modules)
+    ) {};
+    packages = mapAttrs (_: pkgs:
       pkgs.lib.packagesFromDirectoryRecursive {
         inherit (pkgs) callPackage;
         directory = ./packages;

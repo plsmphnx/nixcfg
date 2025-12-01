@@ -1,7 +1,7 @@
-inputs: { pkgs, ... }: {
+{ outputs, pkgs, ... }: {
   imports = [
-    ./library/flatpak.nix
-    (import ./ux.nix inputs)
+    outputs.nixosModules.library.flatpak
+    outputs.nixosModules.ux
   ];
 
   boot = {

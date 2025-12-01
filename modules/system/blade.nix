@@ -1,9 +1,9 @@
-inputs: { pkgs, ... }: {
+{ outputs, pkgs, ... }: {
   imports = [
-    (import ../gaming.nix inputs)
-    ../laptop.nix
-    ../hardware/cpu/intel.nix
-    ../hardware/gpu/nvidia.nix
+    outputs.nixosModules.gaming
+    outputs.nixosModules.laptop
+    outputs.nixosModules.hardware.cpu.intel
+    outputs.nixosModules.hardware.gpu.nvidia
   ];
 
   hardware.nvidia.prime = {

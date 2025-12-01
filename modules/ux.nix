@@ -1,4 +1,4 @@
-inputs: { lib, pkgs, user, ... }: let
+{ inputs, lib, pkgs, user, ... }: let
   flakes = lib.mapAttrs (_: flake: let
     packages = flake.packages.${pkgs.stdenv.hostPlatform.system};
   in packages.default or packages) inputs;

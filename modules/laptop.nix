@@ -1,7 +1,6 @@
-{ config, lib, ... }: {
-  imports = [ ./pc.nix ];
+{ config, lib, outputs, ... }: {
+  imports = [ outputs.nixosModules.pc ];
 
-  networking.networkmanager.wifi.backend = "iwd";
   hardware.bluetooth.enable = true;
 
   environment.hibernate = {

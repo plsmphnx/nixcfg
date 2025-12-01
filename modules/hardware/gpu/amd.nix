@@ -1,7 +1,7 @@
-{
+{ outputs, ... }: {
   imports = [
-    ../../library/amdgpu.nix
-    ../../library/memreserver.nix
+    outputs.nixosModules.library.amdgpu
+    outputs.nixosModules.library.memreserver
   ];
   hardware.amdgpu = {
     initrd.enable = true;
