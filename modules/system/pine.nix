@@ -1,8 +1,5 @@
 { outputs, ... }: {
-  imports = [
-    outputs.nixosModules.laptop
-    outputs.nixosModules.ux
-  ];
+  imports = with outputs.nixosModules; [ laptop ux ];
 
   boot.loader.efi.canTouchEfiVariables = false;
 

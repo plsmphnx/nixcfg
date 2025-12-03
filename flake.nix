@@ -16,11 +16,6 @@
       url = "github:plsmphnx/theme";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    gpdfan = {
-      url = "github:cryolitia/gpd-fan-driver";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
   outputs = { self, nixpkgs, ... }: with nixpkgs.lib; {
     nixosModules = updateManyAttrsByPath (

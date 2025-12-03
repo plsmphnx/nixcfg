@@ -1,8 +1,5 @@
 { outputs, ... }: {
-  imports = [
-    outputs.nixosModules.library.amdgpu
-    outputs.nixosModules.library.memreserver
-  ];
+  imports = with outputs.nixosModules.library; [ amdgpu memreserver ];
   hardware.amdgpu = {
     initrd.enable = true;
     opencl.enable = true;

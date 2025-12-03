@@ -1,5 +1,5 @@
 { outputs, pkgs, ... }: {
-  imports = [ outputs.nixosModules.library.azurevpnclient ];
+  imports = with outputs.nixosModules.library; [ azurevpnclient ];
 
   environment.systemPackages = with pkgs; [
     git-credential-manager

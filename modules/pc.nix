@@ -1,7 +1,7 @@
 { config, lib, outputs, pkgs, user, ... }: let
   mkUserDefault = lib.mkOverride 1250;
 in {
-  imports = [ outputs.nixosModules.core ];
+  imports = with outputs.nixosModules; [ core ];
 
   boot = {
     kernelPackages = mkUserDefault pkgs.linuxPackages_latest;

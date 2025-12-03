@@ -1,9 +1,5 @@
 { outputs, pkgs, ... }: {
-  imports = [
-    outputs.nixosModules.laptop
-    outputs.nixosModules.ux
-    outputs.nixosModules.hardware.cpu.intel
-  ];
+  imports = with outputs.nixosModules; [ laptop ux hardware.cpu.intel ];
 
   boot = {
     lanzaboote = {

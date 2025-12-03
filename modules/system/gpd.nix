@@ -1,11 +1,10 @@
-{ inputs, outputs, pkgs, user, ... }: {
-  imports = [
-    outputs.nixosModules.gaming
-    outputs.nixosModules.laptop
-    outputs.nixosModules.hardware.cpu.amd
-    outputs.nixosModules.hardware.gpu.amd
-    inputs.gpdfan.nixosModules.default
-    outputs.nixosModules.library.handheld-daemon
+{ outputs, pkgs, user, ... }: {
+  imports = with outputs.nixosModules; [
+    gaming
+    laptop
+    hardware.cpu.amd
+    hardware.gpu.amd
+    library.handheld-daemon
   ];
 
   environment = {
@@ -46,10 +45,7 @@
     logind.settings.Login.HandlePowerKey = "hibernate";
   };
 
-  hardware = {
-    amdgpu.performanceLevel = "low";
-    gpd-fan.enable = true;
-  };
+  hardware.amdgpu.performanceLevel = "low";
 
   programs.gamescope = {
     enable = true;
@@ -57,4 +53,6 @@
   };
 
   systemd.user.devices.gamepad.phys = "usb-0000:c6:00.0-3.1/input0";
+
+  boot.kernelModules = [ "gpd_fan" ];
 }

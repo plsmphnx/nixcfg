@@ -1,10 +1,7 @@
 { config, flakes, host, lib, outputs, pkgs, user, ... }: let
   os = pkgs.writeScriptBin "os" (lib.readFile ../tools/os.sh);
 in {
-  imports = [
-    outputs.nixosModules.library.environment
-    outputs.nixosModules.library.systemd-user
-  ];
+  imports = with outputs.nixosModules.library; [ environment systemd-user ];
 
   networking.hostName = host;
 

@@ -1,5 +1,5 @@
 { config, lib, outputs, ... }: {
-  imports = [ outputs.nixosModules.pc ];
+  imports = with outputs.nixosModules; [ pc ];
 
   hardware.bluetooth.enable = true;
 

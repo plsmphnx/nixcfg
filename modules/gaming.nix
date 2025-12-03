@@ -1,8 +1,5 @@
 { outputs, pkgs, ... }: {
-  imports = [
-    outputs.nixosModules.library.flatpak
-    outputs.nixosModules.ux
-  ];
+  imports = with outputs.nixosModules; [ library.flatpak ux ];
 
   boot = {
     # github:chaotic-cx/nyx/nyxpkgs-unstable
