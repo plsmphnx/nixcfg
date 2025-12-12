@@ -1,0 +1,16 @@
+diff --git a/main.c b/main.c
+index 9622e38..993027e 100644
+--- a/main.c
++++ b/main.c
+@@ -33,11 +33,6 @@ uint64_t amdgpu_get_dedicated_vram(int fd, bool usage_based) {
+             err);
+     amdgpu_device_deinitialize(gpudev);
+   }
+-  if ((device_info.ids_flags & AMDGPU_IDS_FLAGS_FUSION) != 0) {
+-    // We have an AMD APU without dedicated VRAM, workaround not necessary
+-    amdgpu_device_deinitialize(gpudev);
+-    return 0;
+-  }
+   struct drm_amdgpu_memory_info memory_info;
+   err = amdgpu_query_info(gpudev, AMDGPU_INFO_MEMORY, sizeof(memory_info),
+                           &memory_info);

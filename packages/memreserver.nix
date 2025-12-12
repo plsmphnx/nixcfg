@@ -9,6 +9,7 @@ stdenv.mkDerivation rec {
     rev = "480253e565dab935df1d1c4e615ebc8a8dc81ba4";
     sha256 = "sha256-HjcrH98hH2zKdsHolYCFugL39sT1VjroVhRf8a8dpIA=";
   };
+  patches = [ ./memreserver/fusion.patch ];
   nativeBuildInputs = [ meson ninja pkg-config ];
   buildInputs = [ libdrm ];
   meta.mainProgram = "memreserver";
