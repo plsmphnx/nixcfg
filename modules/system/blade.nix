@@ -2,7 +2,7 @@
   imports = with outputs.nixosModules; [
     gaming
     laptop
-    hardware.cpu.amd
+    hardware.cpu.intel
     hardware.gpu.nvidia
   ];
 

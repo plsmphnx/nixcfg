@@ -58,5 +58,10 @@ in with lib; {
         "/sys/power/disk".w.argument = cfg.hibernate.options.Mode;
       };
     };
+
+    services.logind.settings.Login =
+      mkIf (cfg.swap > 0 && !cfg.hibernate.enable) {
+        SleepOperation = "suspend";
+      };
   };
 }
