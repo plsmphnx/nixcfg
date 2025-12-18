@@ -2,7 +2,7 @@
   imports = with outputs.nixosModules; [
     gaming
     laptop
-    hardware.cpu.intel
+    hardware.cpu.amd
     hardware.gpu.nvidia
   ];
 
@@ -24,7 +24,6 @@
 
   environment = {
     hibernate.enable = false;
-    systemPackages = [ pkgs.wl-gammarelay-rs ];
     swap = 32;
   };
 }
