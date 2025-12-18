@@ -61,7 +61,6 @@ in {
       os
       ouch
       pass
-      tzupdate
       whois
     ];
   };
