@@ -6,5 +6,5 @@
     hardware.gpu.nvidia
   ];
 
-  environment.swap = 96;
+  hardware.bluetooth.enable = true;
 }
