@@ -27,7 +27,6 @@ in {
       mpv
       nemo
       (pragtical.override { mbedtls_2 = mbedtls; })
-      qalculate-gtk
       zathura
 
       flakes.theme.cursor
@@ -42,9 +41,6 @@ in {
       hypridle
       hyprlock
       vlock
-
-      kdePackages.qtwayland
-      libsForQt5.qt5.qtwayland
     ];
   };
 
@@ -98,11 +94,6 @@ in {
   security = {
     rtkit.enable = true;
     pam.services.hyprlock.enableGnomeKeyring = true;
-  };
-
-  qt = {
-    enable = true;
-    style = "kvantum";
   };
 
   hardware.graphics.enable = true;

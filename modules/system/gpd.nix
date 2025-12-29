@@ -8,7 +8,6 @@
   ];
 
   environment = {
-    hibernate.options.Mode = "shutdown";
     systemPackages = [ pkgs.tpm2-tss ];
     swap = 64;
   };
@@ -41,11 +40,8 @@
         fn = t: (t * t) / 0.81;
       };
     };
-    memreserver.enable = true;
     logind.settings.Login.HandlePowerKey = "hibernate";
   };
-
-  hardware.amdgpu.performanceLevel = "low";
 
   programs.gamescope = {
     enable = true;

@@ -6,13 +6,7 @@
     kernelModules = [ "ntsync" ];
   };
 
-  services = {
-    ratbagd.enable = true;
-    scx = {
-      enable = true;
-      scheduler = "scx_bpfland";
-    };
-  };
+  services.ratbagd.enable = true;
 
   hardware = {
     graphics.enable32Bit = true;
