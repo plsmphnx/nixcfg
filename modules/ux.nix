@@ -8,7 +8,6 @@
   };
 in {
   environment = {
-    sessionVariables.NIXOS_OZONE_WL = "1";
     systemPackages = with pkgs; [
       blueberry
       iwgtk
@@ -42,6 +41,8 @@ in {
       hyprlock
       vlock
     ];
+    sessionVariables.NIXOS_OZONE_WL = "1";
+    pathsToLink = [ "/share/shell" ];
   };
 
   systemd = {
