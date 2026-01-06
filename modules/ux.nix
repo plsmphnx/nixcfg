@@ -7,6 +7,8 @@
     scripts = [ pkgs.mpvScripts.mpris ];
   };
 in {
+  imports = [ inputs.shell.nixosModules.default ];
+
   environment = {
     systemPackages = with pkgs; [
       blueberry
@@ -35,19 +37,12 @@ in {
       flakes.exec-util
       flakes.hypr.jump
       flakes.hypr.mods
-      flakes.shell
 
       hypridle
       hyprlock
       vlock
     ];
     sessionVariables.NIXOS_OZONE_WL = "1";
-    pathsToLink = [ "/share/shell" ];
-  };
-
-  systemd = {
-    packages = [ flakes.shell ];
-    user.targets.graphical-session.wants = [ "shell.service" ];
   };
 
   fonts = {
@@ -65,6 +60,7 @@ in {
       binfmt = true;
     };
     hyprland.enable = true;
+    shell.enable = true;
   };
 
   services = {
