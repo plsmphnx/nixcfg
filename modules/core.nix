@@ -32,6 +32,8 @@ in {
   virtualisation.podman.enable = true;
   systemd = {
     coredump.extraConfig = "Storage=journal";
+    tmpfiles.settings.usr-share."/usr/share".L.argument =
+      "/run/current-system/sw/share";
     user = {
       env.PATH = lib.mkBefore
         "/run/wrappers/bin:/run/current-system/sw/bin:%h/.nix-profile/bin:%h/.local/bin";
