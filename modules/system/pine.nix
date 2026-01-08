@@ -1,6 +1,8 @@
 { outputs, ... }: {
   imports = with outputs.nixosModules; [ laptop ux ];
 
+  boot.loader.efi.canTouchEfiVariables = false;
+
   environment.swap = 4;
 
   hardware = {
