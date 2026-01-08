@@ -76,6 +76,7 @@ in {
   };
 
   services = {
+    dbus.implementation = "broker";
     envfs.enable = true;
     gvfs.enable = true;
   };
