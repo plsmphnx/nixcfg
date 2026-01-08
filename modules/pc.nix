@@ -5,12 +5,9 @@ in {
 
   boot = {
     kernelPackages = mkUserDefault pkgs.linuxPackages_latest;
-    loader = {
-      efi.canTouchEfiVariables = mkUserDefault true;
-      systemd-boot = {
-        enable = mkUserDefault true;
-        configurationLimit = 4;
-      };
+    loader.systemd-boot = {
+      enable = mkUserDefault true;
+      configurationLimit = 4;
     };
     initrd.systemd.enable = true;
     enableContainers = false;
