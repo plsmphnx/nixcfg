@@ -46,4 +46,6 @@ in {
   };
 
   hardware.enableAllFirmware = true;
+
+  zramSwap.enable = true;
 }
