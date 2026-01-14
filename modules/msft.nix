@@ -3,9 +3,9 @@
 
   environment.systemPackages = with pkgs; [
     git-credential-manager
-    tmuxp
+    lspmux
+    quickemu
     vscode.fhs
-    wayvnc
   ];
 
   virtualisation.podman.dockerCompat = true;

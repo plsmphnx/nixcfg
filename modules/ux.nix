@@ -6,6 +6,7 @@
   mpv = pkgs.mpv.override {
     scripts = [ pkgs.mpvScripts.mpris ];
   };
+  pragtical = pkgs.pragtical.override { mbedtls_2 = pkgs.mbedtls; };
 in {
   imports = [ inputs.shell.nixosModules.default ];
 
@@ -27,8 +28,11 @@ in {
       luakit
       mpv
       nemo
-      (pragtical.override { mbedtls_2 = mbedtls; })
+      pragtical
+      wlvncc
       zathura
+
+      ffmpegthumbnailer
 
       flakes.theme.cursor
       flakes.theme.icon
@@ -61,6 +65,7 @@ in {
     };
     hyprland.enable = true;
     shell.enable = true;
+    wayvnc.enable = true;
   };
 
   services = {
