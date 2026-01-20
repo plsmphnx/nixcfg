@@ -13,8 +13,8 @@ in {
   environment = {
     systemPackages = with pkgs; [
       blueberry
-      iwgtk
       networkmanagerapplet
+      nmgui
       pwvucontrol
 
       app2unit
