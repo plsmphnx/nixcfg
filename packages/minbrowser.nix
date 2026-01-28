@@ -12,7 +12,7 @@
     root = "https://github.com/minbrowser/min/releases/download";
     arch = {
       x86_64-linux = "amd64";
-      arm64-linux = "arm64";
+      aarch64-linux = "arm64";
       armv7l-linux = "armv7l";
     }.${stdenvNoCC.hostPlatform.system};
     hash = {
