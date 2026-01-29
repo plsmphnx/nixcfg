@@ -21,6 +21,7 @@ in {
       brightnessctl
       grimblast
       playerctl
+      wl-clipboard
       xdg-utils
 
       foot
