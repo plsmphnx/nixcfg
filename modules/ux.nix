@@ -1,7 +1,7 @@
-{ inputs, lib, pkgs, user, ... }: let
-  flakes = lib.mapAttrs (_: flake: let
-    packages = flake.packages.${pkgs.stdenv.hostPlatform.system};
-  in packages.default or packages) inputs;
+{ inputs, lib, packages, pkgs, user, ... }: let
+  flake = lib.mapAttrs (_: { packages, ... }: let
+    pkg = packages.${pkgs.stdenv.hostPlatform.system};
+  in pkg.default or pkg) (inputs // { self = { inherit packages; }; });
 
   mpv = pkgs.mpv.override {
     scripts = [ pkgs.mpvScripts.mpris ];
@@ -26,7 +26,7 @@ in {
 
       foot
       imv
-      luakit
+      flake.self.minbrowser
       mpv
       nemo
       pragtical
@@ -35,13 +35,13 @@ in {
 
       ffmpegthumbnailer
 
-      flakes.theme.cursor
-      flakes.theme.icon
-      flakes.theme.gtk
+      flake.theme.cursor
+      flake.theme.icon
+      flake.theme.gtk
 
-      flakes.exec-util
-      flakes.hypr.jump
-      flakes.hypr.mods
+      flake.exec-util
+      flake.hypr.jump
+      flake.hypr.mods
 
       hypridle
       hyprlock
