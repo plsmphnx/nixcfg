@@ -1,17 +1,12 @@
 { inputs, lib, packages, pkgs, user, ... }: let
-  flake = lib.mapAttrs (_: { packages, ... }: let
+  flakes = lib.mapAttrs (_: { packages, ... }: let
     pkg = packages.${pkgs.stdenv.hostPlatform.system};
   in pkg.default or pkg) (inputs // { self = { inherit packages; }; });
-
-  mpv = pkgs.mpv.override {
-    scripts = [ pkgs.mpvScripts.mpris ];
-  };
-  pragtical = pkgs.pragtical.override { mbedtls_2 = pkgs.mbedtls; };
 in {
   imports = [ inputs.shell.nixosModules.default ];
 
   environment = {
-    systemPackages = with pkgs; [
+    systemPackages = with pkgs; with flakes; with self; [
       blueberry
       networkmanagerapplet
       nmgui
@@ -26,7 +21,7 @@ in {
 
       foot
       imv
-      flake.self.minbrowser
+      minbrowser
       mpv
       nemo
       pragtical
@@ -35,13 +30,13 @@ in {
 
       ffmpegthumbnailer
 
-      flake.theme.cursor
-      flake.theme.icon
-      flake.theme.gtk
+      theme.cursor
+      theme.icon
+      theme.gtk
 
-      flake.exec-util
-      flake.hypr.jump
-      flake.hypr.mods
+      exec-util
+      hypr.jump
+      hypr.mods
 
       hypridle
       hyprlock
