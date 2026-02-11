@@ -8,6 +8,7 @@
   ];
 
   environment = {
+    hibernate.workaround = [ "/swap" ];
     systemPackages = [ pkgs.tpm2-tss ];
     swap = 64;
   };
@@ -33,11 +34,12 @@
             };
           };
         };
+        gamemode.power.hibernate_auto = false;
       };
       fan = {
         mode = "edge";
         sleep = true;
-        fn = t: (t * t) / 0.81;
+        fn = t: (3.2 * t * t) - (2.56 * t) + 0.712;
       };
     };
     logind.settings.Login.HandlePowerKey = "hibernate";

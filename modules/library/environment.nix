@@ -17,6 +17,13 @@ in with lib; {
         example = { Mode = "shutdown"; };
         description = "Hibernate options; see {manpage}`sleep.conf.d(5)`.";
       };
+
+      workaround = mkOption {
+        type = types.listOf types.str;
+        default = [];
+        example = [ "/swap" ];
+        description = "Cycle the listed swap locations after hibernate.";
+      };
     };
 
     swap = mkOption {
@@ -50,6 +57,26 @@ in with lib; {
     systemd = mkIf cfg.hibernate.enable {
       sleep.extraConfig = concatStringsSep "\n"
         (mapAttrsToList (k: v: "Hibernate${k}=${v}") cfg.hibernate.options);
+
+      services = mkIf (cfg.hibernate.workaround != []) {
+        "hibernate-cycle-swap@" = {
+          after = [ "post-resume.target" ];
+          serviceConfig = {
+            Type = "oneshot";
+            ExecStart = let
+              swap = o: "${getExe' pkgs.util-linux.swap "swap${o}"} /%I";
+            in [ (swap "off") (swap "on") ];
+          };
+        };
+      } // (listToAttrs (map (path: {
+        name = "hibernate-cycle-swap@${
+          stringAsChars (c: if c == "/" then "-" else c) (removePrefix "/" path)
+        }";
+        value = {
+          wantedBy = [ "post-resume.target" ];
+          overrideStrategy = "asDropin";
+        };
+      }) cfg.hibernate.workaround));
 
       tmpfiles.settings.hibernate = {
         "/sys/power/image_size".w.argument =
