@@ -58,7 +58,7 @@ in with lib; {
       sleep.extraConfig = concatStringsSep "\n"
         (mapAttrsToList (k: v: "Hibernate${k}=${v}") cfg.hibernate.options);
 
-      services = mkIf (cfg.hibernate.workaround != []) {
+      services = mkIf (cfg.hibernate.workaround != []) ({
         "hibernate-cycle-swap@" = {
           after = [ "post-resume.target" ];
           serviceConfig = {
@@ -68,7 +68,7 @@ in with lib; {
             in [ (swap "off") (swap "on") ];
           };
         };
-      } // (listToAttrs (map (path: {
+      } // listToAttrs (map (path: {
         name = "hibernate-cycle-swap@${
           stringAsChars (c: if c == "/" then "-" else c) (removePrefix "/" path)
         }";
