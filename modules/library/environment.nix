@@ -40,14 +40,32 @@ in with lib; {
       message = "Enabling hibernation requires a swap file.";
     }];
 
-    environment.systemPackages = mkIf (cfg.alias != {}) [(
-      pkgs.runCommandLocal "alias" { meta.priority = -1; } ''
-        mkdir -p $out/bin
-        ${concatStrings (mapAttrsToList (k: v: ''
-          ln -s "${v}" "$out/bin/${k}"
-        '') cfg.alias)}
-      ''
-    )];
+    environment = {
+      systemPackages = mkIf (cfg.alias != {}) [(
+        pkgs.runCommandLocal "alias" { meta.priority = -1; } ''
+          mkdir -p $out/bin
+          ${concatStrings (mapAttrsToList (k: v: ''
+            ln -s "${v}" "$out/bin/${k}"
+          '') cfg.alias)}
+        ''
+      )];
+
+      etc = mkIf (cfg.hibernate.workaround != []) {
+        "systemd/system-sleep/hibernate-cycle-swap.sh".source = let
+          swap = o: "${getExe' pkgs.util-linux.swap "swap${o}"}";
+        in pkgs.writeScript "hibernate-cycle-swap" ''
+          #!/bin/sh
+          if [ $1 = post ] && [ $SYSTEMD_SLEEP_ACTION = hibernate ]; then
+
+          ${concatStringsSep "\n" (map (s: ''
+            systemd-cat -t hibernate-cycle-swap echo 'Cycling ${s}'
+            ${swap "off"} ${s}
+            ${swap "on"} ${s}
+          '') cfg.hibernate.workaround)}
+          fi
+        '';
+      };
+    };
 
     swapDevices = mkIf (cfg.swap > 0) [{
       device = "/swap";
@@ -57,26 +75,6 @@ in with lib; {
     systemd = mkIf cfg.hibernate.enable {
       sleep.extraConfig = concatStringsSep "\n"
         (mapAttrsToList (k: v: "Hibernate${k}=${v}") cfg.hibernate.options);
-
-      services = mkIf (cfg.hibernate.workaround != []) ({
-        "hibernate-cycle-swap@" = {
-          after = [ "post-resume.target" ];
-          serviceConfig = {
-            Type = "oneshot";
-            ExecStart = let
-              swap = o: "${getExe' pkgs.util-linux.swap "swap${o}"} /%I";
-            in [ (swap "off") (swap "on") ];
-          };
-        };
-      } // listToAttrs (map (path: {
-        name = "hibernate-cycle-swap@${
-          stringAsChars (c: if c == "/" then "-" else c) (removePrefix "/" path)
-        }";
-        value = {
-          wantedBy = [ "post-resume.target" ];
-          overrideStrategy = "asDropin";
-        };
-      }) cfg.hibernate.workaround));
 
       tmpfiles.settings.hibernate = {
         "/sys/power/image_size".w.argument =

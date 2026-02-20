@@ -1,16 +1,11 @@
 { config, lib, pkgs, ... }: let
   cfg = config.services.handheld-daemon;
-  svc = cfg: sys: with lib; {
-    serviceConfig = {
-      Type = "oneshot";
-      ExecStart = "${getExe' pkgs.handheld-daemon "hhdctl"} set ${
-        concatStringsSep " " (mapAttrsToListRecursive (p: v: let
-          state = concatStringsSep "." p;
-          value = if isBool v then boolToString v else toString v;
-        in "${state}=${value}") cfg)
-      }";
-    };
-  } // sys;
+  ctl = cfg: with lib; "${getExe' pkgs.handheld-daemon "hhdctl"} set ${
+    concatStringsSep " " (mapAttrsToListRecursive (p: v: let
+      state = concatStringsSep "." p;
+      value = if isBool v then boolToString v else toString v;
+    in "${state}=${value}") cfg)
+  }";
   key = {
     edge = "manual_edge";
     tctl = "manual_junction";
@@ -62,9 +57,10 @@ in with lib; {
     }];
 
     systemd = {
-      services = mkMerge [
-        (mkIf (cfg.config != {} || cfg.fan.mode != "auto") {
-          handheld-daemon-set = svc (foldr recursiveUpdate cfg.config [
+      services = mkIf (cfg.config != {} || cfg.fan.mode != "auto") {
+        handheld-daemon-set.serviceConfig = {
+          Type = "oneshot";
+          ExecStart = ctl (foldr recursiveUpdate cfg.config [
             (if (cfg.fan.mode != "auto") then {
               tdp.qam.fan.mode = key.${cfg.fan.mode};
             } else {})
@@ -76,20 +72,19 @@ in with lib; {
                 ) 100]) 1;
               }) sts.${cfg.fan.mode});
             } else {})
-          ]) {};
-        })
+          ]);
+        };
+      };
+    };
 
-        (mkIf cfg.fan.sleep {
-          fan-sleep = svc { tdp.qam.fan.mode = "disabled"; } {
-            wantedBy = [ "sleep.target" ];
-            before   = [ "sleep.target" ];
-          };
-          fan-awake = svc { tdp.qam.fan.mode = key.${cfg.fan.mode}; } {
-            wantedBy = [ "post-resume.target" ];
-            after    = [ "post-resume.target" ];
-          };
-        })
-      ];
+    environment.etc = mkIf cfg.fan.sleep {
+      "systemd/system-sleep/hhd-fan.sh".source = pkgs.writeScript "hhd-fan" ''
+        #!/bin/sh
+        case $1 in
+          pre) ${ctl { tdp.qam.fan.mode = "disabled"; }} ;;
+          post) ${ctl { tdp.qam.fan.mode = key.${cfg.fan.mode}; }} ;;
+        esac
+      '';
     };
   };
 }
