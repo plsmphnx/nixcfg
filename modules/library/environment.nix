@@ -53,12 +53,13 @@ in with lib; {
       etc = mkIf (cfg.hibernate.workaround != []) {
         "systemd/system-sleep/hibernate-cycle-swap.sh".source = let
           swap = o: "${getExe' pkgs.util-linux.swap "swap${o}"}";
+          systemd-cat = getExe' config.systemd.package "systemd-cat";
         in pkgs.writeScript "hibernate-cycle-swap" ''
           #!/bin/sh
           if [ $1 = post ] && [ $SYSTEMD_SLEEP_ACTION = hibernate ]; then
 
           ${concatStringsSep "\n" (map (s: ''
-            systemd-cat -t hibernate-cycle-swap echo 'Cycling ${s}'
+            ${systemd-cat} -t hibernate-cycle-swap echo 'Cycling ${s}'
             ${swap "off"} ${s}
             ${swap "on"} ${s}
           '') cfg.hibernate.workaround)}

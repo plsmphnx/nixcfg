@@ -1,10 +1,10 @@
 { config, lib, pkgs, ... }: let
   cfg = config.services.handheld-daemon;
-  ctl = cfg: with lib; "${getExe' pkgs.handheld-daemon "hhdctl"} set ${
+  ctl = c: with lib; "${getExe' cfg.package "hhdctl"} set ${
     concatStringsSep " " (mapAttrsToListRecursive (p: v: let
       state = concatStringsSep "." p;
       value = if isBool v then boolToString v else toString v;
-    in "${state}=${value}") cfg)
+    in "${state}=${value}") c)
   }";
   key = {
     edge = "manual_edge";

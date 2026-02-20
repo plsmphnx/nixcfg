@@ -16,7 +16,7 @@ in with lib; {
     security.wrappers.flatpak = {
       owner = "root";
       group = "root";
-      source = getExe pkgs.flatpak;
+      source = getExe cfg.package;
       capabilities = "cap_sys_nice-pie";
     };
   };
