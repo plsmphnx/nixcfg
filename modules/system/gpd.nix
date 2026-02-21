@@ -45,7 +45,7 @@
       };
     };
     logind.settings.Login.HandlePowerKey = "hibernate";
-    tuned.enable = true;
+    power-profiles-daemon.enable = true;
   };
 
   programs.gamescope = {
