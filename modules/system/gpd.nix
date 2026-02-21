@@ -1,10 +1,10 @@
-{ outputs, pkgs, user, ... }: {
+{ config, lib, outputs, packages, pkgs, ... }: {
   imports = with outputs.nixosModules; [
     gaming
     laptop
     hardware.cpu.amd
     hardware.gpu.amd
-    library.handheld-daemon
+    library.fan2go
   ];
 
   environment = {
@@ -14,35 +14,38 @@
   };
 
   services = {
-    handheld-daemon = {
+    fan2go = {
       enable = true;
-      ui.enable = true;
-      adjustor.enable = true;
-      inherit user;
+      package = packages.${pkgs.stdenv.hostPlatform.system}.fan2go;
       config = {
-        hhd.settings.tdp_enable = true;
-        tdp = {
-          qam = {
-            tdp = 15;
-            boost = false;
+        fans = [{
+          id = "gpdfan";
+          hwmon = {
+            platform = "gpdfan";
+            rpmChannel = 1;
           };
-          amd_energy.mode = {
-            mode = "manual";
-            manual = {
-              cpu_pref = "power";
-              cpu_boost = "disabled";
-            };
+          curve = "manual";
+        }];
+        sensors = [{
+          id = "edge";
+          hwmon = {
+            platform = "amdgpu";
+            index = 1;
           };
-        };
-        gamemode.power.hibernate_auto = false;
-      };
-      fan = {
-        mode = "edge";
-        sleep = true;
-        fn = t: (3.2 * t * t) - (2.56 * t) + 0.712;
+        }];
+        curves = [{
+          id = "manual";
+          linear = {
+            sensor = "edge";
+            steps = with lib; map (n: {
+              ${toString (5*n + 40)} = "${toString (ceil (0.9*n*n) + 10)}%";
+            }) (range 0 10);
+          };
+        }];
       };
     };
     logind.settings.Login.HandlePowerKey = "hibernate";
+    tuned.enable = true;
   };
 
   programs.gamescope = {
@@ -53,4 +56,14 @@
   systemd.user.devices.gamepad.phys = "usb-0000:c6:00.0-3.1/input0";
 
   boot.kernelModules = [ "gpd_fan" ];
+
+  environment.etc."systemd/system-sleep/fan.sh".source = let
+    systemctl = lib.getExe' config.systemd.package "systemctl";
+  in pkgs.writeScript "fan" ''
+    #!/bin/sh
+    case $1 in
+      pre) ${systemctl} stop fan2go ;;
+      post) ${systemctl} start fan2go ;;
+    esac
+  '';
 }
