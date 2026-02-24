@@ -1,8 +1,8 @@
 diff --git a/internal/controller/controller.go b/internal/controller/controller.go
-index ef3ea81..cc967a2 100644
+index 73715b1..6d8aff2 100644
 --- a/internal/controller/controller.go
 +++ b/internal/controller/controller.go
-@@ -257,6 +257,7 @@ func (f *DefaultFanController) Run(ctx context.Context) error {
+@@ -258,6 +258,7 @@ func (f *DefaultFanController) Run(ctx context.Context) error {
  			return err
  		}
  	}

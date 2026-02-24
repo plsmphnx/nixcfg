@@ -20,19 +20,14 @@ in with lib; {
       systemPackages = [ cfg.package ];
     };
 
-    # https://github.com/markusressel/fan2go/blob/master/fan2go.service
-    systemd.services.fan2go = {
-      description = "Advanced Fan Control program";
-      after = [ "lm-sensors.service" ];
-      serviceConfig = {
-        LimitNOFILE = 8192;
-        Environment = "DISPLAY=:0";
-        ExecStart = "${getExe cfg.package} -c /etc/fan2go/fan2go.yaml --no-style";
-        Restart = "always";
-        RestartSec = "1s";
+    systemd = {
+      packages = [ cfg.package ];
+      services.fan2go = {
+        wantedBy = [ "multi-user.target" ];
+        restartTriggers = [
+          config.environment.etc."fan2go/fan2go.yaml".source
+        ];
       };
-      wantedBy = [ "multi-user.target" ];
-      restartTriggers = [ config.environment.etc."fan2go/fan2go.yaml".source ];
     };
   };
 }

@@ -53,17 +53,15 @@
     capSysNice = true;
   };
 
-  systemd.user.devices.gamepad.phys = "usb-0000:c6:00.0-3.1/input0";
+  systemd = {
+    services.fan2go = {
+      conflicts = [ "sleep.target" ];
+      before = [ "sleep.target" ];
+      wantedBy = [ "wake.target" ];
+    };
+    user.devices.gamepad.phys = "usb-0000:c6:00.0-3.1/input0";
+    wake.enable = true;
+  };
 
   boot.kernelModules = [ "gpd_fan" ];
-
-  environment.etc."systemd/system-sleep/fan.sh".source = let
-    systemctl = lib.getExe' config.systemd.package "systemctl";
-  in pkgs.writeScript "fan" ''
-    #!/bin/sh
-    case $1 in
-      pre) ${systemctl} stop fan2go ;;
-      post) ${systemctl} start fan2go ;;
-    esac
-  '';
 }
