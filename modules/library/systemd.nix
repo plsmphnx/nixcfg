@@ -1,5 +1,6 @@
 { config, lib, ... }: let
   cfg = config.systemd;
+  sleep = [ "suspend" "hibernate" "hybrid-sleep" "suspend-then-hibernate" ];
 in with lib; {
   options.systemd = {
     user = {
@@ -34,17 +35,16 @@ in with lib; {
     '';
 
     systemd = {
-      targets = mkIf cfg.wake.enable {
+      targets = mkIf cfg.wake.enable ({
         wake = {
           wantedBy = [ "multi-user.target" ];
           conflicts = [ "sleep.target" ];
           before = [ "sleep.target" ];
         };
-        suspend.onSuccess = [ "wake.target" ];
-        hibernate.onSuccess = [ "wake.target" ];
-        hybrid-sleep.onSuccess = [ "wake.target" ];
-        suspend-then-hibernate.onSuccess = [ "wake.target" ];
-      };
+      } // genAttrs sleep (_: {
+        onSuccess = [ "wake.target" ];
+        onFailure = [ "wake.target" ];
+      }));
 
       services = mkIf (cfg.user.umask != null) {
         "user@".serviceConfig.UMask = "0${cfg.user.umask}";
