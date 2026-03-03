@@ -1,13 +1,4 @@
-{ fan2go, fetchFromGitHub, lib, lm_sensors }: fan2go.overrideAttrs {
-  version = "0.13.0";
-  src = fetchFromGitHub {
-    owner = "markusressel";
-    repo = "fan2go";
-    rev = "0.13.0";
-    sha256 = "sha256-9isfgsZxNHjvMkWuhk5m/Z77V7AxJ4pySI+rdWCU7HU=";
-  };
-  vendorHash = "sha256-6rcU7Qtzz80WcygeLVftdpGYAuzGmWD0M+ZVxgGcgnI=";
-
+{ fan2go, lib, lm_sensors }: fan2go.overrideAttrs {
   patches = [ ./fan2go/gpd.patch ];
   postInstall = ''
     mkdir -p $out/etc/systemd/system
