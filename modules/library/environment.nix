@@ -1,5 +1,6 @@
 { config, lib, pkgs, ... }: let
   cfg = config.environment;
+  sleep = config.systemd.sleep.settings.Sleep;
 in with lib; {
   options.environment = {
     alias = mkOption {
@@ -10,13 +11,6 @@ in with lib; {
 
     hibernate = {
       enable = mkEnableOption "hibernation";
-
-      options = mkOption {
-        type = types.attrsOf types.str;
-        default = {};
-        example = { Mode = "shutdown"; };
-        description = "Hibernate options; see {manpage}`sleep.conf.d(5)`.";
-      };
 
       workaround = mkOption {
         type = types.listOf types.str;
@@ -74,14 +68,11 @@ in with lib; {
     }];
 
     systemd = mkIf cfg.hibernate.enable {
-      sleep.extraConfig = concatStringsSep "\n"
-        (mapAttrsToList (k: v: "Hibernate${k}=${v}") cfg.hibernate.options);
-
       tmpfiles.settings.hibernate = {
         "/sys/power/image_size".w.argument =
           toString (cfg.swap * 1024 * 1024 * 1024);
-      } // optionalAttrs (cfg.hibernate.options ? "Mode") {
-        "/sys/power/disk".w.argument = cfg.hibernate.options.Mode;
+      } // optionalAttrs (sleep ? "HibernateMode") {
+        "/sys/power/disk".w.argument = sleep.HibernateMode;
       };
     };
   };

@@ -3,13 +3,13 @@
 
   hardware.bluetooth.enable = true;
 
-  environment.hibernate = {
-    enable = lib.mkDefault (config.environment.swap > 0);
-    options = {
-      DelaySec = "1800";
-      OnACPower = "no";
-    };
+  environment.hibernate.enable = lib.mkDefault (config.environment.swap > 0);
+  systemd.sleep.settings.Sleep = {
+    HibernateDelaySec = "1800";
+    HibernateOnACPower = "no";
   };
+  boot.kernelParams =
+    lib.mkIf config.environment.hibernate.enable [ "hibernate=nocompress" ];
 
   services = {
     upower = {
