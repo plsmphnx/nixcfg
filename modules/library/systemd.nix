@@ -3,6 +3,13 @@
   sleep = [ "suspend" "hibernate" "hybrid-sleep" "suspend-then-hibernate" ];
 in with lib; {
   options.systemd = {
+    umask = mkOption {
+      type = types.nullOr (types.strMatching "[0-7]{3}");
+      default = null;
+      example = "027";
+      description = "Default umask.";
+    };
+
     user = {
       devices = mkOption {
         type = types.attrsOf (types.attrsOf types.str);
@@ -17,21 +24,14 @@ in with lib; {
         example = { PATH = "/run/wrappers/bin:/run/current-system/sw/bin"; };
         description = "Default environment variables for user units.";
       };
-
-      umask = mkOption {
-        type = types.nullOr (types.strMatching "[0-9]{3}");
-        default = null;
-        example = "027";
-        description = "Default umask for users.";
-      };
     };
 
     wake.enable = mkEnableOption "system wake target";
   };
 
   config = {
-    environment.extraInit = optionalString (cfg.user.umask != null) ''
-      umask ${cfg.user.umask}
+    environment.extraInit = optionalString (cfg.umask != null) ''
+      umask ${cfg.umask}
     '';
 
     systemd = {
@@ -46,8 +46,8 @@ in with lib; {
         onFailure = [ "wake.target" ];
       }));
 
-      services = mkIf (cfg.user.umask != null) {
-        "user@".serviceConfig.UMask = "0${cfg.user.umask}";
+      services = mkIf (cfg.umask != null) {
+        "user@".serviceConfig.UMask = "0${cfg.umask}";
       };
 
       user = {
