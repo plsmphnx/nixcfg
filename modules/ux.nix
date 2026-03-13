@@ -7,7 +7,7 @@ in {
 
   environment = {
     systemPackages = with pkgs; with flakes; with self; [
-      blueberry
+      adw-bluetooth
       networkmanagerapplet
       nmgui
       pwvucontrol
