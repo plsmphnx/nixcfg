@@ -39,7 +39,7 @@ in {
       hypr.mods
 
       hypridle
-      hyprlock
+      swaylock
       vlock
     ];
     sessionVariables.NIXOS_OZONE_WL = "1";
@@ -91,7 +91,7 @@ in {
 
   security = {
     rtkit.enable = true;
-    pam.services.hyprlock.enableGnomeKeyring = true;
+    pam.services.swaylock.enableGnomeKeyring = true;
   };
 
   hardware.graphics.enable = true;
