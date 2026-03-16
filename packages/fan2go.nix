@@ -4,7 +4,7 @@
     mkdir -p $out/etc/systemd/system
     cp fan2go.service $out/etc/systemd/system
     substituteInPlace $out/etc/systemd/system/fan2go.service \
-      --replace /usr/bin/fan2go $out/bin/fan2go \
-      --replace =/etc/sensors =${lib.getLib lm_sensors}/etc/sensors
+      --replace-fail /usr/bin/fan2go $out/bin/fan2go \
+      --replace-warn =/etc/sensors =${lib.getLib lm_sensors}/etc/sensors
   '';
 }
