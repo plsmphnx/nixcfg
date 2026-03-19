@@ -38,7 +38,7 @@ in {
       hypr.jump
       hypr.mods
 
-      hypridle
+      swayidle
       swaylock
       vlock
     ];
