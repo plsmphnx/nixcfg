@@ -38,6 +38,6 @@
     mv opt usr/* $out
     ln -s $out/opt/Min/min $out/bin/min
     substituteInPlace $out/share/applications/min.desktop \
-      --replace /opt $out/opt
+      --replace-fail /opt $out/opt
   '';
 }

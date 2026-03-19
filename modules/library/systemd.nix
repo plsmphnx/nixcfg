@@ -57,8 +57,9 @@ in with lib; {
         '';
 
         targets = mapAttrs (tgt: _: {
-          bindsTo = [ "dev-user-${tgt}.device" ];
-          after   = [ "dev-user-${tgt}.device" "default.target" ];
+          after    = [ "dev-user-${tgt}.device" "default.target" ];
+          bindsTo  = [ "dev-user-${tgt}.device" ];
+          wantedBy = [ "default.target" ];
         }) cfg.user.devices;
       };
     };

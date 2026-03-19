@@ -57,9 +57,9 @@ in stdenvNoCC.mkDerivation rec {
       --add-needed $out/opt/microsoft/${pname}/lib/libLinuxCore.so
     ln -s $out/opt/microsoft/${pname}/${pname} $out/bin/${pname}
     substituteInPlace $out/share/applications/${pname}.desktop \
-      --replace /opt/microsoft/${pname}/${pname} /run/wrappers/bin/${pname} \
-      --replace /opt $out/opt \
-      --replace /usr/share $out/share
+      --replace-fail /opt/microsoft/${pname}/${pname} /run/wrappers/bin/${pname} \
+      --replace-fail /opt $out/opt \
+      --replace-fail /usr/share $out/share
   '';
 
   meta.mainProgram = pname;
