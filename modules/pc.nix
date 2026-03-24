@@ -5,6 +5,7 @@ in {
 
   boot = {
     kernelPackages = mkUserDefault pkgs.linuxPackages_latest;
+    kernelParams = lib.mkIf (config.environment.swap > 0) [ "zswap.enabled=1" ];
     loader = {
       efi.canTouchEfiVariables = mkUserDefault true;
       systemd-boot = {
@@ -47,5 +48,5 @@ in {
 
   hardware.enableAllFirmware = true;
 
-  zramSwap.enable = true;
+  zramSwap = lib.mkIf (config.environment.swap == 0) { enable = true; };
 }
