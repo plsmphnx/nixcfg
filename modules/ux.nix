@@ -38,6 +38,7 @@ in {
       hypr.jump
       hypr.mods
 
+      inhibridge
       swayidle
       swaylock
       vlock
