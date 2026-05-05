@@ -31,7 +31,7 @@ in {
 
   virtualisation.podman.enable = true;
   systemd = {
-    coredump.extraConfig = "Storage=journal";
+    coredump.settings.Coredump.Storage = "journal";
     tmpfiles.settings.usr-share."/usr/share".L.argument =
       "/run/current-system/sw/share";
     umask = "027";
