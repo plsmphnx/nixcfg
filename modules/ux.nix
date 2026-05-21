@@ -35,8 +35,6 @@ in {
       theme.gtk
 
       exec-util
-      hypr.jump
-      hypr.mods
 
       inhibridge
       swayidle
