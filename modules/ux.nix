@@ -29,6 +29,7 @@ in {
       zathura
 
       ffmpegthumbnailer
+      gnome-disk-utility
 
       theme.cursor
       theme.icon
