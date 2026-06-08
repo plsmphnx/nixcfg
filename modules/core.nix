@@ -39,17 +39,17 @@ in {
       "/run/wrappers/bin:/run/current-system/sw/bin:%h/.nix-profile/bin:%h/.local/bin";
   };
 
-  environment = {
+  environment = with pkgs; {
     alias = {
-      jq = lib.getExe pkgs.jaq;
-      sh = lib.getExe pkgs.dash;
-      wget = lib.getExe' pkgs.curl "wcurl";
+      jq = lib.getExe jaq;
+      sh = lib.getExe dash;
+      wget = lib.getExe' curl "wcurl";
     };
     etc = {
-      "grc.zsh".source = "${pkgs.grc}/etc/grc.zsh";
-      "grc.conf".source = "${pkgs.grc}/etc/grc.conf";
+      "grc.zsh".source = "${grc}/etc/grc.zsh";
+      "grc.conf".source = "${grc}/etc/grc.conf";
     };
-    systemPackages = with pkgs; [
+    systemPackages = [
       bat
       btop
       ffmpeg-headless

@@ -6,7 +6,7 @@
   stdenvNoCC
 }: stdenvNoCC.mkDerivation rec {
   pname = "minbrowser";
-  version = "1.35.4";
+  version = "1.35.5";
 
   src = let
     root = "https://github.com/minbrowser/min/releases/download";
@@ -16,9 +16,9 @@
       armv7l-linux = "armv7l";
     }.${stdenvNoCC.hostPlatform.system};
     hash = {
-      amd64 = "sha256-IUzAUVK0wu7jkILqiQZ9sveLHAKgujayY6LuvtAhPRc=";
-      arm64 = "sha256-VWxN1HIshgHGt2nqIGMQ1XUmSPnhmwIEWaVTi5TAzcA=";
-      armv7l = "sha256-RdQSuj1q2MnwVmx2zMQNT2liEH5bhCiru4GRVlXk/4o=";
+      amd64 = "sha256-8MIP9ooxPx2MguT1AjuzZzrWXvyEzoJzUOpIFEAIqfk=";
+      arm64 = "sha256-As1NUOqSA0Zms+otcMkIF/OzCi9rspd5iOT4NqkOmYU=";
+      armv7l = "sha256-N2Rx34UxUKckcaZSdFdNmVhQux6GJQ/Daob+CTlqF/Q=";
     };
   in fetchurl {
     url = "${root}/v${version}/min-${version}-${arch}.deb";

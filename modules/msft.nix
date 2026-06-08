@@ -1,17 +1,11 @@
-{ outputs, packages, pkgs, user, ... }: let
-  self = packages.${pkgs.stdenv.hostPlatform.system};
-in {
+{ outputs, packages, pkgs, user, ... }: {
   imports = with outputs.nixosModules.library; [ azurevpnclient ];
 
-  environment = {
-    pathsToLink = [ "/share/linux-entra-sso" ];
-    systemPackages = with pkgs; with self; [
-      git-credential-manager
-      linux-entra-sso
-      lspmux
-      vscode.fhs
-    ];
-  };
+  environment.systemPackages = with pkgs; [
+    git-credential-manager
+    lspmux
+    vscode.fhs
+  ];
 
   virtualisation = {
     libvirtd = {
