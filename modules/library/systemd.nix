@@ -51,10 +51,10 @@ in with lib; {
       };
 
       user = {
-        extraConfig = optionalString (cfg.user.env != {}) ''
-          DefaultEnvironment=${concatStringsSep " "
-            (mapAttrsToList (k: v: "\"${k}=${v}\"") cfg.user.env)}
-        '';
+        settings.Manager = mkIf (cfg.user.env != {}) {
+          DefaultEnvironment = concatStringsSep " "
+            (mapAttrsToList (k: v: "\"${k}=${v}\"") cfg.user.env);
+        };
 
         targets = mapAttrs (tgt: _: {
           after    = [ "dev-user-${tgt}.device" "default.target" ];
