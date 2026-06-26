@@ -15,6 +15,7 @@ in {
     };
     initrd.systemd.enable = true;
     enableContainers = false;
+    tmp.useTmpfs = true;
   };
 
   environment.systemPackages = with pkgs; [ lshw pciutils usbutils ];
@@ -49,4 +50,6 @@ in {
   hardware.enableAllFirmware = true;
 
   zramSwap = lib.mkIf (config.environment.swap == 0) { enable = true; };
+
+  fileSystems."/".options = [ "noatime" ];
 }
