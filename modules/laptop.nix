@@ -8,8 +8,6 @@
     HibernateDelaySec = "1800";
     HibernateOnACPower = "no";
   };
-  boot.kernelParams =
-    lib.mkIf config.environment.hibernate.enable [ "hibernate=nocompress" ];
 
   services = {
     upower = {
