@@ -77,6 +77,7 @@ in {
     dbus.implementation = "broker";
     envfs.enable = true;
     gvfs.enable = true;
+    journald.extraConfig = "MaxLevelStore=notice";
   };
 
   users = {
