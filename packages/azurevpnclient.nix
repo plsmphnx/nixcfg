@@ -18,10 +18,10 @@
   zlib,
 }: let
   root = "https://packages.microsoft.com/ubuntu/22.04";
-  hash = "sha256-nl02BDPR03TZoQUbspplED6BynTr6qNRVdHw6fyUV3s=";
+  hash = "sha256-Y2yCnhvIrvPnGtxscplxvXwJ3qsszbgsbHzkGFs16GE=";
 in stdenvNoCC.mkDerivation rec {
   pname = "microsoft-azurevpnclient";
-  version = "3.0.0";
+  version = "3.1.0";
 
   src = fetchurl {
     url = "${root}/prod/pool/main/m/${pname}/${pname}_${version}_amd64.deb";

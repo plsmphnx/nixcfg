@@ -51,5 +51,5 @@ in {
 
   zramSwap = lib.mkIf (config.environment.swap == 0) { enable = true; };
 
-  fileSystems."/".options = [ "noatime" ];
+  fileSystems = lib.genAttrs [ "/" "/boot" ] (_: { options = [ "noatime" ]; });
 }
