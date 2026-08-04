@@ -4,6 +4,7 @@
   environment.systemPackages = with pkgs; [
     git-credential-manager
     lspmux
+    mokutil
     vscode.fhs
   ];
 
