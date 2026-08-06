@@ -49,7 +49,7 @@ in with lib; {
           swap = o: getExe' pkgs.util-linux.swap "swap${o}";
           systemd-cat = getExe' config.systemd.package "systemd-cat";
         in pkgs.writeScript "hibernate-cycle-swap" ''
-          #!/bin/sh
+          #!${getExe pkgs.dash}
           if [ $1 = post ] && [ $SYSTEMD_SLEEP_ACTION = hibernate ]; then
 
           ${concatStringsSep "\n" (map (s: ''

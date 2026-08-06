@@ -1,4 +1,3 @@
-#!/bin/sh
 if [ $(id -u) = 0 ]; then
   OPT="--no-reexec --impure"
   case $1 in

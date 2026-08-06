@@ -1,5 +1,5 @@
-{ config, flakes, host, lib, outputs, pkgs, user, ... }: let
-  os = pkgs.writeScriptBin "os" (lib.readFile ../tools/os.sh);
+{ config, flakes, host, lib, outputs, packages, pkgs, user, ... }: let
+  self = packages.${pkgs.stdenv.hostPlatform.system};
 in {
   imports = with outputs.nixosModules.library; [ environment systemd ];
 
@@ -39,7 +39,7 @@ in {
       "/run/wrappers/bin:/run/current-system/sw/bin:%h/.nix-profile/bin:%h/.local/bin";
   };
 
-  environment = with pkgs; {
+  environment = with pkgs; with self; {
     alias = {
       jq = lib.getExe jaq;
       sh = lib.getExe dash;
@@ -76,7 +76,10 @@ in {
   services = {
     dbus.implementation = "broker";
     envfs.enable = true;
-    gvfs.enable = true;
+    gvfs = {
+      enable = true;
+      package = pkgs.gvfs;
+    };
     journald.extraConfig = "MaxLevelStore=notice";
   };
 

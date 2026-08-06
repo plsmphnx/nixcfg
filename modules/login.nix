@@ -1,7 +1,7 @@
 { lib, pkgs, user, ... }: {
   systemd.services."getty@".serviceConfig.ExecStart = lib.mkForce [
     ""
-    "${pkgs.shadow}/bin/login -f ${user}"
+    "${lib.getExe' pkgs.shadow "login"} -f ${user}"
   ];
 
   security = {
