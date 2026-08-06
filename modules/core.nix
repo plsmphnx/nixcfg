@@ -25,6 +25,7 @@ in {
       ];
     };
     registry = lib.mapAttrs (_: flake: { inherit flake; }) flakes;
+    nixPath = lib.mapAttrsToList (name: flake: "${name}=${flake}") flakes;
   };
   nixpkgs.config.allowUnfree = true;
   system.stateVersion = config.system.nixos.release;
