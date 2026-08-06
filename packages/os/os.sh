@@ -51,7 +51,10 @@ else
     g*)
       for ROOT in /nix/var/nix/gcroots/auto/*; do
         FILE="$(readlink $ROOT)"
-        [ $(stat -c '%u' "$FILE") = $(id -u) ] && rm -i "$FILE"
+        case "$FILE" in
+          */nix/profiles/*) ;;
+          *) [ $(stat -c '%u' "$FILE") = $(id -u) ] && rm -i "$FILE" ;;
+        esac
       done
       nix store gc
       ;;
