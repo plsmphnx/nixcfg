@@ -48,5 +48,12 @@ else
     l*)
       nix profile list | sed -En 's/Name: +(.*)/\1/p'
       ;;
+    g*)
+      for ROOT in /nix/var/nix/gcroots/auto/*; do
+        FILE="$(readlink $ROOT)"
+        [ $(stat -c '%u' "$FILE") = $(id -u) ] && rm -i "$FILE"
+      done
+      nix store gc
+      ;;
   esac
 fi
