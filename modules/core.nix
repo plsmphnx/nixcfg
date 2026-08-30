@@ -57,6 +57,7 @@ in {
       file
       gcc
       glib
+      gnumake
       grc
       libqalculate
       os
