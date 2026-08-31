@@ -1,0 +1,12 @@
+#!/bin/sh
+RELEASE=$(curl -s https://api.github.com/repos/minbrowser/min/releases/latest)
+query() { echo $RELEASE | tr -d '\r\n' | jq -r "$1"; }
+VERSION=$(query '.name | ltrimstr("v")')
+sed -i "s_version = .*_version = \"$VERSION\";_" minbrowser.nix
+for ARCH in amd64 arm64 armv7l; do
+    HASH=$(query ".assets[]
+    | select(.name == \"min-$VERSION-$ARCH.deb\")
+    | .digest | ltrimstr(\"sha256:\")" \
+    | basenc --decode --base16 | base64)
+    sed -i "s_$ARCH = .*_$ARCH = \"sha256-$HASH\";_" minbrowser.nix
+done
