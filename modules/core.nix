@@ -82,7 +82,7 @@ in {
       enable = true;
       package = pkgs.gvfs;
     };
-    journald.extraConfig = "MaxLevelStore=notice";
+    journald.settings.Journal.MaxLevelStore = "notice";
   };
 
   users = {
