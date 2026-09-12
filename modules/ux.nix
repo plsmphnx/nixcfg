@@ -95,4 +95,6 @@ in {
   };
 
   hardware.graphics.enable = true;
+
+  boot.kernelParams = [ "preempt=full" "nowatchdog" ];
 }
