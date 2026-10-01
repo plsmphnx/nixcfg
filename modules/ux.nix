@@ -91,10 +91,7 @@ in {
 
   security = {
     rtkit.enable = true;
-    pam.services = {
-      swaylock.enableGnomeKeyring = true;
-      sshd.enableGnomeKeyring = true;
-    };
+    pam.services.swaylock.enableGnomeKeyring = true;
   };
 
   hardware.graphics.enable = true;

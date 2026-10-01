@@ -56,6 +56,7 @@ in {
       ffmpeg-headless
       file
       gcc
+      git
       glib
       gnumake
       grc
@@ -63,15 +64,14 @@ in {
       os
       ouch
       pass
+      tmux
       whois
     ];
   };
 
   programs = {
-    git.enable = true;
     gnupg.agent.enable = true;
     nix-ld.enable = true;
-    tmux.enable = true;
     zsh.enable = true;
   };
 
