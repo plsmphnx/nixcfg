@@ -78,6 +78,7 @@ in {
     };
     printing.enable = true;
     resolved.enable = true;
+    speechd.enable = false;
     systemd-lock-handler.enable = true;
   };
 
@@ -93,6 +94,4 @@ in {
     rtkit.enable = true;
     pam.services.swaylock.enableGnomeKeyring = true;
   };
-
-  hardware.graphics.enable = true;
 }

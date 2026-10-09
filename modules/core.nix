@@ -46,10 +46,6 @@ in {
       sh = lib.getExe dash;
       wget = lib.getExe' curl "wcurl";
     };
-    etc = {
-      "grc.zsh".source = "${grc}/etc/grc.zsh";
-      "grc.conf".source = "${grc}/etc/grc.conf";
-    };
     systemPackages = [
       bat
       btop
@@ -59,11 +55,11 @@ in {
       git
       glib
       gnumake
-      grc
       libqalculate
       os
       ouch
       pass
+      rgrc
       tmux
       whois
     ];
