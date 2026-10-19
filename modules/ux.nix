@@ -65,10 +65,6 @@ in {
   };
 
   services = {
-    avahi = {
-      enable = true;
-      nssmdns4 = true;
-    };
     flatpak.enable = true;
     gnome.gnome-keyring.enable = true;
     pipewire = {
