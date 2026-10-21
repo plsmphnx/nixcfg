@@ -91,4 +91,6 @@ in {
     };
     groups.${user}.gid = config.users.users.${user}.uid;
   };
+
+  security.sudo.execWheelOnly = true;
 }
