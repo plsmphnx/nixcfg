@@ -46,10 +46,7 @@ in {
       sh = lib.getExe dash;
       wget = lib.getExe' curl "wcurl";
     };
-    share = [
-      zsh-completions
-      zsh-syntax-highlighting
-    ];
+    share = [ zsh-syntax-highlighting ];
     systemPackages = [
       bat
       btop
@@ -66,6 +63,7 @@ in {
       rgrc
       tmux
       whois
+      zsh-completions
     ];
   };
 
@@ -77,7 +75,6 @@ in {
   };
 
   services = {
-    dbus.implementation = "broker";
     envfs.enable = true;
     gvfs = {
       enable = true;
@@ -97,4 +94,6 @@ in {
     };
     groups.${user}.gid = config.users.users.${user}.uid;
   };
+
+  security.sudo.execWheelOnly = true;
 }

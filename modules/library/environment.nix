@@ -23,7 +23,7 @@ in with lib; {
     share = mkOption {
       type = types.listOf types.package;
       default = [];
-      description = "Packages to add by name to /run/current-system/sw/share."
+      description = "Packages to add by name to /run/current-system/sw/share.";
     };
 
     swap = mkOption {
@@ -41,14 +41,14 @@ in with lib; {
     }];
 
     environment = {
-      systemPackages = mkIf (cfg.alias != {}) [(
+      systemPackages = cfg.share ++ optionals (cfg.alias != {}) [(
         pkgs.runCommandLocal "alias" { meta.priority = -1; } ''
           mkdir -p $out/bin
           ${concatStrings (mapAttrsToList (k: v: ''
             ln -s "${v}" "$out/bin/${k}"
           '') cfg.alias)}
         ''
-      )] ++ cfg.share;
+      )];
 
       pathsToLink = map (p: "/share/${getName p}") cfg.share;
 
