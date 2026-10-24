@@ -20,6 +20,12 @@ in with lib; {
       };
     };
 
+    share = mkOption {
+      type = types.listOf types.package;
+      default = [];
+      description = "Packages to add by name to /run/current-system/sw/share."
+    };
+
     swap = mkOption {
       type = types.ints.unsigned;
       default = 0;
@@ -42,7 +48,9 @@ in with lib; {
             ln -s "${v}" "$out/bin/${k}"
           '') cfg.alias)}
         ''
-      )];
+      )] ++ cfg.share;
+
+      pathsToLink = map (p: "/share/${getName p}") cfg.share;
 
       etc = mkIf (cfg.hibernate.workaround != []) {
         "systemd/system-sleep/hibernate-cycle-swap.sh".source = let

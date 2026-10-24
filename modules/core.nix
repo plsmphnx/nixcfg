@@ -46,6 +46,10 @@ in {
       sh = lib.getExe dash;
       wget = lib.getExe' curl "wcurl";
     };
+    share = [
+      zsh-completions
+      zsh-syntax-highlighting
+    ];
     systemPackages = [
       bat
       btop
@@ -67,6 +71,7 @@ in {
 
   programs = {
     gnupg.agent.enable = true;
+    nano.nanorc = "include ${pkgs.nano-syntax-highlighting}/share/*.nanorc";
     nix-ld.enable = true;
     zsh.enable = true;
   };

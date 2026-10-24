@@ -1,10 +1,13 @@
 { outputs, packages, pkgs, user, ... }: {
-  environment.systemPackages = with pkgs; [
-    git-credential-manager
-    lspmux
-    mokutil
-    vscode.fhs
-  ];
+  environment = with pkgs; {
+    share = [ gitstatus ];
+    systemPackages = [
+      git-credential-manager
+      lspmux
+      mokutil
+      vscode.fhs
+    ];
+  };
 
   virtualisation = {
     libvirtd = {
