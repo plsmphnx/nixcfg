@@ -69,7 +69,9 @@ in {
 
   programs = {
     gnupg.agent.enable = true;
-    nano.nanorc = "include ${pkgs.nano-syntax-highlighting}/share/*.nanorc";
+    nano.nanorc = ''
+      include "${self.nanorc}/share/*.nanorc"
+    '';
     nix-ld.enable = true;
     zsh.enable = true;
   };
