@@ -1,5 +1,5 @@
 { nano-syntax-highlighting }: nano-syntax-highlighting.overrideAttrs {
-  postInstall = ''
+  fixupPhase = ''
     rm $out/share/zeek.nanorc
   '';
 }

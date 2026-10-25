@@ -13,7 +13,6 @@ in {
         configurationLimit = 4;
       };
     };
-    initrd.systemd.enable = true;
     enableContainers = false;
     tmp.useTmpfs = true;
   };
