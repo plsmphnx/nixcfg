@@ -24,7 +24,6 @@ in {
       minbrowser
       mpv
       nemo
-      pragtical
       wlvncc
       zathura
 

@@ -60,8 +60,10 @@ in {
       os
       ouch
       pass
+      ripgrep
       rgrc
       tmux
+      ttt
       whois
       zsh-completions
     ];
