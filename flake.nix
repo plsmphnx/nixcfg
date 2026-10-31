@@ -26,11 +26,14 @@
         } @ args: mod (args // self)) else mod;
       }) (filesystem.listFilesRecursive ./modules)
     ) {};
-    packages = mapAttrs (_: pkgs:
-      pkgs.lib.packagesFromDirectoryRecursive {
-        inherit (pkgs) callPackage;
-        directory = ./packages;
-      }
-    ) nixpkgs.legacyPackages;
+    packages = mapAttrs (system: _: let
+      pkgs = import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+      };
+    in pkgs.lib.packagesFromDirectoryRecursive {
+      inherit (pkgs) callPackage;
+      directory = ./packages;
+    }) nixpkgs.legacyPackages;
   };
 }

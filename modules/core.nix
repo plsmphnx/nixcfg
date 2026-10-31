@@ -57,13 +57,13 @@ in {
       glib
       gnumake
       libqalculate
+      nvim
       os
       ouch
       pass
       ripgrep
       rgrc
       tmux
-      ttt
       whois
       zsh-completions
     ];
