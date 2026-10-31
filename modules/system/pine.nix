@@ -13,7 +13,10 @@
     };
   };
 
-  services.logind.settings.Login.HandlePowerKey = "ignore";
+  services.logind.settings.Login = {
+    HandlePowerKey = "ignore";
+    HandleSuspendKey = "ignore";
+  };
 
   nixpkgs.overlays = [ (final: prev: {
     linux-firmware = prev.linux-firmware.overrideAttrs (old: rec {
