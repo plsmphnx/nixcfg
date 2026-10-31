@@ -2,19 +2,19 @@
   neovim-unwrapped,
   vimPlugins,
   wrapNeovimUnstable,
-}: wrapNeovimUnstable neovim-unwrapped {
+}: let
+  plugins = vimPlugins.extend (_: prev: {
+    nvim-treesitter-legacy = prev.nvim-treesitter.withAllGrammars;
+  });
+in wrapNeovimUnstable neovim-unwrapped {
   wrapRc = false;
   waylandSupport = false;
-  plugins = with vimPlugins; [
-    bufferline-nvim
-    gitsigns-nvim
-    hover-nvim
-    lualine-nvim
-    nvim-lspconfig
+  plugins = with plugins; [
+    base46
+    nvchad
     nvim-tree-lua
-    nvim-treesitter.withAllGrammars
     nvim-web-devicons
-    transparent-nvim
-    vscode-nvim
+    nvzone-menu
+    plenary-nvim
   ];
 }
