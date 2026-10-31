@@ -6,12 +6,15 @@
   wrapRc = false;
   waylandSupport = false;
   plugins = with vimPlugins; [
-    barbar-nvim
+    bufferline-nvim
     gitsigns-nvim
+    hover-nvim
+    lualine-nvim
     nvim-lspconfig
     nvim-tree-lua
     nvim-treesitter.withAllGrammars
     nvim-web-devicons
+    transparent-nvim
     vscode-nvim
   ];
 }
