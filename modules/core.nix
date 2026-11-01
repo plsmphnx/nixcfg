@@ -61,8 +61,8 @@ in {
       os
       ouch
       pass
-      ripgrep
       rgrc
+      ripgrep
       tmux
       whois
       zsh-completions
