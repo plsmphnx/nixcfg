@@ -19,9 +19,9 @@ in {
       wl-clipboard
       xdg-utils
 
+      electron
       foot
       imv
-      minbrowser
       mpv
       nemo
       wlvncc
