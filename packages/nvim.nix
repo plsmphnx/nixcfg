@@ -9,13 +9,10 @@
     base46
     gitsigns-nvim
     nvchad-ui
-    nvim-autopairs
-    nvim-cmp
     nvim-lspconfig
     nvim-tree-lua
     nvim-treesitter.withAllGrammars
     nvim-web-devicons
-    nvzone-menu
     snacks-nvim
   ];
 }
