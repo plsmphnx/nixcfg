@@ -8,6 +8,7 @@
   plugins = with vimPlugins; [
     base46
     gitsigns-nvim
+    guess-indent-nvim
     nvchad-ui
     nvim-lspconfig
     nvim-tree-lua
