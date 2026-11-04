@@ -46,10 +46,11 @@ in {
 
   fonts = {
     fontconfig.subpixel.rgba = "rgb";
-    packages = with pkgs; [
+    packages = with pkgs; with flakes; [
       corefonts
       google-fonts
       nerd-fonts.symbols-only
+      theme.font
     ];
   };
 
