@@ -9,11 +9,13 @@
     base46
     gitsigns-nvim
     guess-indent-nvim
+    mini-nvim
     nvchad-ui
     nvim-lspconfig
     nvim-tree-lua
     nvim-treesitter.withAllGrammars
     nvim-web-devicons
     snacks-nvim
+    trouble-nvim
   ];
 }
