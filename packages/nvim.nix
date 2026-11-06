@@ -6,16 +6,15 @@
   wrapRc = false;
   waylandSupport = false;
   plugins = with vimPlugins; [
-    base46
+    bufferline-nvim
     gitsigns-nvim
     guess-indent-nvim
+    lualine-nvim
     mini-nvim
-    nvchad-ui
     nvim-lspconfig
-    nvim-tree-lua
     nvim-treesitter.withAllGrammars
-    nvim-web-devicons
     snacks-nvim
     trouble-nvim
+    vscode-nvim
   ];
 }
