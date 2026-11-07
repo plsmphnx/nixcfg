@@ -9,6 +9,7 @@
     bufferline-nvim
     gitsigns-nvim
     guess-indent-nvim
+    hover-nvim
     lualine-nvim
     mini-nvim
     nvim-lspconfig
