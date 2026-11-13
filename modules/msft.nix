@@ -1,24 +1,40 @@
-{ outputs, packages, pkgs, user, ... }: {
+{ pkgs, user, ... }: {
   environment = with pkgs; {
-    share = { gitstatus = gitstatus; };
+    share = {
+      gitstatus = gitstatus;
+      qemu = qemu_kvm;
+    };
     systemPackages = [
       git-credential-manager
       lspmux
-      mokutil
       vscode.fhs
+
+      libvirt
+      spice-gtk
+      swtpm
+      virt-manager
+      
+      nss.tools
+      opensc
+      yubikey-manager
     ];
   };
 
-  virtualisation = {
-    libvirtd = {
-      enable = true;
-      onBoot = "ignore";
-      qemu.swtpm.enable = true;
+  programs.dconf.profiles.user.databases = [{
+    settings."org/virt-manager/virt-manager/connections" = {
+      autoconnect = [ "qemu:///session" ];
+      uris = [ "qemu:///session" ];
     };
+  }];
+
+  services.udev.extraRules = ''
+    ATTRS{idVendor}=="1050", MODE="0666"
+  '';
+
+  systemd.tmpfiles.settings.pcscd."/run/pcscd".d.mode = "0777";
+
+  virtualisation = {
     podman.dockerCompat = true;
+    spiceUSBRedirection.enable = true;
   };
-
-  users.users.${user}.extraGroups = [ "libvirtd" ];
-
-  programs.virt-manager.enable = true;
 }
