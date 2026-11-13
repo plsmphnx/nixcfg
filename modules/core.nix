@@ -46,12 +46,17 @@ in {
       sh = lib.getExe dash;
       wget = lib.getExe' curl "wcurl";
     };
-    share = [ zsh-syntax-highlighting ];
+    share = {
+      fzf-tab = zsh-fzf-tab;
+      zsh-syntax-highlighting = zsh-syntax-highlighting;
+    };
     systemPackages = [
       bat
       btop
+      fd
       ffmpeg-headless
       file
+      fzf
       gcc
       git
       glib

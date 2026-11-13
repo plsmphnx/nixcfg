@@ -1,6 +1,6 @@
 { outputs, packages, pkgs, user, ... }: {
   environment = with pkgs; {
-    share = [ gitstatus ];
+    share = { gitstatus = gitstatus; };
     systemPackages = [
       git-credential-manager
       lspmux
