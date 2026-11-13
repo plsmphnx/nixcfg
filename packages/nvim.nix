@@ -6,14 +6,12 @@
   wrapRc = false;
   waylandSupport = false;
   plugins = with vimPlugins; [
-    bufferline-nvim
     guess-indent-nvim
     lualine-nvim
     mini-nvim
+    neo-tree-nvim
     nvim-lspconfig
     nvim-treesitter.withAllGrammars
-    snacks-nvim
-    trouble-nvim
     vscode-nvim
   ];
 }
