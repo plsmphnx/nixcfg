@@ -33,6 +33,7 @@ in {
   virtualisation.podman.enable = true;
   systemd = {
     coredump.settings.Coredump.Storage = "journal";
+    services."user@".after = [ "bin.mount" "usr-bin.mount" ];
     tmpfiles.settings.usr-share."/usr/share".L.argument =
       "/run/current-system/sw/share";
     umask = "027";
@@ -51,26 +52,34 @@ in {
       zsh-syntax-highlighting = zsh-syntax-highlighting;
     };
     systemPackages = [
-      bat
-      btop
-      fd
-      ffmpeg-headless
+      # core
       file
-      fzf
       gcc
       git
       glib
       gnumake
+      whois
+
+      # tool
+      ffmpeg-headless
       libqalculate
-      nvim
       os
       ouch
       pass
+
+      # term
+      bat
+      btop
+      fzf
       rgrc
-      ripgrep
       tmux
-      whois
       zsh-completions
+
+      # edit
+      fd
+      lazygit
+      nvim
+      ripgrep
     ];
   };
 

@@ -1,8 +1,8 @@
-{ outputs, pkgs, ... }: {
+{ lib, outputs, pkgs, ... }: {
   imports = with outputs.nixosModules; [ library.flatpak ux ];
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_xanmod_latest;
+    kernelPackages = lib.mkDefault pkgs.linuxPackages_xanmod_latest;
     kernelModules = [ "ntsync" ];
   };
 

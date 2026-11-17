@@ -1,31 +1,32 @@
-{ pkgs, user, ... }: {
-  environment = with pkgs; {
+{ pkgs, user, ... }: with pkgs; {
+  environment = {
     share = {
       gitstatus = gitstatus;
-      qemu = qemu_kvm;
+      qemu = OVMFFull.fd;
     };
     systemPackages = [
+      # dev
       git-credential-manager
       lspmux
       vscode.fhs
 
+      # vm
+      cloud-utils
       libvirt
-      spice-gtk
+      qemu_kvm
       swtpm
       virt-manager
-      
+
+      # tunnel
+      socat
+      xdg-dbus-proxy
+
+      # yubi
       nss.tools
       opensc
       yubikey-manager
     ];
   };
-
-  programs.dconf.profiles.user.databases = [{
-    settings."org/virt-manager/virt-manager/connections" = {
-      autoconnect = [ "qemu:///session" ];
-      uris = [ "qemu:///session" ];
-    };
-  }];
 
   services.udev.extraRules = ''
     ATTRS{idVendor}=="1050", MODE="0666"
@@ -33,8 +34,7 @@
 
   systemd.tmpfiles.settings.pcscd."/run/pcscd".d.mode = "0777";
 
-  virtualisation = {
-    podman.dockerCompat = true;
-    spiceUSBRedirection.enable = true;
-  };
+  environment.etc.ovmf.source = "${OVMFFull.fd}/FV";
+
+  virtualisation.podman.dockerCompat = true;
 }

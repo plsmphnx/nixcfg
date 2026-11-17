@@ -7,18 +7,22 @@ in {
 
   environment = {
     systemPackages = with pkgs; with flakes; with self; [
+      # shell
       adw-bluetooth
       networkmanagerapplet
       nmgui
       pwvucontrol
 
+      # cli
       app2unit
       brightnessctl
-      grimblast
+      exec-util
       playerctl
+      vlock
       wl-clipboard
       xdg-utils
 
+      # tools
       electron
       foot
       imv
@@ -27,19 +31,20 @@ in {
       wlvncc
       zathura
 
+      # files
       ffmpegthumbnailer
       gnome-disk-utility
 
-      theme.cursor
-      theme.icon
-      theme.gtk
-
-      exec-util
-
+      # functionality
+      grimblast
       inhibridge
       swayidle
       swaylock
-      vlock
+
+      # theme
+      theme.cursor
+      theme.icon
+      theme.gtk
     ];
     sessionVariables.NIXOS_OZONE_WL = "1";
   };
