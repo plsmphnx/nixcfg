@@ -34,8 +34,10 @@ in {
   systemd = {
     coredump.settings.Coredump.Storage = "journal";
     services."user@".after = [ "bin.mount" "usr-bin.mount" ];
-    tmpfiles.settings.usr-share."/usr/share".L.argument =
-      "/run/current-system/sw/share";
+    tmpfiles.settings.usr = {
+      "/usr/lib".L.argument = "/run/current-system/sw/lib";
+      "/usr/share".L.argument = "/run/current-system/sw/share";
+    };
     umask = "027";
     user.env.PATH = lib.mkBefore
       "/run/wrappers/bin:/run/current-system/sw/bin:%h/.nix-profile/bin:%h/.local/bin";
