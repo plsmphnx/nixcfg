@@ -11,20 +11,16 @@
       vscode.fhs
 
       # vm
-      cloud-utils
       libvirt
       qemu_kvm
+      socat
       swtpm
       virt-manager
+      xorriso
 
-      # tunnel
-      socat
-      xdg-dbus-proxy
-
-      # yubi
+      # sc
       nss.tools
       opensc
-      yubikey-manager
     ];
   };
 
@@ -33,8 +29,6 @@
   '';
 
   systemd.tmpfiles.settings.pcscd."/run/pcscd".d.mode = "0777";
-
-  environment.etc.ovmf.source = "${OVMFFull.fd}/FV";
 
   virtualisation.podman.dockerCompat = true;
 }
